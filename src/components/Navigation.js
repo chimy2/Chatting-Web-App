@@ -10,10 +10,9 @@ import bell from '../image/menu_bell.png';
 import setting from '../image/menu_setting.png';
 
 function Navigation() {
-    const [popupOpen, setPopupOpen] = useState('none');
-    const popup = () => {
-        if(popupOpen === 'none')
-        setPopupOpen('block');
+    const [popupState, setPopupState] = useState(false);
+    const popupOpen = () => {
+        setPopupState(true);
     }
     return(
         <>
@@ -26,11 +25,11 @@ function Navigation() {
                 <Link to="/dot"><img src={dot} alt="dot"/></Link>
             </div>
             <div className="bottom">
-                <Link href=""><img src={bell} alt="bell"/></Link>
-                <Link href="" onClick={popup}><img src={setting} alt="setting"/></Link>
+                <div><img src={bell} alt="bell"/></div>
+                <div onClick={popupOpen}><img src={setting} alt="setting"/></div>
             </div>
         </nav>
-        <Popup/>
+        <Popup open={popupState} setPopupState={setPopupState}/>
         </>
     )
 }
