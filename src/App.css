@@ -8,6 +8,11 @@
   --font-color: #212121;
   --font-color2: #616161;
   --font-color3: #929292;
+  --background-color-rgb: 255, 188, 175;
+  --background-color2-rgb: 255, 138, 128;
+  --background-color3-rgb: 175, 188, 255;
+  --white-color-rgb: 245, 245, 245;
+  --black-color-rgb: 33, 33, 33;
   --highlight-color-filter: invert(40%) sepia(69%) saturate(835%)
     hue-rotate(321deg) brightness(91%) contrast(70%);
   --font-size: 24px;
@@ -25,15 +30,19 @@
   font-style: normal;
 }
 
-main {
+header {
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  height: calc(100% - 60px);
+  flex-direction: row-reverse;
+  height: 40px;
+  padding-right: 20px;
+  line-height: 40px;
+  background: rgba(var(--white-color-rgb), 0.4);
 }
 
-img {
-  pointer-events: none;
+header a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: var(--font-color);
 }
 
 nav {
@@ -54,15 +63,28 @@ nav div img {
   filter: var(--highlight-color-filter);
 }
 
-hr {
-  color: white;
-  margin: 15px 20px;
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: calc(100% - 60px);
 }
 
 footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   height: 60px;
   line-height: 60px;
-  background-color: var(--highlight-color);
+}
+
+img {
+  pointer-events: none;
+}
+
+hr {
+  color: white;
+  margin: 15px 20px;
 }
 
 #root {
@@ -77,6 +99,17 @@ footer {
   justify-content: space-between;
   width: 100%;
   height: 100vh;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background-image: 
+  radial-gradient(rgba(var(--background-color3-rgb), 0.4) 40%, rgba(var(--black-color-rgb), 0.2)),
+  linear-gradient(40deg, rgba(var(--background-color-rgb), 0.6), rgba(var(--background-color2-rgb), 0.5)), 
+  url('./image/background.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .overlay-open {
@@ -101,11 +134,12 @@ footer {
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  border: 1px solid var(--black-color);
   width: 60vw;
   height: 60vh;
   top: calc(50% - 30vh);
   left: calc(50% - 30vw);
-  background-color: white;
+  background-color: var(--white-color);
   opacity: 1;
   cursor: default;
 }
@@ -216,6 +250,7 @@ footer {
 .listSearch {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 10px 20px;
   padding: 10px;
   background-color: var(--background-color2);
@@ -224,20 +259,22 @@ footer {
 
 .listSearch img {
   width: 30px;
+  height: 30px;
   filter: var(--highlight-color-filter);
 }
 
 .listSearch input {
+  margin: 5px 10px;
   border: 0;
   width: 100%;
-  padding: 5px 10px;
   font-size: var(--font-size2);
   background: none;
+  outline: none;
 }
 
 .friendProfile {
   overflow: auto;
-  height: calc(100% - 151px);
+  height: calc(100% - 155px);
   scroll-margin: 110px;
 }
 
@@ -274,3 +311,20 @@ footer {
   text-align: start; */
 }
 
+.footer {
+  background-color: var(--highlight-color);
+}
+
+.footer-main {
+  background: rgba(var(--background-color-rgb), 0.2);
+  color: var(--font-color2);
+}
+
+@media (max-width:840px){
+  .popup{
+    width: 80vw;
+    height: 80vh;
+    top: calc(50% - 40vh);
+    left: calc(50% - 40vw);
+  }
+}
