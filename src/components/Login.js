@@ -5,7 +5,7 @@ function Login() {
   return(
     <div className="login">
       <Link to="/"><img className="mainLogo" src={logo} alt="메인화면"/></Link>
-      <form method="post" action="/loginAction">
+      <form method="post" action="/login">
         <input type="text" name="id" placeholder="아이디"/>
         <span></span>
         <input type="password" name="password" placeholder="비밀번호"/>
