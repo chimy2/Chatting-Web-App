@@ -16,10 +16,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       login: false,
-      data: {
-        id: '아이디',
-        password: '1234'
-      }
+      data: null
     };
   }
 
