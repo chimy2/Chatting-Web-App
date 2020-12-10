@@ -14,11 +14,14 @@ function Login() {
         password: e.target.password.value
       })
     })
+      .then(res => res.json())
       .then(res => {
-        res.json();
-        console.log(res);
-      })
-      .then(res => console.log('Success:', JSON.stringify(res)));
+        if(res.body === 0) {
+          alert('로그인 실패');
+        }else if(res.body === 1) {
+          alert('로그인 성공');
+        }
+      });
   };
 
   return(
