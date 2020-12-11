@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import logo from '../image/icon.png';
+import { useHistory } from "react-router-dom";
 
 function Join() {
+  let history = useHistory();
   const handleJoin = (e) => {
     e.preventDefault();
     fetch('/api/member/join', {
@@ -17,8 +19,10 @@ function Join() {
         phone: e.target.phone.value
       })
     })
-      .then(res => {
-        console.log(res);
+    .then(res => {
+        if(res.status === 201){
+          history.push('./');
+        }
       });
   };
   return(
