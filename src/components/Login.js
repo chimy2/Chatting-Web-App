@@ -1,10 +1,20 @@
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import logo from '../image/icon.png';
+import { Cookies, useCookies }  from 'react-cookie';
 
-function Login() {
+function Login(props) {
+  const { cookies, setCookie } = useCookies(['id']);
+  useEffect(() => {
+    if(cookies !== undefined){
+      setCookie(cookies[0].id);
+      console.log(cookies);
+    }
+  }, [cookies]);
+
   const handleLogin = (e) => {
     e.preventDefault();
-    fetch('/api/login', {
+    fetch('/api/member/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -16,11 +26,16 @@ function Login() {
     })
       .then(res => res.json())
       .then(res => {
-        if(res.body === 0) {
-          alert('로그인 실패');
-        }else if(res.body === 1) {
-          alert('로그인 성공');
-        }
+        // console.log(cookies[0].id);
+      console.log(cookies);
+        // if(res.body === 0) {
+        //   alert('로그인 실패');
+        //   setCookie('name', newName, { path: '/' });
+        // }else if(res.body === 1) {
+        //   console.log(cookie.get('id'));
+        //   console.log(cookie);
+        //   alert('로그인 성공');
+        // }
       });
   };
 

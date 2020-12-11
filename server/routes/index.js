@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('../db/mysql');
 
-const login = require('./login');
+const member = require('./member');
 
-router.use('/login', login);
+router.use('/member', member);
 
 router.get('/', (req, res) => {
   mysql.query(

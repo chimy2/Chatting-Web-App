@@ -21,9 +21,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api')
-      .then(res => res.json())
-      .then(newData => this.setState({data: newData}));
+    // fetch('/api')
+    //   .then(res => res.json())
+    //   .then(newData => this.setState({data: newData}));
   }
 
   render() {

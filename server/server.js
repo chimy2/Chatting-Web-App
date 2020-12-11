@@ -9,10 +9,6 @@ app.use(bodyParser.json());
 
 app.use('/api', api);
 
-app.get('/api/api', (req, res) =>{
-  res.send('엥 요긴가용');
-});
-
 app.use(function(req, res, next) {
   res.status(404).send('Sorry cant find that!');
 });
