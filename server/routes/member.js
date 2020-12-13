@@ -45,15 +45,15 @@ router.post('/login', (req, res) => {
       if (err) throw error;
       if(body > 0){
         res.writeHead(201, {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Set-Cookie': [
+            `id=${req.body.id}; path=/`
+          ]
         });
         res.end(JSON.stringify({ headers, method, url, body }));
       }else {
         res.writeHead(200, {
-          'Content-Type': 'application/json',
-          'Set-Cookie': [
-            'id=1234; path=/'
-          ]
+          'Content-Type': 'application/json'
         });
         res.end(JSON.stringify({ headers, method, url, body }));
       }

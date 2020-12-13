@@ -124,6 +124,10 @@ hr {
   margin-bottom: 20px;
 }
 
+.effect {
+  display: none;
+}
+
 .join, .login {
   display: flex;
   flex-direction: column;

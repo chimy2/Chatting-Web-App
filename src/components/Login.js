@@ -1,16 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import logo from '../image/icon.png';
 import { Cookies, useCookies }  from 'react-cookie';
 
+import logo from '../image/icon.png';
+
 function Login(props) {
-  const { cookies, setCookie } = useCookies(['id']);
-  useEffect(() => {
-    if(cookies !== undefined){
-      setCookie(cookies[0].id);
-      console.log(cookies);
-    }
-  }, [cookies]);
+  const [ cookies, setCookie ] = useCookies(['']);
+  let history = useHistory();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -25,17 +21,10 @@ function Login(props) {
       })
     })
       .then(res => res.json())
-      .then(res => {
-        // console.log(cookies[0].id);
-      console.log(cookies);
-        // if(res.body === 0) {
-        //   alert('로그인 실패');
-        //   setCookie('name', newName, { path: '/' });
-        // }else if(res.body === 1) {
-        //   console.log(cookie.get('id'));
-        //   console.log(cookie);
-        //   alert('로그인 성공');
-        // }
+      .then((res) => {
+        console.log(res);
+        console.log('로그인 쿠키', cookies.id);
+        history.push('./');
       });
   };
 

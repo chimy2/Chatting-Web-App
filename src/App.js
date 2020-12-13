@@ -1,6 +1,7 @@
 import './App.css';
-import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
+import { Cookies, useCookies }  from 'react-cookie';
 
 import Main from "./components/Main";
 import Navigation from './components/Navigation';
@@ -11,42 +12,46 @@ import SideBarNote from './components/SideBarNote';
 import SideBarDot from './components/SideBarDot';
 import Footer from './components/Footer';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: false,
-      data: null
-    };
-  }
+function App(props) {
+  let history = useHistory();
+  const [login, setLogin] = useState(false);
+  const { cookies, setCookie } = useCookies(['id']);
+  
+  // useEffect(() => {
+  //   console.log(cookies);
+  //   if(cookies !== undefined && cookies !== null){
+  //     setLogin(true);
+  //     console.log('true');
+  //   }else {
+  //     setLogin(false);
+  //     console.log('false');
+  //   }
+  // }, [cookies]);
 
-  componentDidMount() {
-    // fetch('/api')
-    //   .then(res => res.json())
-    //   .then(newData => this.setState({data: newData}));
-  }
+  useEffect(() => {
+    console.log('앱');
+    history.push('./');
+  }, [login]);
 
-  render() {
-    return (
-      <div className="App">
-        {
-          this.state.login ?
-            <main>
-              <Navigation/>
-              <Switch>
-                <Route path="/friend" component={SideBarFriend}/>
-                <Route path="/talk" component={SideBarTalk}/>
-                <Route path="/calendar" component={SideBarCalendar}/>
-                <Route path="/note" component={SideBarNote}/>
-                <Route path="/dot" component={SideBarDot}/>
-              </Switch>
-            </main> :
-            <Main/>
-        }
-        <Footer login={this.state.login}/>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      {
+        login ?
+          <main>
+            <Navigation/>
+            <Switch>
+              <Route path="/friend" component={SideBarFriend}/>
+              <Route path="/talk" component={SideBarTalk}/>
+              <Route path="/calendar" component={SideBarCalendar}/>
+              <Route path="/note" component={SideBarNote}/>
+              <Route path="/dot" component={SideBarDot}/>
+            </Switch>
+          </main> :
+          <Main setLogin={setLogin}/>
+      }
+      <Footer login={login}/>
+    </div>
+  );
 }
 
 export default App;
