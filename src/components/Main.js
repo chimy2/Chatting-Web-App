@@ -1,16 +1,15 @@
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { useCookies } from 'react-cookie';
+import cookie from "cookie";
 
 import Effect from "./Effect";
 import Login from "./Login";
 import Join from "./Join";
 
 function Main(props) {
-  const [ cookies, setCookie ] = useCookies(['id']);
   const { setLogin } = props;
 
   const handleEvent = () => {
-    console.log('메인 쿠키', cookies.id);
+    let cookies = cookie.parse(document.cookie);
     if(cookies.id !== undefined){
       setLogin(true);
     }

@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 function App(props) {
   let history = useHistory();
   const [login, setLogin] = useState(false);
-  const { cookies, setCookie } = useCookies(['id']);
+  const { cookies, setCookie } = useCookies('id');
   
   // useEffect(() => {
   //   console.log(cookies);
@@ -29,7 +29,6 @@ function App(props) {
   // }, [cookies]);
 
   useEffect(() => {
-    console.log('앱');
     history.push('./');
   }, [login]);
 
@@ -40,7 +39,7 @@ function App(props) {
           <main>
             <Navigation/>
             <Switch>
-              <Route path="/friend" component={SideBarFriend}/>
+              <Route exact path="/" component={SideBarFriend}/>
               <Route path="/talk" component={SideBarTalk}/>
               <Route path="/calendar" component={SideBarCalendar}/>
               <Route path="/note" component={SideBarNote}/>

@@ -1,11 +1,8 @@
 import { Link, useHistory } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { Cookies, useCookies }  from 'react-cookie';
 
 import logo from '../image/icon.png';
 
 function Login(props) {
-  const [ cookies, setCookie ] = useCookies(['']);
   let history = useHistory();
 
   const handleLogin = (e) => {
@@ -22,8 +19,6 @@ function Login(props) {
     })
       .then(res => res.json())
       .then((res) => {
-        console.log(res);
-        console.log('로그인 쿠키', cookies.id);
         history.push('./');
       });
   };

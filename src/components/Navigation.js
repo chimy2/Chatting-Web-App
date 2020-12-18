@@ -17,16 +17,16 @@ function Navigation() {
     return(
         <>
         <nav className="nav">
-            <div className="top">
-                <Link to="/friend"><img src={profile} alt="profile"/></Link>
+            <div>
+                <Link to="/"><img src={profile} alt="profile"/></Link>
                 <Link to="/talk"><img src={talk} alt="talk"/></Link>
                 <Link to="/calendar"><img src={calendar} alt="calendar"/></Link>
                 <Link to="/note"><img src={note} alt="note"/></Link>
                 <Link to="/dot"><img src={dot} alt="dot"/></Link>
             </div>
-            <div className="bottom">
-                <div><img src={bell} alt="bell"/></div>
-                <div onClick={popupOpen}><img src={setting} alt="setting"/></div>
+            <div>
+                <Link><img src={bell} alt="bell"/></Link>
+                <Link onClick={popupOpen}><img src={setting} alt="setting"/></Link>
             </div>
         </nav>
         <Popup open={popupState} setPopupState={setPopupState}/>
