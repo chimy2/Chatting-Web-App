@@ -37,6 +37,26 @@ function Join() {
         <span/>
         <input type="text" name="name" placeholder="이름"/>        
         <span/>
+        <div className="birth">
+          <input type="text" name="year" placeholder="생년(4자리)"/>        
+          <select type="text" name="month">
+            <option value="월">월</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>        
+          <input type="text" name="day" placeholder="일"/>   
+        </div>     
+        <span/>
         <input type="text" name="email" placeholder="이메일"/>
         <span/>
         <input type="text" name="phone" placeholder="전화번호"/>

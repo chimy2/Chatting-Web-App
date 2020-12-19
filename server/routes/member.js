@@ -5,8 +5,15 @@ const mysql = require('../db/mysql');
 router.post('/join', (req, res) => {
   const { headers, method, url } = req;
   mysql.query(
-    'insert into user values (0, ?, ?, ?, ?, ?)',
-    [req.body.id, req.body.password, req.body.name, req.body.email, req.body.phone],
+    'insert into user values (?, ?, ?, ?, ?, ?, now())',
+    [
+      req.body.id, 
+      req.body.password, 
+      req.body.name,
+      req.body.year+'-'+req.body.month+'-'+req.body.day,
+      req.body.email, 
+      req.body.phone
+    ],
     (err, rows, fields) => {
       if (err) throw error;
       if(rows.affectedRows > 0){
