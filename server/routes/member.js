@@ -2,6 +2,41 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('../db/mysql');
 
+
+router.post('/check', (req, res) => {
+  const { headers, method, url } = req;
+  mysql.query(
+    'select count(*) as num from user where ?=?',
+    [
+      req.body.name,
+      req.body.value
+    ],
+    (err, rows, fields) => {
+      console.log(req.body.name,
+        req.body.value);
+      const num = rows[0].num;
+      console.log(rows[0]);
+      if (err) {
+        console.log(err);
+        throw error;
+      }
+      if(num > 0){
+        res.writeHead(201, {
+          'Content-Type': 'application/json'
+        });
+        res.end(JSON.stringify({ headers, method, url, num }));
+      }else {
+        res.writeHead(200, {
+          'Content-Type': 'application/json'
+        });
+        res.end(JSON.stringify({ headers, method, url, num }));
+      }
+    }
+  )
+  console.log(req.body.name);
+  console.log(req.body.value);
+});
+
 router.post('/join', (req, res) => {
   const { headers, method, url } = req;
   mysql.query(
@@ -10,12 +45,15 @@ router.post('/join', (req, res) => {
       req.body.id, 
       req.body.password, 
       req.body.name,
-      req.body.year+'-'+req.body.month+'-'+req.body.day,
+      req.body.birth,
       req.body.email, 
       req.body.phone
     ],
     (err, rows, fields) => {
-      if (err) throw error;
+      if (err) {
+        console.log(err);
+        throw error;
+      }
       if(rows.affectedRows > 0){
         res.writeHead(201, {
           'Content-Type': 'application/json'
@@ -45,24 +83,24 @@ router.post('/login', (req, res) => {
   // });
   const { headers, method, url } = req;
   mysql.query(
-    'select count(*) as body from user where id=? and password=?',
+    'select count(*) as num from user where id=? and password=?',
     [req.body.id, req.body.password],
     (err, rows, fields) => {
-      const body = rows[0].body;
+      const num = rows[0].num;
       if (err) throw error;
-      if(body > 0){
+      if(num > 0){
         res.writeHead(201, {
           'Content-Type': 'application/json',
           'Set-Cookie': [
             `id=${req.body.id}; path=/`
           ]
         });
-        res.end(JSON.stringify({ headers, method, url, body }));
+        res.end(JSON.stringify({ headers, method, url, num }));
       }else {
         res.writeHead(200, {
           'Content-Type': 'application/json'
         });
-        res.end(JSON.stringify({ headers, method, url, body }));
+        res.end(JSON.stringify({ headers, method, url, num }));
       }
     }
   );
