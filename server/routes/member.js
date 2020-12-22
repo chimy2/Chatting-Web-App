@@ -5,17 +5,13 @@ const mysql = require('../db/mysql');
 
 router.post('/check', (req, res) => {
   const { headers, method, url } = req;
+  const name = req.body.name;
+  const value = req.body.value;
+  const sql = `select count(*) as num from user where ${name}=${value}`;
   mysql.query(
-    'select count(*) as num from user where ?=?',
-    [
-      req.body.name,
-      req.body.value
-    ],
+    sql,
     (err, rows, fields) => {
-      console.log(req.body.name,
-        req.body.value);
       const num = rows[0].num;
-      console.log(rows[0]);
       if (err) {
         console.log(err);
         throw error;
@@ -33,8 +29,6 @@ router.post('/check', (req, res) => {
       }
     }
   )
-  console.log(req.body.name);
-  console.log(req.body.value);
 });
 
 router.post('/join', (req, res) => {

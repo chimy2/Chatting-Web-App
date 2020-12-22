@@ -5,28 +5,22 @@ import { useHistory } from "react-router-dom";
 
 function Join() {
   let history = useHistory();
-  // const [ id, setId ] = useState();
-  // const [ pw1, setPw1 ] = useState();
-  // const [ pw2, setPw2 ] = useState();
-  // const [ name, setName ] = useState();
-  // const [ year, setYear ] = useState();
-  // const [ month, setMonth ] = useState();
-  // const [ day, setDay ] = useState();
-  // const [ email, setEmail ] = useState();
-  // const [ phone, setPhone ] = useState();
 
   const handleCheck = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    const next = e.target.nextSibling;
+    const now = e.target;
+    const name = now.name;
+    const value = now.value;
+    const len = value.length;
+    const next = now.nextSibling;
     if(value === '') return;
-    next.innerHTML = '';
+    if(name !== 'year') {
+      next.innerHTML = '';
+    }
     if(name === 'id' || name === 'email' || name === 'phone'){
       let regex;
-      next.innerHTML = '';
       switch(name){
         case 'id':
-          if(value.length < 4 || value.length > 15) {
+          if(len < 4 || len > 15) {
             next.innerHTML = '아이디는 4글자 이상 15글자 이하 입니다';
             return;
           }else if(false) {
@@ -36,14 +30,16 @@ function Join() {
           console.log(regex.test(value));
           break;
         case 'email':
-          if(value.length > 45) {
-            next.innerHTML = '다른 이메일 주소를 이용해주세요';
+          if(len > 45) {
+            next.innerHTML = '다른 이메일 주소를 입력해주세요';
           }else if(true) {
 
           }
           break;
         case 'phone':
-          
+          if(len > 15) {
+            next.innerHTML = '유효한 핸드폰 번호를 입력해주세요'
+          }
       }
       fetch('/api/member/check', { 
         method: 'POST',
@@ -56,19 +52,37 @@ function Join() {
         })
       })
         .then(res => res.json())
-        .then(console.log);
+        .then(res => {
+          if(res.num > 0) {
+            next.innerHTML = '이미 존재하는 아이디입니다';
+          }
+        });
     } else {
-      const before = e.target.previousSibling.previousSibling;
       switch(name){
         case 'password':
-          if(value.length < 6 || value.length > 20) {
-            console.log(value.length);
+          if(len < 6 || len > 20) {
             next.innerHTML = '패스워드는 6글자 이상 20글자 이하 입니다';
           }
           break;
         case 'password2':
-          if(value !== before.value){
+          const before = now.previousSibling.previousSibling;
+          if(len < 6 || len > 20) {
+            next.innerHTML = '패스워드는 6글자 이상 20글자 이하 입니다';
+          } else if(value !== before.value){
             next.innerHTML = '패스워드가 일치하지 않습니다';
+          }
+          break;
+        case 'name':
+          if(len > 15) {
+            next.innerHTML = '15글자 이내로 입력해주세요';
+          }
+          break;
+        case 'year':
+          const nextSpan = now.parentElement.nextSibling;
+          nextSpan.innerHTML = '';
+          if(len !== 4) {
+            nextSpan.innerHTML = '생년은 4자리로 입력해주세요';
+            
           }
           break;
       }
@@ -76,6 +90,7 @@ function Join() {
   };
 
   const handleJoin = (e) => {
+    const now = e.target;
     e.preventDefault();
     fetch('/api/member/join', {
       method: 'POST',
@@ -83,12 +98,12 @@ function Join() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id: e.target.id.value,
-        password: e.target.password.value,
-        name: e.target.name.value,
-        birth: e.target.year.value+'-'+e.target.month.value+'-'+e.target.day.value,
-        email: e.target.email.value,
-        phone: e.target.phone.value
+        id: now.id.value,
+        password: now.password.value,
+        name: now.name.value,
+        birth: now.year.value+'-'+now.month.value+'-'+now.day.value,
+        email: now.email.value,
+        phone: now.phone.value
       })
     })
     .then(res => {
