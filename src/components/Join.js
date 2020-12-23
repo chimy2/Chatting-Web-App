@@ -13,7 +13,7 @@ function Join() {
     const len = value.length;
     const next = now.nextSibling;
     if(value === '') return;
-    if(name !== 'year') {
+    if(name !== 'year' && name !== 'day') {
       next.innerHTML = '';
     }
     if(name === 'id' || name === 'email' || name === 'phone'){
@@ -54,7 +54,7 @@ function Join() {
         .then(res => res.json())
         .then(res => {
           if(res.num > 0) {
-            next.innerHTML = '이미 존재하는 아이디입니다';
+            next.innerHTML = `이미 존재하는 ${name !== 'phone' ? name : '핸드폰 번호'}입니다`;
           }
         });
     } else {
@@ -91,26 +91,45 @@ function Join() {
 
   const handleJoin = (e) => {
     const now = e.target;
+    let num = 0;
     e.preventDefault();
-    fetch('/api/member/join', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: now.id.value,
-        password: now.password.value,
-        name: now.name.value,
-        birth: now.year.value+'-'+now.month.value+'-'+now.day.value,
-        email: now.email.value,
-        phone: now.phone.value
-      })
-    })
-    .then(res => {
-        if(res.status === 201){
-          history.push('./');
-        }
-      });
+    console.log(e.target);
+    // 빈칸 체크
+    for(let i=0;i<now.length-1;i++){
+      if(i === 5 && now[5] === "월" || now[i].value === "") {
+        num++;
+        break;
+      }
+    }
+    
+    // 유효 데이터 체크
+    for(let i=1;i<now.childNodes.length-1;i+=2){
+      if(now.childNodes[i].innerText !== ''){
+        num++;
+        break;
+      }
+    }
+    console.log(num);
+    // if(num )
+    // fetch('/api/member/join', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     id: now.id.value,
+    //     password: now.password.value,
+    //     name: now.name.value,
+    //     birth: now.year.value+'-'+now.month.value+'-'+now.day.value,
+    //     email: now.email.value,
+    //     phone: now.phone.value
+    //   })
+    // })
+    // .then(res => {
+    //     if(res.status === 201){
+    //       history.push('./');
+    //     }
+    //   });
   };
 
   return(
