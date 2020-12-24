@@ -7,7 +7,7 @@ router.post('/check', (req, res) => {
   const { headers, method, url } = req;
   const name = req.body.name;
   const value = req.body.value;
-  const sql = `select count(*) as num from user where ${name}=${value}`;
+  const sql = `select count(*) as num from user where ${name}='${value}'`;
   mysql.query(
     sql,
     (err, rows, fields) => {
