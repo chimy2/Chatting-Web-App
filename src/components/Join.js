@@ -87,15 +87,19 @@ function Join() {
           } else {
             if(year.length === 4 && month !== '월' && day !== '') {
               const current = new Date();
-              const input = new Date(`${year}-${month}-${day}`);
+              const child = new Date(current.getFullYear()-14, current.getMonth(), current.getDate());
+              const input = new Date(year, month-1, day, 0);
               const old = new Date('1886-6-25');
-
-              if(!input.getYear()) {
+              if(input.getDate() != day) {
                 nextSpan.innerHTML = '유효한 날짜가 아닙니다';
               } else if(input < old) {
                 nextSpan.innerHTML = '과거에서 오셨나요?';
               } else if(input > current) {
                 nextSpan.innerHTML = '미래에서 오셨나요?';
+              } else {
+                if(child < input) {
+                  nextSpan.innerHTML = '만 14세 미만은 보호자 동의가 필요합니다';
+                }
               }
             } 
           }
@@ -155,7 +159,6 @@ function Join() {
   return(
     <div className='join'>
       <Link to='/'><img className='mainLogo' src={logo} alt='메인화면'/></Link>
-      {/* <form onSubmit={handleJoin} onKeyUp={handleCheck}>       */}
       <form onSubmit={handleJoin} onChange={handleCheck}>      
         <input type='text' name='id' placeholder='아이디'/>
         <span/>
