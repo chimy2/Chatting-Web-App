@@ -4,6 +4,10 @@ create database talk;
 -- enter database
 use talk;
 
+-- drop tables
+drop table user;
+drop table profile;
+
 -- create user table
 -- user_no int unsigned primary key auto_increment,
 create table user(
@@ -26,6 +30,7 @@ create table profile(
   constraint profile_id_fk foreign key (id) references user(id) on delete cascade
 );
 
--- drop tables
-drop table user;
-drop table profile;
+create trigger insert_profile
+  after insert on user
+  for each row
+  insert into profile(id, name) values(new.id, new.name);

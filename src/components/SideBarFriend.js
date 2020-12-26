@@ -16,19 +16,17 @@ class SideBarFriend extends React.Component {
     }
 
     componentDidMount() {
-        // fetch('/api/friend/showList')
-        //     .then(console.log);
         this.callApi()
+            .then(res => res[0])
             .then(res => {
-                console.log(res);
-                // this.setState({
-                //     myProfile: res.myProfile,
-                //     requestList: res.requestList,
-                //     friendList: res.friendList
-                // })
-                // console.log('myProfile', res.myProfile);
-                // console.log('requestList', res.requestList);
-                // console.log('friendList', res.friendList);
+                this.setState({
+                    myProfile: {
+                        name: res.name,
+                        nickname: res.nickname,
+                        image: res.image === null ? basicProfile : res.image,
+                        message: res.message
+                    }
+                });
             })
             .catch(console.log);
     }
@@ -52,14 +50,15 @@ class SideBarFriend extends React.Component {
                     <img src={close} alt="close"/>
                 </div>
                 <div className="friendProfile">
-                    <List image={basicProfile} name={'이름'} state={'메시지'}/>
+                    <List state={this.state.myProfile}/>
                     <hr/>
-                    <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                    <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                    <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                    <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                    <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                    <List image={basicProfile} name={'이름'} state={'메시지'}/>
+                    <List state={this.state.friendList}/>
+                    <List state={this.state.friendList}/>
+                    <List state={this.state.friendList}/>
+                    <List state={this.state.friendList}/>
+                    <List state={this.state.friendList}/>
+                    <List state={this.state.friendList}/>
+                    <List state={this.state.friendList}/>
                 </div>
             </section>
         )
