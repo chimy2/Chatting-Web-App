@@ -4,6 +4,7 @@ const api = require('./routes/index');
 const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 
+// bodyParser
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
 

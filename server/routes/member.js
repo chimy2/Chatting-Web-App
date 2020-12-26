@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('../db/mysql');
 
-
 router.post('/check', (req, res) => {
   const { headers, method, url } = req;
   const name = req.body.name;

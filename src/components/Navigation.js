@@ -25,8 +25,8 @@ function Navigation() {
                 <Link to="/dot"><img src={dot} alt="dot"/></Link>
             </div>
             <div>
-                <Link><img src={bell} alt="bell"/></Link>
-                <Link onClick={popupOpen}><img src={setting} alt="setting"/></Link>
+                <a><img src={bell} alt="bell"/></a>
+                <a onClick={popupOpen}><img src={setting} alt="setting"/></a>
             </div>
         </nav>
         <Popup open={popupState} setPopupState={setPopupState}/>
