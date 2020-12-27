@@ -2,7 +2,6 @@ import React from 'react';
 import add from '../image/sidebar_add.png';
 import search from '../image/sidebar_search.png';
 import close from '../image/sidebar_close.png';
-import basicProfile from '../image/basic_profile.png';
 import List from './List';
 
 class SideBarFriend extends React.Component {
@@ -16,23 +15,28 @@ class SideBarFriend extends React.Component {
     }
 
     componentDidMount() {
-        this.callApi()
+        this.callApi('profile')
             .then(res => res[0])
             .then(res => {
                 this.setState({
                     myProfile: {
                         name: res.name,
                         nickname: res.nickname,
-                        image: res.image === null ? basicProfile : res.image,
+                        image: res.image,
                         message: res.message
                     }
                 });
-            })
-            .catch(console.log);
+            });
+        this.callApi('friend')
+            .then(res => {
+                this.setState({
+                    friendList: res
+                });
+            });
     }
     
-    callApi = async () => {
-        const response = await fetch('/api/friend/list');
+    callApi = async (address) => {
+        const response = await fetch(`/api/friend/${address}`);
         const body = await response.json();
         return body;
     }
@@ -52,13 +56,13 @@ class SideBarFriend extends React.Component {
                 <div className="friendProfile">
                     <List state={this.state.myProfile}/>
                     <hr/>
-                    <List state={this.state.friendList}/>
-                    <List state={this.state.friendList}/>
-                    <List state={this.state.friendList}/>
-                    <List state={this.state.friendList}/>
-                    <List state={this.state.friendList}/>
-                    <List state={this.state.friendList}/>
-                    <List state={this.state.friendList}/>
+                    {
+                        this.state.friendList ?
+                            this.state.friendList.map(list => {
+                                return <List state={list}/>
+                            }) 
+                            : ""
+                    }
                 </div>
             </section>
         )

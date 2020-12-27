@@ -2,6 +2,7 @@
 
 # database
 /server/database.json
+data.sql
 
 # dependencies
 /node_modules
