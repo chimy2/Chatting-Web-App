@@ -22,7 +22,10 @@ router.get('/profile', (req, res) => {
 router.get('/friend', (req, res) => {
   const { headers } = req;
   const id = cookie.parse(headers.cookie).id;
-  const sql = `select image, name, nickname, message from profile where id in (select reqId from friend where resId='${id}' and res=1 union all select resId from friend where reqId='${id}' and res=1 order by reqId)`;
+  let sql = `select * from profile where id in 
+    (select reqId from friend where resId='${id}' and res=1 
+    union all select resId from friend where reqId='${id}' and res=1 order by reqId)`;
+  sql = sql.replace("\n", "");
   mysql.query(
     sql,
     (err, rows, fields) => {

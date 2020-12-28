@@ -293,7 +293,7 @@ hr {
   cursor: default;
 }
 
-.popupTitle {
+.popupTitle, .addTitle {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -304,7 +304,7 @@ hr {
   background-color: var(--highlight-color);
 }
 
-.popupTitle img {
+.popupTitle img, .addTitle img {
   margin: 5px;
   width: 40px;
   height: 40px;
@@ -373,6 +373,22 @@ hr {
 
 .popupFooterInfo a {
   color: var(--font-color2);
+}
+
+.add {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 1px solid var(--black-color);
+  width: 60vw;
+  height: 60vh;
+  top: calc(50% - 30vh);
+  left: calc(50% - 30vw);
+  background-color: var(--white-color);
+  opacity: 1;
+  cursor: default;
 }
 
 .sideBar {

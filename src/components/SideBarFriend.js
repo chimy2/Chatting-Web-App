@@ -1,8 +1,9 @@
 import React from 'react';
+import List from './List';
+import Add from './Add';
 import add from '../image/sidebar_add.png';
 import search from '../image/sidebar_search.png';
 import close from '../image/sidebar_close.png';
-import List from './List';
 
 class SideBarFriend extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class SideBarFriend extends React.Component {
         this.state = {
             myProfile: [],
             requestList: [],    
-            friendList: []
+            friendList: [],
+            addState: false
         };
     }
 
@@ -41,30 +43,41 @@ class SideBarFriend extends React.Component {
         return body;
     }
 
+    addOpen = () => {
+        this.setState({
+            addState: true
+        });
+    }
+
     render() {
         return(
-            <section className="sideBar">
-                <div className="sideBarTitle">
-                    친구창
-                    <img src={add} alt="add"/>
-                </div>
-                <div className="listSearch">
-                    <img src={search} alt="search"/>
-                    <input type="text" placeholder="친구이름 검색"/>
-                    <img src={close} alt="close"/>
-                </div>
-                <div className="friendProfile">
-                    <List state={this.state.myProfile}/>
-                    <hr/>
-                    {
-                        this.state.friendList ?
-                            this.state.friendList.map(list => {
-                                return <List state={list}/>
-                            }) 
-                            : ""
-                    }
-                </div>
-            </section>
+            <>
+                <section className="sideBar">
+                    <div className="sideBarTitle">
+                        친구창
+                        <a onClick={this.addOpen}>
+                            <img src={add} alt="add"/>
+                        </a>
+                    </div>
+                    <div className="listSearch">
+                        <img src={search} alt="search"/>
+                        <input type="text" placeholder="친구이름 검색"/>
+                        <img src={close} alt="close"/>
+                    </div>
+                    <div className="friendProfile">
+                        <List state={this.state.myProfile}/>
+                        <hr/>
+                        {
+                            this.state.friendList ?
+                                this.state.friendList.map((items, index) => {
+                                    return <List key={items.id} state={items}/>
+                                }) 
+                                : ""
+                        }
+                    </div>
+                </section>
+                <Add open={this.state.addState} setAddState={(e) => this.setState(e)}/>
+            </>
         )
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import close from '../image/close.png';
 import icon from '../image/icon.png';
 
