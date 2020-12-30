@@ -9,7 +9,9 @@ function SideBarTalk() {
         <section className="sideBar">
             <div className="sideBarTitle">
                 대화창
-                <img src={add} alt="add"/>
+                <a onClick={console.log('22')}>
+                    <img src={add} alt="add"/>
+                </a>
             </div>
             <div className="listSearch">
                 <img src={search} alt="search"/>
@@ -17,14 +19,7 @@ function SideBarTalk() {
                 <img src={close} alt="close"/>
             </div>
             <div className="friendProfile">
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
-                <List image={basicProfile} name={'이름'} state={'메시지'}/>
+                <List state={''}/>
             </div>
         </section>
     )

@@ -21,6 +21,7 @@
   --font-size3: 18px;
   --font-size4: 16px;
   --font-size5: 14px;
+  --height: 60px;
 }
 
 @font-face {
@@ -68,13 +69,13 @@ main {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  height: calc(100% - 60px);
+  height: calc(100% - var(--height));
 }
 
 article {
   /* background-color: red; */
   display: flex;
-  height: calc(100% - 100px);
+  height: calc(100% - 80px);
   overflow: hidden;
 }
 
@@ -82,8 +83,8 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: var(--height);
+  line-height: var(--height);
 }
 
 img {
@@ -96,6 +97,7 @@ hr {
 }
 
 #root {
+  height: 200px;
   font-family: "Jal_Onuel";
   color: var(--font-color);
 }
@@ -297,7 +299,7 @@ hr {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 60px;
+  height: var(--height);
   align-items: center;
   font-size: var(--font-size2);
   text-indent: 15px;
@@ -321,7 +323,7 @@ hr {
 }
 
 .popupContent tr {
-  height: 50px;
+  height: var(--height);
 }
 
 .popupContent td {
@@ -361,12 +363,12 @@ hr {
 }
 
 .popupFooterIcon{
-  padding: 20px;
+  padding: 10px 20px;
 }
 
 .popupFooterInfo {
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   font-size: var(--font-size5);
   color: var(--font-color3);
 }
@@ -391,6 +393,15 @@ hr {
   cursor: default;
 }
 
+.addContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.addContent img {
+  width: 30px;
+}
+
 .sideBar {
   width: 100%;
   background-color: var(--white-color);
@@ -401,13 +412,22 @@ hr {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  height: 60px;
+  height: var(--height);
   margin-top: 20px;
   font-size: var(--font-size);
 }
 
-.sideBarTitle img {
+.sideBarTitle a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.sideBarTitle a img {
   width: 40px;
+  height: 40px;
+
 }
 
 .listSearch {
@@ -415,7 +435,7 @@ hr {
   justify-content: space-between;
   align-items: center;
   margin: 10px 20px;
-  padding: 10px;
+  padding: 10px 10px;
   background-color: var(--background-color2);
   border-radius: 1rem;
 }
@@ -483,12 +503,57 @@ hr {
   color: var(--font-color2);
 }
 
-@media (max-width:840px){
+@media (max-width: 840px), (max-height: 600px) {
+  :root{
+    --font-size: 20px;
+    --font-size2: 16px;
+    --font-size3: 14px;
+    --font-size4: 12px;
+    --font-size5: 10px;
+    --height: 40px;
+  }
+  
   .popup{
     width: 80vw;
     height: 80vh;
     top: calc(50% - 40vh);
     left: calc(50% - 40vw);
+  }
+
+  nav div img {
+    margin: 10px;
+    width: 30px;
+  }
+
+  footer {
+    font-size: var(--font-size4);
+  }
+  
+  .sideBarTitle {
+    margin-top: 10px;
+  }
+
+  .sideBarTitle a img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .listSearch {
+    padding: 5px 10px;
+  }
+
+  .friendProfile {
+    height: calc(100% - 110px);
+  }
+
+  .list {
+    display: flex;
+    padding: 5px 20px;
+  }
+
+  .list img {
+    width: 50px;
+    border-radius: 1rem;
   }
 }
 

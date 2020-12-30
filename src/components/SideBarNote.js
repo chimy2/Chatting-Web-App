@@ -9,7 +9,9 @@ function SideBarNote() {
         <section className="sideBar">
             <div className="sideBarTitle">
                 노트
-                <img src={add} alt="add"/>
+                <a onClick={console.log('22')}>
+                    <img src={add} alt="add"/>  
+                </a>
             </div>
             <div className="listSearch">
                 <img src={search} alt="search"/>
