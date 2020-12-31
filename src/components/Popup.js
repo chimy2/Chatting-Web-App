@@ -72,6 +72,14 @@ function Popup(props) {
                                     </select>
                                 </td>
                             </tr>
+                            <tr>
+                                <td className="popupContentName">
+                                    검색 허용
+                                </td>
+                                <td className="popupContentValue">
+                                    <input type="checkbox" value="soundAlert" defaultChecked="true"/>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

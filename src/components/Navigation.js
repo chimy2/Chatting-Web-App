@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Popup from './Popup';
 import profile from '../image/menu_profile.png';

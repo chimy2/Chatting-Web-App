@@ -6,9 +6,13 @@ import search from '../image/search.png';
 function Add(props) {
   const [state, setState] = useState('overlay-close');
   const addClose = () => {
-    props.setAddState({
-      addState: false
-    });
+    if(document.location.pathname === '/') {
+      props.setAddState({
+        addState: false
+      });
+    }else {
+      props.setAddState(false);
+    }
     setState('overlay-close');
   }
   
@@ -35,16 +39,23 @@ function Add(props) {
               <img src={close} alt="close"/>
           </span>
         </div>
-        <div className="addContent">
-          <form onSubmit={handleFormSubmit} onChange={handleFormChange}>
-            <input type="text" />
-            <button type="submit">
-              <img src={search}/>
-            </button>
-          </form>
-          <div className="addList">
-            <List state={''}/>
-          </div>
+        {
+          document.location.pathname !== '/talk' ?
+            <div className="addContent">
+              <form onSubmit={handleFormSubmit} onChange={handleFormChange}>
+                <input type="text" placeholder={props.placeholder}/>
+                <button type="submit">
+                  <img src={search} alt="search"/>
+                </button>
+              </form>
+            </div>
+            : ""
+        }
+        <div className="addList">
+          <List state={''} add={'22'}/>
+          <List state={''} add={'22'}/>
+          <List state={''} add={'22'}/>
+          <List state={''} add={'22'}/>
         </div>
       </div>
     </div>

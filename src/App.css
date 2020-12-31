@@ -5,6 +5,7 @@
   --background-color3: #fcccc4;
   --black-color: #212121;
   --white-color: #f5f5f5;
+  --white-color2: #ffeee8;
   --alert-color: #7f0000;
   --font-color: #212121;
   --font-color2: #616161;
@@ -89,6 +90,10 @@ footer {
 
 img {
   pointer-events: none;
+}
+
+input {
+  outline: none;
 }
 
 hr {
@@ -381,25 +386,66 @@ hr {
   position: fixed;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   border: 1px solid var(--black-color);
   width: 60vw;
   height: 60vh;
   top: calc(50% - 30vh);
   left: calc(50% - 30vw);
-  background-color: var(--white-color);
+  background-color: var(--background-color3);
   opacity: 1;
   cursor: default;
+}
+
+.addTitle {
+  background: var(--background-color2);
 }
 
 .addContent {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.addContent form {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 5px 0;
+  width: calc(100% - 30px);
+  border-radius: 0.5rem;
+  background-color: var(--white-color2);
+}
+
+.addContent form > input {
+  margin-left: 20px;
+  border: 0;
+  width: 100%;
+  background: inherit;
+  font-size: var(--font-size3);
+  font-family: "Jal_Onuel";
+}
+
+.addContent form > button {
+  background: inherit;
+  border: none; 
+  margin-right: 5px;
+  cursor: pointer;
 }
 
 .addContent img {
   width: 30px;
+}
+
+.addList {
+  margin: 15px 0;
+  width: calc(100% - 30px);
+  /* height: calc(100% - 120px); */
+  height: 100%;
+  background-color: var(--white-color2);
+  overflow-y: auto;
 }
 
 .sideBar {
@@ -494,6 +540,12 @@ hr {
   text-align: start; */
 }
 
+.listAddButton {
+  width: 60px;
+  border-radius: 1rem;
+  font-family: "Jal_Onuel";
+}
+
 .footer {
   background-color: var(--highlight-color);
 }
@@ -513,7 +565,7 @@ hr {
     --height: 40px;
   }
   
-  .popup{
+  .popup, .add{
     width: 80vw;
     height: 80vh;
     top: calc(50% - 40vh);

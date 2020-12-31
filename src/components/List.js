@@ -1,6 +1,8 @@
 import basicProfile from '../image/basic_profile.png';
 
 function List(props) {
+    const addFriend = (id) => {
+    }
     return(
         <div className="list">
             <img src={props.state.image ? props.state.image : basicProfile} alt={props.state.name}/>
@@ -8,6 +10,11 @@ function List(props) {
                 <div className="listName">{props.state.nickname ? props.state.nickname : props.state.name}</div>
                 <div className="listState">{props.state.message}</div>
             </div>
+            {
+                props.add ? 
+                    <button className="listAddButton" onClick={addFriend(props.state.id)}>추가</button>
+                    : ""
+            }
         </div>
     )
 }

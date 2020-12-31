@@ -77,7 +77,7 @@ class SideBarFriend extends React.Component {
                     </div>
                 </section>
                 <Add 
-                    title="친구 추가"
+                    title="친구 추가" placeholder="친구 검색(ex. id, phone)"
                     open={this.state.addState} setAddState={(e) => this.setState(e)}
                 />
             </>
