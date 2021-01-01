@@ -10,6 +10,7 @@ class SideBarFriend extends React.Component {
         super(props);
         this.state = {
             myProfile: [],
+            search: "",
             requestList: [],    
             friendList: [],
             addState: false
@@ -49,6 +50,12 @@ class SideBarFriend extends React.Component {
         });
     }
 
+    changeSearch = (e) => {
+        this.setState({
+            search: e.target.value
+        });
+    }
+
     render() {
         return(
             <>
@@ -61,7 +68,7 @@ class SideBarFriend extends React.Component {
                     </div>
                     <div className="listSearch">
                         <img src={search} alt="search"/>
-                        <input type="text" placeholder="친구이름 검색"/>
+                        <input type="text" placeholder="친구이름 검색" onChange={this.changeSearch}/>
                         <img src={close} alt="close"/>
                     </div>
                     <div className="friendProfile">
@@ -70,7 +77,11 @@ class SideBarFriend extends React.Component {
                         {
                             this.state.friendList ?
                                 this.state.friendList.map((items, index) => {
-                                    return <List key={items.id} state={items}/>
+                                    const reg = new RegExp(`.*${this.state.search}.*`);
+                                    if(items.nickname && items.nickname.match(reg)
+                                        || !items.nickname && items.name.match(reg)) {
+                                        return <List key={items.id} state={items}/>
+                                    }
                                 }) 
                                 : ""
                         }
