@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import List from './List';
 import close from '../image/close.png';
 import search from '../image/search.png';
+import add from '../image/add.png';
 
 function Add(props) {
   const [state, setState] = useState('overlay-close');
@@ -10,6 +11,7 @@ function Add(props) {
       props.setAddState({
         addState: false
       });
+      document.querySelector('.addContent > form > input').value='';
     }else {
       props.setAddState(false);
     }
@@ -21,10 +23,6 @@ function Add(props) {
           setState('overlay-open');
       }
   }, [props.open]);
-
-  const handleFormChange = (e) => {
-
-  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -42,10 +40,14 @@ function Add(props) {
         {
           document.location.pathname !== '/talk' ?
             <div className="addContent">
-              <form onSubmit={handleFormSubmit} onChange={handleFormChange}>
+              <form onSubmit={handleFormSubmit}>
                 <input type="text" placeholder={props.placeholder}/>
                 <button type="submit">
-                  <img src={search} alt="search"/>
+                  {
+                    document.location.pathname === '/note' ?
+                      <img src={add} alt="add"/>
+                      : <img src={search} alt="search"/>
+                  }
                 </button>
               </form>
             </div>

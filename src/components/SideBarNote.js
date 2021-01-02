@@ -27,7 +27,7 @@ function SideBarNote() {
                 </div>
             </section>
             <Add 
-                title="노트 추가"
+                title="노트 추가" placeholder="노트 제목"
                 open={addState} setAddState={setAddState}
             />
         </>

@@ -88,6 +88,10 @@ footer {
   line-height: var(--height);
 }
 
+a, button {
+  outline: none;
+}
+
 img {
   pointer-events: none;
 }
@@ -319,6 +323,7 @@ hr {
 }
 
 .popupContent {
+  display: flex;
   width: 100%;
   text-align: start;
 }

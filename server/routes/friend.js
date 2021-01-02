@@ -24,7 +24,9 @@ router.get('/friend', (req, res) => {
   const id = cookie.parse(headers.cookie).id;
   let sql = `select * from profile where id in 
     (select reqId from friend where resId='${id}' and res=1 
-    union all select resId from friend where reqId='${id}' and res=1 order by reqId)`;
+    union all select resId from friend where reqId='${id}' and res=1 order by reqId)
+    order by (case when ascii(substring(nickname, 1)) between 48 and 57 then 3
+    when ascii(substring(nickname, 1)) < 128 then 2 else 1 end), nickname`;
   sql = sql.replace("\n", "");
   mysql.query(
     sql,
@@ -35,7 +37,7 @@ router.get('/friend', (req, res) => {
       }
       res.send(rows);
     }
-  )
+  );
 });
 
 module.exports = router;

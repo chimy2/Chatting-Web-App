@@ -43,7 +43,7 @@ create table profile(
 create trigger insert_profile
   after insert on user
   for each row
-  insert into profile(id, name, email, phone) values(new.id, new.name, new.email, new.phone);
+  insert into profile(id, name, email, phone, nickname) values(new.id, new.name, new.email, new.phone, new.name);
 
 -- create friend table
 create table friend(
