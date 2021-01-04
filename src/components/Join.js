@@ -17,7 +17,7 @@ function Join() {
       next.innerHTML = '';
     }
     if(name === 'id' || name === 'email' || name === 'phone'){
-      let regex;
+      // let regex;
       switch(name){
         case 'id':
           if(len < 4 || len > 15) {
@@ -90,7 +90,7 @@ function Join() {
               const child = new Date(current.getFullYear()-14, current.getMonth(), current.getDate());
               const input = new Date(year, month-1, day, 0);
               const old = new Date('1886-6-25');
-              if(input.getDate() != day) {
+              if(input.getDate() !== day) {
                 nextSpan.innerHTML = '유효한 날짜가 아닙니다';
               } else if(input < old) {
                 nextSpan.innerHTML = '과거에서 오셨나요?';

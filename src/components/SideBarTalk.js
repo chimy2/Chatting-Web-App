@@ -16,9 +16,9 @@ function SideBarTalk() {
             <section className="sideBar">
                 <div className="sideBarTitle">
                     대화창
-                    <a onClick={addOpen}>
+                    <button onClick={addOpen}>
                         <img src={add} alt="add"/>
-                    </a>
+                    </button>
                 </div>
                 <div className="listSearch">
                     <img src={search} alt="search"/>

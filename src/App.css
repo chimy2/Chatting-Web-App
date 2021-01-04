@@ -6,6 +6,7 @@
   --black-color: #212121;
   --white-color: #f5f5f5;
   --white-color2: #ffeee8;
+  --white-color3: #c0b1ac;
   --alert-color: #7f0000;
   --font-color: #212121;
   --font-color2: #616161;
@@ -56,14 +57,30 @@ nav {
 }
 
 nav div {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+
+nav div button {
+  margin: 0 10px;
+  padding: 10px;
+  cursor: pointer;
 }
 
 nav div img {
   display: block;
-  margin: 20px;
   width: 50px;
   filter: var(--highlight-color-filter);
+}
+
+nav div a {
+  margin: 0 10px;
+}
+
+nav div a img {
+  margin: 10px;
+  width: 50px;
 }
 
 main {
@@ -74,7 +91,6 @@ main {
 }
 
 article {
-  /* background-color: red; */
   display: flex;
   height: calc(100% - 80px);
   overflow: hidden;
@@ -90,6 +106,8 @@ footer {
 
 a, button {
   outline: none;
+  background: none;
+  border: none;
 }
 
 img {
@@ -324,12 +342,14 @@ hr {
 
 .popupContent {
   display: flex;
+  justify-content: center;
   width: 100%;
+  overflow-y: auto;
   text-align: start;
 }
 
 .popupContent table {
-  width: 100%;
+  width: 80%;
 }
 
 .popupContent tr {
@@ -355,13 +375,13 @@ hr {
 }
 
 .popupContentName {
-  width: 25%;
+  width: 30%;
   text-align: center;
   font-size: var(--font-size3);
 }
 
 .popupContentValue {
-  width: 75%;
+  width: 70%;
 }
 
 .popupFooter {
@@ -407,14 +427,14 @@ hr {
   background: var(--background-color2);
 }
 
-.addContent {
+.addMainTitle {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.addContent form {
+.addMainTitle form {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
@@ -424,7 +444,7 @@ hr {
   background-color: var(--white-color2);
 }
 
-.addContent form > input {
+.addMainTitle form > input {
   margin-left: 20px;
   border: 0;
   width: 100%;
@@ -433,24 +453,29 @@ hr {
   font-family: "Jal_Onuel";
 }
 
-.addContent form > button {
-  background: inherit;
+.addMainTitle form > button {
   border: none; 
   margin-right: 5px;
   cursor: pointer;
 }
 
-.addContent img {
+.addMainTitle img {
   width: 30px;
 }
 
-.addList {
+.addMainContent {
   margin: 15px 0;
   width: calc(100% - 30px);
   /* height: calc(100% - 120px); */
   height: 100%;
   background-color: var(--white-color2);
   overflow-y: auto;
+}
+
+.addMainContent button {
+  border: var(--background-color3) 2px solid;
+  background: radial-gradient(var(--white-color2) 30%, var(--background-color3));
+
 }
 
 .sideBar {
@@ -468,17 +493,16 @@ hr {
   font-size: var(--font-size);
 }
 
-.sideBarTitle a {
+.sideBarTitle button {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
 }
 
-.sideBarTitle a img {
+.sideBarTitle button img {
   width: 40px;
   height: 40px;
-
 }
 
 .listSearch {
@@ -577,9 +601,12 @@ hr {
     left: calc(50% - 40vw);
   }
 
-  nav div img {
-    margin: 10px;
-    width: 30px;
+  nav div a img {
+    width: 35px;
+  }
+
+  nav div button img {
+    width: 35px;
   }
 
   footer {
@@ -590,7 +617,7 @@ hr {
     margin-top: 10px;
   }
 
-  .sideBarTitle a img {
+  .sideBarTitle button img {
     width: 30px;
     height: 30px;
   }

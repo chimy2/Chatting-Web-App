@@ -62,9 +62,9 @@ class SideBarFriend extends React.Component {
                 <section className="sideBar">
                     <div className="sideBarTitle">
                         친구창
-                        <a onClick={this.addOpen}>
+                        <button onClick={this.addOpen}>
                             <img src={add} alt="add"/>
-                        </a>
+                        </button>
                     </div>
                     <div className="listSearch">
                         <img src={search} alt="search"/>
@@ -78,8 +78,8 @@ class SideBarFriend extends React.Component {
                             this.state.friendList ?
                                 this.state.friendList.map((items, index) => {
                                     const reg = new RegExp(`.*${this.state.search}.*`);
-                                    if(items.nickname && items.nickname.match(reg)
-                                        || !items.nickname && items.name.match(reg)) {
+                                    if((items.nickname && items.nickname.match(reg))
+                                        || (!items.nickname && items.name.match(reg))) {
                                         return <List key={items.id} state={items}/>
                                     }
                                 }) 

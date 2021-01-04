@@ -40,4 +40,19 @@ router.get('/friend', (req, res) => {
   );
 });
 
+router.post('/search', (req, res) => {
+  let search = req.body.search;
+  const sql = `select  count(*) as num, image, id, nickname, message from profile where id='${search}' or phone='${search}'`
+  mysql.query(
+    sql, 
+    (err, rows, fields) => {
+      if (err) {
+        console.log(err);
+        throw error;
+      }
+      res.send(rows);
+    }
+  );
+});
+
 module.exports = router;

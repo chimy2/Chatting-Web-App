@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Popup from './Popup';
 import profile from '../image/menu_profile.png';
 import talk from '../image/menu_talk.png';
@@ -25,8 +25,8 @@ function Navigation() {
                 <Link to="/dot"><img src={dot} alt="dot"/></Link>
             </div>
             <div>
-                <a><img src={bell} alt="bell"/></a>
-                <a onClick={popupOpen}><img src={setting} alt="setting"/></a>
+                <button><img src={bell} alt="bell"/></button>
+                <button onClick={popupOpen}><img src={setting} alt="setting"/></button>
             </div>
         </nav>
         <Popup open={popupState} setPopupState={setPopupState}/>
