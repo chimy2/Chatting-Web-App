@@ -91,7 +91,7 @@ function Add(props) {
         <div className="addMainContent">
           {
             friendSearch ? 
-              <List state={friendSearch} add={'22'}/> : ""
+              <List state={friendSearch} add={friendSearch.id}/> : ""
           }
         </div>
       </div>
