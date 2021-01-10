@@ -1,11 +1,12 @@
-import logo from '../image/icon.png';
+import logo from "../image/icon.png";
 
 function Effect() {
-  return(
+  return (
     <div className="effect">
-        <img src={logo}/>
+      {/* CSS로 파동 효과 넣기 */}
+      <img src={logo} />
     </div>
-  )
+  );
 }
 
 export default Effect;
