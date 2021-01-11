@@ -76,8 +76,18 @@ router.post("/request", (req, res) => {
   const { headers } = req;
   const reqId = cookie.parse(headers.cookie).id;
   const resId = req.body.resId;
-  const sql = `select count(*) as num `;
-  const sql2 = `insert into friend(reqId, resId, resDate) values('${reqId}', '${resId}', now())`;
+  const sql = `insert into friend(reqId, resId, reqDate) values('${reqId}', '${resId}', now())`;
+  mysql.query(sql, (err, rows, fields) => {
+    if (err) {
+      console.log(err);
+      throw error;
+    }
+    if (rows.affectedRows > 0) {
+      res.status(201).end();
+    } else {
+      res.status(200).end();
+    }
+  });
 });
 
 module.exports = router;

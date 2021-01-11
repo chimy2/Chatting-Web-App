@@ -54,7 +54,7 @@ function Add(props) {
             } else if (res.num === 1 && res.id !== undefined) {
               alert("자신에게 친구 요청을 할 수 없습니다");
             } else if (res.id === undefined) {
-              alert("이미 친구거나 친구 요청한 상태입니다");
+              alert("이미 친구거나 친구 요청을 한 상태입니다");
             } else {
               setFriendSearch(res);
             }
@@ -95,7 +95,11 @@ function Add(props) {
           ""
         )}
         <div className="addMainContent">
-          {friendSearch ? <List state={friendSearch} add={friendSearch.id} /> : ""}
+          {friendSearch ? (
+            <List state={friendSearch} add={friendSearch.id} addClose={addClose.bind()} />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

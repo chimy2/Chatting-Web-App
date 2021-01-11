@@ -76,7 +76,10 @@ class SideBarFriend extends React.Component {
             {this.state.friendList
               ? this.state.friendList.map((items, index) => {
                   const reg = new RegExp(`.*${this.state.search}.*`);
-                  if ((items.nickname && items.nickname.match(reg)) || (!items.nickname && items.name.match(reg))) {
+                  if (
+                    (items.nickname && items.nickname.match(reg)) ||
+                    (!items.nickname && items.name.match(reg))
+                  ) {
                     return <List key={items.id} state={items} />;
                   }
                 })

@@ -1,71 +1,68 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const mysql = require('../db/mysql');
+const mysql = require("../db/mysql");
 
-router.post('/check', (req, res) => {
+router.post("/check", (req, res) => {
   const { headers, method, url } = req;
   const name = req.body.name;
   const value = req.body.value;
   const sql = `select count(*) as num from user where ${name}='${value}'`;
-  mysql.query(
-    sql,
-    (err, rows, fields) => {
-      const num = rows[0].num;
-      if (err) {
-        console.log(err);
-        throw error;
-      }
-      if(num > 0){
-        res.writeHead(201, {
-          'Content-Type': 'application/json'
-        });
-        res.end(JSON.stringify({ headers, method, url, num }));
-      }else {
-        res.writeHead(200, {
-          'Content-Type': 'application/json'
-        });
-        res.end(JSON.stringify({ headers, method, url, num }));
-      }
+  mysql.query(sql, (err, rows, fields) => {
+    const num = rows[0].num;
+    if (err) {
+      console.log(err);
+      throw error;
     }
-  )
+    if (num > 0) {
+      res.writeHead(201, {
+        "Content-Type": "application/json",
+      });
+      res.end(JSON.stringify({ headers, method, url, num }));
+    } else {
+      res.writeHead(200, {
+        "Content-Type": "application/json",
+      });
+      res.end(JSON.stringify({ headers, method, url, num }));
+    }
+  });
 });
 
-router.post('/join', (req, res) => {
+router.post("/join", (req, res) => {
   const { headers, method, url } = req;
   mysql.query(
-    'insert into user values (?, ?, ?, ?, ?, ?, now())',
+    "insert into user values (?, ?, ?, ?, ?, ?, now())",
     [
-      req.body.id, 
-      req.body.password, 
+      req.body.id,
+      req.body.password,
       req.body.name,
       req.body.birth,
-      req.body.email, 
-      req.body.phone
+      req.body.email,
+      req.body.phone,
     ],
     (err, rows, fields) => {
       if (err) {
         console.log(err);
         throw error;
       }
-      if(rows.affectedRows > 0){
+      if (rows.affectedRows > 0) {
         res.writeHead(201, {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         });
         res.end(JSON.stringify({ headers, method, url }));
-      }else if(rows.affectedRows == 0) {
-        console.log('회원가입 실패');
+      } else if (rows.affectedRows == 0) {
+        console.log("회원가입 실패");
         res.writeHead(205, {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         });
         res.end(JSON.stringify({ headers, method, url }));
       }
-    }
+    },
   );
 });
 
-router.post('/login', (req, res) => {
-  // body-parser 미들웨어를 통해 
-  // 매개변수(parameter) req의 body에 저장될 내용을 직접 만들기 
+router.post("/login", (req, res) => {
+  // body-parser 미들웨어를 통해
+  // 매개변수(parameter) req의 body에 저장될 내용을 직접 만들기
   // let body = [];
   // req.on('data', (chunk) => {
   //   body.push(chunk);
@@ -76,26 +73,24 @@ router.post('/login', (req, res) => {
   // });
   const { headers, method, url } = req;
   mysql.query(
-    'select count(*) as num from user where id=? and password=?',
+    "select count(*) as num from user where id=? and password=?",
     [req.body.id, req.body.password],
     (err, rows, fields) => {
       const num = rows[0].num;
       if (err) throw error;
-      if(num > 0){
+      if (num > 0) {
         res.writeHead(201, {
-          'Content-Type': 'application/json',
-          'Set-Cookie': [
-            `id=${req.body.id}; path=/`
-          ]
+          "Content-Type": "application/json",
+          "Set-Cookie": [`id=${req.body.id}; path=/`],
         });
         res.end(JSON.stringify({ headers, method, url, num }));
-      }else {
+      } else {
         res.writeHead(200, {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         });
         res.end(JSON.stringify({ headers, method, url, num }));
       }
-    }
+    },
   );
 });
 

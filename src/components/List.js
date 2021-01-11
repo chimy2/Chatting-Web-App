@@ -12,20 +12,27 @@ function List(props) {
       body: JSON.stringify({
         resId: e.target.value,
       }),
-    }).then(console.log);
+    }).then((res) => {
+      if (res.status === 201) {
+        alert("친구 요청에 성공했습니다");
+      } else {
+        alert("친구 요청에 실패했습니다");
+      }
+      props.addClose();
+    });
   };
 
   const callApi = async (address, content) => {
     const response = await fetch(`/api${address}`, content);
-    const chunk = response;
-    console.log(1, chunk);
-    const body = await response.json();
-    return body;
+    return response;
   };
 
   return (
     <div className="list">
-      <img src={props.state.image ? props.state.image : basicProfile} alt={props.state.name} />
+      <img
+        src={props.state.image ? props.state.image : basicProfile}
+        alt={props.state.name}
+      />
       <div className="listInfo">
         <div className="listName">
           {props.state.nickname ? props.state.nickname : props.state.name}
