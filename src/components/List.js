@@ -22,6 +22,19 @@ function List(props) {
     });
   };
 
+  const responseFrined = (e) => {
+    callApi("/friend/response", {
+      method: "put",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        reqId: e.target.value,
+        response: e.target.textContent === "수락" ? true : false,
+      }),
+    });
+  };
+
   const callApi = async (address, content) => {
     const response = await fetch(`/api${address}`, content);
     return response;
@@ -40,9 +53,29 @@ function List(props) {
         <div className="listState">{props.state.message}</div>
       </div>
       {props.add ? (
-        <button className="listAddButton" value={props.state.id} onClick={addFriend}>
+        <button className="listButton" value={props.state.id} onClick={addFriend}>
           요청
         </button>
+      ) : (
+        ""
+      )}
+      {props.request ? (
+        <>
+          <button
+            className="listResButton"
+            value={props.state.id}
+            onClick={responseFrined}
+          >
+            수락
+          </button>
+          <button
+            className="listResButton"
+            value={props.state.id}
+            onClick={responseFrined}
+          >
+            거절
+          </button>
+        </>
       ) : (
         ""
       )}

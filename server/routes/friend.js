@@ -90,4 +90,32 @@ router.post("/request", (req, res) => {
   });
 });
 
+router.get("/request", (req, res) => {
+  const { headers } = req;
+  const id = cookie.parse(headers.cookie).id;
+  const sql = `select id, image, name, nickname, message from profile where id in (select reqId from friend where resId='${id}' and res is null)`;
+  mysql.query(sql, (err, rows, fields) => {
+    if (err) {
+      console.log(err);
+      throw error;
+    }
+    res.send(rows);
+  });
+});
+
+router.put("/response", (req, res) => {
+  const { headers } = req;
+  const reqId = req.body.reqId;
+  const resId = cookie.parse(headers.cookie).id;
+  const response = req.body.response;
+  const sql = `update friend set res=${response}, resDate=now() where reqId='${reqId}' and resId='${resId}'`;
+  mysql.query(sql, (err, rows, fields) => {
+    if (err) {
+      console.log(err);
+      throw error;
+    }
+    res.status(204).end();
+  });
+});
+
 module.exports = router;

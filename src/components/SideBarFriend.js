@@ -30,6 +30,11 @@ class SideBarFriend extends React.Component {
           },
         });
       });
+    this.callApi("request").then((res) => {
+      this.setState({
+        requestList: res,
+      });
+    });
     this.callApi("friend").then((res) => {
       this.setState({
         friendList: res,
@@ -56,6 +61,33 @@ class SideBarFriend extends React.Component {
   };
 
   render() {
+    const reqList = this.state.requestList;
+    let requests = [];
+    const friList = this.state.friendList;
+    let friends = [];
+
+    if (reqList) {
+      if (reqList.length > 0) {
+        requests.push(<div className="subTitle">요청목록({reqList.length})</div>);
+        reqList.forEach((items) => {
+          requests.push(<List key={items.id} state={items} request />);
+        });
+      }
+    }
+
+    if (friList) {
+      friends.push(<div className="subTitle">친구목록({friList.length})</div>);
+      friList.forEach((items, index) => {
+        const reg = new RegExp(`.*${this.state.search}.*`);
+        if (
+          (items.nickname && items.nickname.match(reg)) ||
+          (!items.nickname && items.name.match(reg))
+        ) {
+          friends.push(<List key={items.id} state={items} />);
+        }
+      });
+    }
+
     return (
       <>
         <section className="sideBar">
@@ -72,18 +104,8 @@ class SideBarFriend extends React.Component {
           </div>
           <div className="friendProfile">
             <List state={this.state.myProfile} />
-            <hr />
-            {this.state.friendList
-              ? this.state.friendList.map((items, index) => {
-                  const reg = new RegExp(`.*${this.state.search}.*`);
-                  if (
-                    (items.nickname && items.nickname.match(reg)) ||
-                    (!items.nickname && items.name.match(reg))
-                  ) {
-                    return <List key={items.id} state={items} />;
-                  }
-                })
-              : ""}
+            {requests}
+            {friends}
           </div>
         </section>
         <Add
