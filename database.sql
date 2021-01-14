@@ -5,6 +5,7 @@ create database talk;
 use talk;
 
 -- drop tables
+drop table note;
 drop trigger insert_profile;
 drop table profile;
 drop table friend;
@@ -40,6 +41,7 @@ create table profile(
     on update cascade on delete cascade
 );
 
+-- create insert_profile trigger
 create trigger insert_profile
   after insert on user
   for each row
@@ -58,5 +60,19 @@ create table friend(
   constraint friend_reqId_fk foreign key (reqId) references user(id) 
     on update cascade on delete cascade,
   constraint friend_resId_fk foreign key (resId) references user(id)
+    on update cascade on delete cascade
+);
+
+-- create talk table
+-- create table talk(
+-- );
+
+-- create note table
+create table note(
+  id varchar(15) not null,
+  title varchar(45) not null,
+  content text not null,
+  date timestamp,
+  constraint note_id_pk foreign key (id) references user(id)
     on update cascade on delete cascade
 );

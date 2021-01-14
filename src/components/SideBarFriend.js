@@ -30,6 +30,10 @@ class SideBarFriend extends React.Component {
           },
         });
       });
+    this.callFriend();
+  }
+
+  callFriend = () => {
     this.callApi("request").then((res) => {
       this.setState({
         requestList: res,
@@ -40,7 +44,7 @@ class SideBarFriend extends React.Component {
         friendList: res,
       });
     });
-  }
+  };
 
   callApi = async (address) => {
     const response = await fetch(`/api/friend/${address}`);
@@ -70,7 +74,14 @@ class SideBarFriend extends React.Component {
       if (reqList.length > 0) {
         requests.push(<div className="subTitle">요청목록({reqList.length})</div>);
         reqList.forEach((items) => {
-          requests.push(<List key={items.id} state={items} request />);
+          requests.push(
+            <List
+              key={items.id}
+              state={items}
+              request
+              callFriend={() => this.callFriend()}
+            />,
+          );
         });
       }
     }

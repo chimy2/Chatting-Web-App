@@ -515,6 +515,14 @@ hr {
   height: 40px;
 }
 
+.sideBarContent {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 15px 20px;
+  overflow: auto;
+  height: calc(100% - 137px);
+}
+
 .listSearch {
   display: flex;
   justify-content: space-between;
@@ -544,6 +552,43 @@ hr {
   overflow: auto;
   height: calc(100% - 155px);
   scroll-margin: 110px;
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  border: 5px double var(--highlight-color);
+  width: calc(25% - 30px);
+  background: var(--background-color3);
+}
+
+.calendarTitle {
+  margin: 5px 0 5px;
+  border: 5px double var(--highlight-color);
+  height: 35px;
+  line-height: 35px;
+  color: var(--highlight-color);
+  background: var(--white-color2);
+}
+
+.calendarContent {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-content: space-around;
+  height: 100%;
+}
+
+.calendarContent div {
+  display: inline;
+}
+
+.calendarContent div:nth-of-type(7n),
+.calendarContent div:nth-of-type(7n + 1) {
+  color: var(--highlight-color);
 }
 
 .subTitle {
@@ -663,12 +708,20 @@ hr {
     height: 30px;
   }
 
+  .sideBarContent {
+    height: calc(100% - 107px);
+  }
+
   .listSearch {
     padding: 5px 10px;
   }
 
   .friendProfile {
     height: calc(100% - 110px);
+  }
+
+  .calendar {
+    width: calc(100% - 20px);
   }
 
   .list {

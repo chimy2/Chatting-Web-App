@@ -32,7 +32,7 @@ function List(props) {
         reqId: e.target.value,
         response: e.target.textContent === "수락" ? true : false,
       }),
-    });
+    }).then(props.callFriend());
   };
 
   const callApi = async (address, content) => {
