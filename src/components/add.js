@@ -35,8 +35,6 @@ function Add(props) {
       setFriendSearch();
       if (value.length < 4) {
         alert("4글자 이상 입력해주세요");
-        // } else if (true) {
-        //   console.log(document.cookie);
       } else {
         callApi("/friend/search", {
           method: "post",
@@ -47,6 +45,7 @@ function Add(props) {
             search: value,
           }),
         })
+          .then((res) => res.json())
           .then((res) => res[0])
           .then((res) => {
             if (res.num === 0) {
@@ -60,13 +59,33 @@ function Add(props) {
             }
           });
       }
+    } else {
+      const textarea = document.querySelector("textarea").value;
+      if (value.length < 1) {
+        alert("제목을 입력해주세요");
+      } else if (textarea.length < 1) {
+        alert("내용을 입력해주세요");
+      } else {
+        if (window.confirm("저장하시겠습니까?")) {
+          callApi("/note", {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: value,
+              content: textarea,
+            }),
+          }).then(alert);
+        }
+      }
     }
   };
 
   const callApi = async (address, content) => {
     const response = await fetch(`/api${address}`, content);
-    const body = await response.json();
-    return body;
+    // const body = await response.json();
+    return response;
   };
 
   return (
@@ -97,6 +116,11 @@ function Add(props) {
         <div className="addMainContent">
           {friendSearch ? (
             <List state={friendSearch} add={friendSearch.id} addClose={addClose.bind()} />
+          ) : (
+            ""
+          )}
+          {document.location.pathname === "/note" ? (
+            <textarea placeholder="노트 내용" maxLength="20000" />
           ) : (
             ""
           )}

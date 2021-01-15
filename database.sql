@@ -76,3 +76,11 @@ create table note(
   constraint note_id_pk foreign key (id) references user(id)
     on update cascade on delete cascade
 );
+
+-- create calendar table
+create table calendar(
+  leap boolean not null,
+  month tinyint unsigned not null,
+  day tinyint unsigned not null,
+  primary key (leap, month, day)
+);

@@ -488,6 +488,16 @@ hr {
   overflow-y: auto;
 }
 
+.addMainContent textarea {
+  padding: 8px;
+  border: 0;
+  width: calc(100% - 16px);
+  height: calc(100% - 18px);
+  font-family: "Jal_Onuel";
+  background: none;
+  resize: none;
+}
+
 .sideBar {
   width: 100%;
   background-color: var(--white-color);
@@ -551,7 +561,18 @@ hr {
 .friendProfile {
   overflow: auto;
   height: calc(100% - 155px);
-  scroll-margin: 110px;
+  /* scroll-margin: 110px; */
+}
+
+.noteList {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  width: calc(100vw - 110px);
+  height: calc(100% - 176px);
+  align-content: flex-start;
+  overflow: auto;
+  background: red;
 }
 
 .calendar {
@@ -589,6 +610,38 @@ hr {
 .calendarContent div:nth-of-type(7n),
 .calendarContent div:nth-of-type(7n + 1) {
   color: var(--highlight-color);
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  border: 5px double var(--highlight-color);
+  width: calc(25% - 30px);
+  background: var(--background-color3);
+  height: max-content;
+}
+
+.tableTitle {
+  margin: 5px 0 10px;
+  border: 5px double var(--highlight-color);
+  height: 35px;
+  line-height: 35px;
+  color: var(--highlight-color);
+  background: var(--white-color2);
+}
+
+.tableContent {
+  padding: 5px;
+  width: auto;
+  height: 60px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-align: start;
+  text-overflow: ellipsis;
 }
 
 .subTitle {
@@ -709,6 +762,7 @@ hr {
   }
 
   .sideBarContent {
+    width: calc(100% - 30px);
     height: calc(100% - 107px);
   }
 
@@ -720,8 +774,17 @@ hr {
     height: calc(100% - 110px);
   }
 
+  .noteList {
+    width: calc(100vw - 95px);
+    height: calc(100% - 131px);
+  }
+
   .calendar {
     width: calc(100% - 20px);
+  }
+
+  .table {
+    width: calc(100% - 30px);
   }
 
   .list {

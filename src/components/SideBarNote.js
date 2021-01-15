@@ -1,6 +1,7 @@
 import { useState } from "react";
 import List from "./List";
 import Add from "./Add";
+import Table from "./Table";
 import add from "../image/add.png";
 import search from "../image/note_search.png";
 import close from "../image/sidebar_close.png";
@@ -26,8 +27,31 @@ function SideBarNote() {
           <input type="text" placeholder="노트 제목/내용 검색" />
           <img src={close} alt="close" />
         </div>
+        <div className="noteList">
+          <Table
+            content="sdd dddddddddddddddddddddddd Wddddddddddddddddddddddddddd
+          dddddddddddddddddddddddsssssdddddddddddddddddddddddddd"
+          />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddd dddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+          <Table content="sdd dddddddddddddddddd" />
+        </div>
       </section>
-      <Add title="노트 추가" placeholder="노트 제목" open={addState} setAddState={setAddState} />
+      <Add
+        title="노트 추가"
+        placeholder="노트 제목"
+        open={addState}
+        setAddState={setAddState}
+      />
     </>
   );
 }
