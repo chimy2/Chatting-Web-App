@@ -8,7 +8,8 @@ function Add(props) {
   const [overlay, setOverlay] = useState("overlay-close");
   const [friendSearch, setFriendSearch] = useState();
   const addClose = () => {
-    if (document.location.pathname === "/") {
+    const path = document.location.pathname;
+    if (path === "/") {
       props.setAddState({
         addState: false,
       });
@@ -16,6 +17,10 @@ function Add(props) {
       setFriendSearch();
     } else {
       props.setAddState(false);
+      if (path === "/note") {
+        document.querySelector(".addMainTitle > form > input").value = "";
+        document.querySelector(".addMainContent > textarea").value = "";
+      }
     }
     setOverlay("overlay-close");
   };
@@ -76,7 +81,10 @@ function Add(props) {
               title: value,
               content: textarea,
             }),
-          }).then(alert);
+          }).then(() => {
+            addClose();
+            props.callNote();
+          });
         }
       }
     }
@@ -84,7 +92,6 @@ function Add(props) {
 
   const callApi = async (address, content) => {
     const response = await fetch(`/api${address}`, content);
-    // const body = await response.json();
     return response;
   };
 

@@ -70,9 +70,11 @@ create table friend(
 -- create note table
 create table note(
   id varchar(15) not null,
+  noteId int unsigned auto_increment not null,
   title varchar(45) not null,
   content text not null,
   date timestamp,
+  primary key (noteId),
   constraint note_id_pk foreign key (id) references user(id)
     on update cascade on delete cascade
 );

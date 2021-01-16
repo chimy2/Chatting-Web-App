@@ -72,11 +72,15 @@ class SideBarFriend extends React.Component {
 
     if (reqList) {
       if (reqList.length > 0) {
-        requests.push(<div className="subTitle">요청목록({reqList.length})</div>);
-        reqList.forEach((items) => {
+        requests.push(
+          <div className="subTitle" key="length">
+            요청목록({reqList.length})
+          </div>,
+        );
+        reqList.forEach((items, index) => {
           requests.push(
             <List
-              key={items.id}
+              key={index}
               state={items}
               request
               callFriend={() => this.callFriend()}
@@ -87,14 +91,18 @@ class SideBarFriend extends React.Component {
     }
 
     if (friList) {
-      friends.push(<div className="subTitle">친구목록({friList.length})</div>);
+      friends.push(
+        <div className="subTitle" key="length">
+          친구목록({friList.length})
+        </div>,
+      );
       friList.forEach((items, index) => {
         const reg = new RegExp(`.*${this.state.search}.*`);
         if (
           (items.nickname && items.nickname.match(reg)) ||
           (!items.nickname && items.name.match(reg))
         ) {
-          friends.push(<List key={items.id} state={items} />);
+          friends.push(<List key={index} state={items} />);
         }
       });
     }

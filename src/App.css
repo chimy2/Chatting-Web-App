@@ -491,6 +491,7 @@ hr {
 .addMainContent textarea {
   padding: 8px;
   border: 0;
+  outline: none;
   width: calc(100% - 16px);
   height: calc(100% - 18px);
   font-family: "Jal_Onuel";
@@ -630,6 +631,9 @@ hr {
   line-height: 35px;
   color: var(--highlight-color);
   background: var(--white-color2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-indent: 3px;
 }
 
 .tableContent {

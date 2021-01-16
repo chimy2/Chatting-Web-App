@@ -9,14 +9,24 @@ router.use("/member", member);
 router.use("/friend", friend);
 
 router.get("/note", (req, res) => {
-  console.log("get");
+  const { headers } = req;
+  const id = cookie.parse(headers.cookie).id;
+  const sql = `select noteId, title, content, date from note where id='${id}' order by noteId desc`;
+  mysql.query(sql, (err, rows, field) => {
+    if (err) {
+      console.log(err);
+      throw error;
+    }
+    res.send(rows);
+  });
 });
+
 router.post("/note", (req, res) => {
   const { headers } = req;
   const id = cookie.parse(headers.cookie).id;
   const title = req.body.title;
   const content = req.body.content;
-  const sql = `insert into note values('${id}', '${title}', '${content}', now())`;
+  const sql = `insert into note(id, title, content, date) values('${id}', '${title}', '${content}', now())`;
   mysql.query(sql, (err, rows, field) => {
     if (err) {
       console.log(err);
@@ -29,9 +39,11 @@ router.post("/note", (req, res) => {
     }
   });
 });
+
 router.put("/note", (req, res) => {
   console.log("put");
 });
+
 router.delete("/note", (req, res) => {
   console.log("delete");
 });
