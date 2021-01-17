@@ -15,12 +15,16 @@ function Add(props) {
       });
       document.querySelector(".addMainTitle > form > input").value = "";
       setFriendSearch();
-    } else {
-      props.setAddState(false);
+    } else if (path === "/note") {
+      props.setAddState({
+        addState: false,
+      });
       if (path === "/note") {
         document.querySelector(".addMainTitle > form > input").value = "";
         document.querySelector(".addMainContent > textarea").value = "";
       }
+    } else {
+      props.setAddState(false);
     }
     setOverlay("overlay-close");
   };

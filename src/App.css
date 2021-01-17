@@ -557,6 +557,7 @@ hr {
   font-size: var(--font-size2);
   background: none;
   outline: none;
+  font-family: "Jal_Onuel";
 }
 
 .friendProfile {
@@ -568,13 +569,20 @@ hr {
 .noteList {
   display: flex;
   flex-wrap: wrap;
+  /* flex: 1 1; */
   padding: 10px;
   width: calc(100vw - 110px);
   height: calc(100% - 176px);
   align-content: flex-start;
   overflow: auto;
-  background: red;
+  /* background: red; */
 }
+
+/* .noteList::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
 
 .calendar {
   display: flex;
