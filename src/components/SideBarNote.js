@@ -9,6 +9,7 @@ class SideBarNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      search: "",
       noteList: [],
       addState: false,
     };
@@ -30,18 +31,6 @@ class SideBarNote extends React.Component {
       this.setState({
         noteList: res,
       });
-      // let arr = [];
-      // res.forEach((items, index) => {
-      //   arr.push(
-      //     <Table
-      //       key={index}
-      //       title={items.title}
-      //       content={items.content}
-      //       date={items.date}
-      //     />,
-      //   );
-      // });
-      // setNoteList(arr);
     });
   };
 
@@ -51,7 +40,32 @@ class SideBarNote extends React.Component {
     return body;
   };
 
+  changeSearch = (e) => {
+    this.setState({
+      search: e.target.value,
+    });
+  };
+
   render() {
+    const noteList = this.state.noteList;
+    let notes = [];
+
+    if (noteList) {
+      const reg = new RegExp(`.*${this.state.search}.*`);
+      noteList.forEach((items, index) => {
+        if (items.title.match(reg) || items.content.match(reg)) {
+          notes.push(
+            <Table
+              key={index}
+              title={items.title}
+              content={items.content}
+              date={items.date}
+            />,
+          );
+        }
+      });
+    }
+
     return (
       <>
         <section className="sideBar">
@@ -70,25 +84,7 @@ class SideBarNote extends React.Component {
             />
             <img src={close} alt="close" />
           </div>
-          <div className="noteList">
-            {this.state.noteList
-              ? this.state.noteList.map((items, index) => {
-                  const reg = new RegExp(
-                    `.*${document.querySelector(".listSearch > input").value}.*`,
-                  );
-                  if (items.title.match(reg) || items.content.match(reg)) {
-                    return (
-                      <Table
-                        key={index}
-                        title={items.title}
-                        content={items.content}
-                        date={items.date}
-                      />
-                    );
-                  }
-                })
-              : ""}
-          </div>
+          <div className="noteList">{notes}</div>
         </section>
         <Add
           title="노트 추가"
