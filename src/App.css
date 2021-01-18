@@ -129,6 +129,7 @@ hr {
   height: 200px;
   font-family: "Jal_Onuel";
   color: var(--font-color);
+  /* user-select: none; */
 }
 
 .App {
@@ -560,6 +561,11 @@ hr {
   font-family: "Jal_Onuel";
 }
 
+.listSearch button {
+  height: 30px;
+  padding: 0;
+}
+
 .friendProfile {
   overflow: auto;
   height: calc(100% - 155px);
@@ -628,8 +634,8 @@ hr {
   padding: 5px;
   border: 5px double var(--highlight-color);
   width: calc(25% - 30px);
-  background: var(--background-color3);
   height: max-content;
+  background: var(--background-color3);
 }
 
 .tableTitle {

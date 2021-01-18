@@ -46,6 +46,13 @@ class SideBarNote extends React.Component {
     });
   };
 
+  deleteSearch = () => {
+    document.querySelector(".listSearch > input").value = "";
+    this.setState({
+      search: "",
+    });
+  };
+
   render() {
     const noteList = this.state.noteList;
     let notes = [];
@@ -82,7 +89,9 @@ class SideBarNote extends React.Component {
               placeholder="노트 제목/내용 검색"
               onChange={this.changeSearch}
             />
-            <img src={close} alt="close" />
+            <button onClick={this.deleteSearch}>
+              <img src={close} alt="close" />
+            </button>
           </div>
           <div className="noteList">{notes}</div>
         </section>

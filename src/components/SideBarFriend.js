@@ -64,6 +64,13 @@ class SideBarFriend extends React.Component {
     });
   };
 
+  deleteSearch = () => {
+    document.querySelector(".listSearch > input").value = "";
+    this.setState({
+      search: "",
+    });
+  };
+
   render() {
     const reqList = this.state.requestList;
     let requests = [];
@@ -119,7 +126,9 @@ class SideBarFriend extends React.Component {
           <div className="listSearch">
             <img src={search} alt="search" />
             <input type="text" placeholder="친구이름 검색" onChange={this.changeSearch} />
-            <img src={close} alt="close" />
+            <button onClick={this.deleteSearch}>
+              <img src={close} alt="close" />
+            </button>
           </div>
           <div className="friendProfile">
             <List state={this.state.myProfile} />
