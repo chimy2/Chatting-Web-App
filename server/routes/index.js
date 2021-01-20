@@ -45,7 +45,19 @@ router.put("/note", (req, res) => {
 });
 
 router.delete("/note", (req, res) => {
-  console.log("delete");
+  const { headers } = req;
+  const id = cookie.parse(headers.cookie).id;
+  const noteId = req.body.noteId;
+  const sql = `delete from note where id='${id}' and noteId=${noteId}`;
+  mysql.query(sql, (err, rows, field) => {
+    if (err) {
+      console.log(err);
+      throw error;
+    }
+    if (rows.affectedRows > 0) {
+      res.status(200).end();
+    }
+  });
 });
 
 // router.get('/', (req, res) => {

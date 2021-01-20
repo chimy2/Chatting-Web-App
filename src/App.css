@@ -129,7 +129,7 @@ hr {
   height: 200px;
   font-family: "Jal_Onuel";
   color: var(--font-color);
-  /* user-select: none; */
+  user-select: none;
 }
 
 .App {
@@ -627,7 +627,7 @@ hr {
   color: var(--highlight-color);
 }
 
-.table {
+.note {
   display: flex;
   flex-direction: column;
   margin: 5px;
@@ -638,7 +638,7 @@ hr {
   background: var(--background-color3);
 }
 
-.tableTitle {
+.noteTitle {
   margin: 5px 0 10px;
   border: 5px double var(--highlight-color);
   height: 35px;
@@ -650,10 +650,10 @@ hr {
   text-indent: 3px;
 }
 
-.tableContent {
+.noteContent {
   padding: 5px;
   width: auto;
-  height: 60px;
+  height: 3rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -801,7 +801,7 @@ hr {
     width: calc(100% - 20px);
   }
 
-  .table {
+  .note {
     width: calc(100% - 30px);
   }
 

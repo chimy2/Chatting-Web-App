@@ -1,6 +1,6 @@
 import React from "react";
 import Add from "./Add";
-import Table from "./Table";
+import Note from "./Note";
 import add from "../image/add.png";
 import search from "../image/note_search.png";
 import close from "../image/sidebar_close.png";
@@ -25,8 +25,7 @@ class SideBarNote extends React.Component {
     this.callNote();
   }
 
-  callNote = async () => {
-    console.log(2);
+  callNote = () => {
     this.callApi("/note").then((res) => {
       this.setState({
         noteList: res,
@@ -61,14 +60,7 @@ class SideBarNote extends React.Component {
       const reg = new RegExp(`.*${this.state.search}.*`);
       noteList.forEach((items, index) => {
         if (items.title.match(reg) || items.content.match(reg)) {
-          notes.push(
-            <Table
-              key={index}
-              title={items.title}
-              content={items.content}
-              date={items.date}
-            />,
-          );
+          notes.push(<Note key={index} state={items} callNote={() => this.callNote()} />);
         }
       });
     }
@@ -100,7 +92,7 @@ class SideBarNote extends React.Component {
           placeholder="노트 제목"
           open={this.state.addState}
           setAddState={(e) => this.setState(e)}
-          callNote={this.callNote.bind()}
+          callNote={() => this.callNote()}
         />
       </>
     );
