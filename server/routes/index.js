@@ -8,6 +8,16 @@ const friend = require("./friend");
 router.use("/member", member);
 router.use("/friend", friend);
 
+router.get("/calendar", (req, res) => {
+  const sql = `select * from calendar`;
+  mysql.query(sql, (err, rows, field) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(rows);
+  });
+});
+
 router.get("/note", (req, res) => {
   const { headers } = req;
   const id = cookie.parse(headers.cookie).id;

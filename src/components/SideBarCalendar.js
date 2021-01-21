@@ -7,17 +7,6 @@ function SideBarCalendar() {
       <hr />
       <div className="sideBarContent">
         <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
-        <Calendar />
       </div>
     </section>
   );
