@@ -1,6 +1,7 @@
 import React from "react";
-import Add from "./Add";
 import Note from "./Note";
+import Add from "./Add";
+import Expand from "./Expand";
 import add from "../image/add.png";
 import search from "../image/note_search.png";
 import close from "../image/sidebar_close.png";
@@ -94,6 +95,7 @@ class SideBarNote extends React.Component {
           setAddState={(e) => this.setState(e)}
           callNote={() => this.callNote()}
         />
+        <Expand />
       </>
     );
   }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import List from "./List";
 import Add from "./Add";
+import Expand from "./Expand";
 import add from "../image/add.png";
 import search from "../image/sidebar_search.png";
 import close from "../image/sidebar_close.png";
@@ -31,6 +32,7 @@ function SideBarTalk() {
         </div>
       </section>
       <Add title="채팅 추가" open={addState} setAddState={setAddState} />
+      <Expand />
     </>
   );
 }

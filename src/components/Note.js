@@ -19,7 +19,7 @@ function Note(props) {
 
   const date = () => {
     const originalDate = new Date(props.state.date);
-    let fullDate = `${originalDate.getFullYear()}. `;
+    let fullDate = `${originalDate.getFullYear().toString().slice(2, 4)}. `;
     fullDate += `${originalDate.getMonth() + 1}. `;
     fullDate += `${originalDate.getDate()} `;
     fullDate += `${originalDate.getHours()}:`;

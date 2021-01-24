@@ -11,7 +11,7 @@
   --white-color3: #c0b1ac;
   --alert-color: #7f0000;
   --alert-color2: #bc0000;
-  --alert-color3:#1564bf;
+  --alert-color3: #1564bf;
   --font-color: #212121;
   --font-color2: #616161;
   --font-color3: #929292;
@@ -521,9 +521,9 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
   padding: 0 20px;
   height: var(--height);
-  margin-top: 20px;
   font-size: var(--font-size);
 }
 
@@ -584,12 +584,20 @@ hr {
   /* scroll-margin: 110px; */
 }
 
+.friendSubTitle {
+  margin: 20px 15px 10px;
+  padding: 10px;
+  border: 6px double var(--background-color3);
+  text-align: left;
+  text-indent: 5px;
+  font-size: var(--font-size2);
+}
+
 .noteList {
   display: flex;
   flex-wrap: wrap;
   /* flex: 1 1; */
   padding: 10px;
-  width: calc(100vw - 110px);
   height: calc(100% - 176px);
   align-content: flex-start;
   overflow: auto;
@@ -633,6 +641,7 @@ hr {
 .calendarContent div {
   display: inline;
   padding: 3px 0 3px;
+  font-size: var(--font-size5);
 }
 
 .calendarContent div:nth-of-type(7n),
@@ -645,7 +654,7 @@ hr {
 }
 
 .calendar #today:hover {
-  color:var(--alert-color2);
+  color: var(--alert-color2);
 }
 
 .note {
@@ -711,15 +720,6 @@ hr {
   color: var(--font-color2);
 }
 
-.subTitle {
-  margin: 20px 15px 10px;
-  padding: 10px;
-  border: 6px double var(--background-color3);
-  text-align: left;
-  text-indent: 5px;
-  font-size: var(--font-size2);
-}
-
 .list {
   display: flex;
   padding: 15px 20px;
@@ -782,6 +782,35 @@ hr {
 .listResButton:nth-of-type(2) {
   background: var(--gray-color2);
   color: var(--alert-color);
+}
+
+.expand {
+  position: absolute;
+  right: 0;
+  width: calc(100% - 90px);
+  height: 100%;
+  background: rgb(200, 0, 0, 0.4);
+}
+
+.expandTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 20px;
+  height: var(--height);
+  background: rgb(200, 200, 200, 0.6);
+}
+
+.expandTitle span {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.expandTitle span button img {
+  width: 40px;
+  height: 40px;
 }
 
 .footer {
@@ -866,6 +895,31 @@ hr {
   .list img {
     width: 50px;
     border-radius: 1rem;
+  }
+
+  .expand {
+    width: calc(100% - 75px);
+  }
+
+  .expandTitle {
+    margin-top: 10px;
+  }
+
+  .expandTitle span {
+    height: 30px;
+  }
+
+  .expandTitle span button img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .expand {
+    position: static;
+    width: 100%;
+    background: rgb(200, 200, 0, 0.4);
   }
 }
 

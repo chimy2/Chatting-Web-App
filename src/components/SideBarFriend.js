@@ -1,6 +1,7 @@
 import React from "react";
 import List from "./List";
 import Add from "./Add";
+import Expand from "./Expand";
 import add from "../image/sidebar_add.png";
 import search from "../image/sidebar_search.png";
 import close from "../image/sidebar_close.png";
@@ -80,7 +81,7 @@ class SideBarFriend extends React.Component {
     if (reqList) {
       if (reqList.length > 0) {
         requests.push(
-          <div className="subTitle" key="length">
+          <div className="friendSubTitle" key="length">
             요청목록({reqList.length})
           </div>,
         );
@@ -99,7 +100,7 @@ class SideBarFriend extends React.Component {
 
     if (friList) {
       friends.push(
-        <div className="subTitle" key="length">
+        <div className="friendSubTitle" key="length">
           친구목록({friList.length})
         </div>,
       );
@@ -142,6 +143,7 @@ class SideBarFriend extends React.Component {
           open={this.state.addState}
           setAddState={(e) => this.setState(e)}
         />
+        <Expand />
       </>
     );
   }
