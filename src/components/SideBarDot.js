@@ -1,4 +1,3 @@
-import Expand from "./Expand";
 
 function SideBarDot() {
   return (
@@ -6,7 +5,6 @@ function SideBarDot() {
       <section className="sideBar">
         <div className="sideBarTitle">더보기</div>
       </section>
-      <Expand />
     </>
   );
 }

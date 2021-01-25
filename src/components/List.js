@@ -1,3 +1,4 @@
+import Expand from './Expand';
 import basicProfile from "../image/basic_profile.png";
 
 function List(props) {
@@ -40,8 +41,12 @@ function List(props) {
     return response;
   };
 
+  const openExpand = () => {
+    const path=document.location.pathname;
+  }
+
   return (
-    <div className="list">
+    <div className="list" onClick={openExpand}>
       <img
         src={props.state.image ? props.state.image : basicProfile}
         alt={props.state.name}

@@ -1,5 +1,4 @@
 import Calendar from "./Calendar";
-import Expand from "./Expand";
 
 function SideBarCalendar() {
   return (
@@ -11,7 +10,6 @@ function SideBarCalendar() {
           <Calendar />
         </div>
       </section>
-      <Expand />
     </>
   );
 }

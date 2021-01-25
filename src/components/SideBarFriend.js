@@ -15,6 +15,7 @@ class SideBarFriend extends React.Component {
       requestList: [],
       friendList: [],
       addState: false,
+      expandState: false
     };
   }
 
@@ -53,7 +54,7 @@ class SideBarFriend extends React.Component {
     return body;
   };
 
-  addOpen = () => {
+  openAdd = () => {
     this.setState({
       addState: true,
     });
@@ -110,7 +111,7 @@ class SideBarFriend extends React.Component {
           (items.nickname && items.nickname.match(reg)) ||
           (!items.nickname && items.name.match(reg))
         ) {
-          friends.push(<List key={index} state={items} />);
+          friends.push(<List key={index} state={items}/>);
         }
       });
     }
@@ -120,7 +121,7 @@ class SideBarFriend extends React.Component {
         <section className="sideBar">
           <div className="sideBarTitle">
             친구창
-            <button onClick={this.addOpen}>
+            <button onClick={this.openAdd}>
               <img src={add} alt="add" />
             </button>
           </div>
@@ -143,7 +144,6 @@ class SideBarFriend extends React.Component {
           open={this.state.addState}
           setAddState={(e) => this.setState(e)}
         />
-        <Expand />
       </>
     );
   }

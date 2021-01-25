@@ -1,11 +1,20 @@
+import { useEffect } from "react";
 import back from "../image/back.png";
 
 function Expand(props) {
+  const closeExpand = () => {
+    document.querySelector(".expand").remove();
+  }
+
+  useEffect(()=>{
+    closeExpand();
+  }, [document.location.pathname])
+
   return (
     <div className="expand">
       <div className="expandTitle">
         <span>
-          <button>
+          <button onClick={closeExpand}>
             <img src={back} alt="뒤로가기" />
           </button>
         </span>

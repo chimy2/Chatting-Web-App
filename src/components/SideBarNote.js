@@ -1,7 +1,6 @@
 import React from "react";
 import Note from "./Note";
 import Add from "./Add";
-import Expand from "./Expand";
 import add from "../image/add.png";
 import search from "../image/note_search.png";
 import close from "../image/sidebar_close.png";
@@ -16,7 +15,7 @@ class SideBarNote extends React.Component {
     };
   }
 
-  addOpen = () => {
+  openAdd = () => {
     this.setState({
       addState: true,
     });
@@ -71,7 +70,7 @@ class SideBarNote extends React.Component {
         <section className="sideBar">
           <div className="sideBarTitle">
             노트
-            <button onClick={this.addOpen}>
+            <button onClick={this.openAdd}>
               <img src={add} alt="add" />
             </button>
           </div>
@@ -95,7 +94,6 @@ class SideBarNote extends React.Component {
           setAddState={(e) => this.setState(e)}
           callNote={() => this.callNote()}
         />
-        <Expand />
       </>
     );
   }
