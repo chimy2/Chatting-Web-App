@@ -788,7 +788,7 @@ hr {
   position: absolute;
   right: 0;
   width: calc(100% - 90px);
-  height: 100%;
+  height: calc(100% - 60px);
   background: rgb(200, 0, 0, 0.4);
 }
 
@@ -811,6 +811,25 @@ hr {
 .expandTitle span button img {
   width: 40px;
   height: 40px;
+}
+
+.profile{
+  height: calc(100% - 20px);
+  background:rgb(200, 200, 200, 0.6);
+}
+
+.profileIMG img{
+  width: 100px;
+}
+
+.profileContent{
+  position: relative;
+  bottom: 0;
+  display:flex;
+  flex-direction: column;
+  width:100%;
+  height: 40%;
+  background: pink;
 }
 
 .footer {
@@ -899,6 +918,7 @@ hr {
 
   .expand {
     width: calc(100% - 75px);
+    height: calc(100% - 40px);
   }
 
   .expandTitle {
@@ -913,12 +933,17 @@ hr {
     width: 30px;
     height: 30px;
   }
+
+  .profile{
+    height: calc(100% - 10px);
+  }
 }
 
 @media (min-width: 1440px) {
   .expand {
     position: static;
     width: 100%;
+    height: 100%;
     background: var(--background-color);
   }
 }

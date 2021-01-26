@@ -1,4 +1,4 @@
-import Expand from './Expand';
+// import Expand from './Expand';
 import basicProfile from "../image/basic_profile.png";
 
 function List(props) {
@@ -43,22 +43,28 @@ function List(props) {
 
   const openExpand = () => {
     const path=document.location.pathname;
+    if(props.open!==undefined){
+      props.setState({
+        expandItem: props.state
+      });
+      props.open();
+    }
   }
 
   return (
     <div className="list" onClick={openExpand}>
       <img
-        src={props.state.image ? props.state.image : basicProfile}
-        alt={props.state.name}
+        src={props.items.image ? props.items.image : basicProfile}
+        alt={props.items.name}
       />
       <div className="listInfo">
         <div className="listName">
-          {props.state.nickname ? props.state.nickname : props.state.name}
+          {props.items.nickname ? props.items.nickname : props.items.name}
         </div>
-        <div className="listState">{props.state.message}</div>
+        <div className="listState">{props.items.message}</div>
       </div>
       {props.add ? (
-        <button className="listButton" value={props.state.id} onClick={addFriend}>
+        <button className="listButton" value={props.items.id} onClick={addFriend}>
           요청
         </button>
       ) : (
@@ -68,14 +74,14 @@ function List(props) {
         <>
           <button
             className="listResButton"
-            value={props.state.id}
+            value={props.items.id}
             onClick={responseFrined}
           >
             수락
           </button>
           <button
             className="listResButton"
-            value={props.state.id}
+            value={props.items.id}
             onClick={responseFrined}
           >
             거절
