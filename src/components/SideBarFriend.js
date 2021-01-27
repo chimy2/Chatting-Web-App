@@ -16,7 +16,7 @@ class SideBarFriend extends React.Component {
       friendList: [],
       addState: false,
       expandState: false,
-      expandItem: []
+      expandItem: [],
     };
   }
 
@@ -74,18 +74,18 @@ class SideBarFriend extends React.Component {
       addState: true,
     });
   };
-  
+
   openExpand = (items) => {
     this.setState({
       expandState: true,
     });
-  }
+  };
 
   closeExpand = () => {
     this.setState({
       expandState: false,
     });
-  }
+  };
 
   changeSearch = (e) => {
     this.setState({
@@ -120,7 +120,9 @@ class SideBarFriend extends React.Component {
               items={items}
               request
               callFriend={() => this.callFriend()}
-              open={this.openExpand} setState={(e) => this.setState(e)} state={this.state}
+              open={this.openExpand}
+              setState={(e) => this.setState(e)}
+              state={this.state}
             />,
           );
         });
@@ -139,7 +141,15 @@ class SideBarFriend extends React.Component {
           (items.nickname && items.nickname.match(reg)) ||
           (!items.nickname && items.name.match(reg))
         ) {
-          friends.push(<List key={index} items={items} open={this.openExpand} setState={(e) => this.setState(e)} state={this.state}/>);
+          friends.push(
+            <List
+              key={index}
+              items={items}
+              open={this.openExpand}
+              setState={(e) => this.setState(e)}
+              state={this.state}
+            />,
+          );
         }
       });
     }
@@ -161,7 +171,12 @@ class SideBarFriend extends React.Component {
             </button>
           </div>
           <div className="friendProfile">
-            <List items={this.state.myProfile} open={this.openExpand} setState={(e) => this.setState(e)} state={this.state}/>
+            <List
+              items={this.state.myProfile}
+              open={this.openExpand}
+              setState={(e) => this.setState(e)}
+              state={this.state}
+            />
             {requests}
             {friends}
           </div>
@@ -172,9 +187,11 @@ class SideBarFriend extends React.Component {
           open={this.state.addState}
           setAddState={(e) => this.setState(e)}
         />
-        {
-          this.state.expandState? <Expand close={this.closeExpand} item={this.state.expandItem}/> : ""
-        }
+        {this.state.expandState ? (
+          <Expand close={this.closeExpand} state={this.state.expandItem} />
+        ) : (
+          ""
+        )}
       </>
     );
   }

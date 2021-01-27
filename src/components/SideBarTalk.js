@@ -27,7 +27,7 @@ function SideBarTalk() {
           <img src={close} alt="close" />
         </div>
         <div className="friendProfile">
-          <List state={""} />
+          <List items={""} />
         </div>
       </section>
       <Add title="채팅 추가" open={addState} setAddState={setAddState} />

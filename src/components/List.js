@@ -42,14 +42,14 @@ function List(props) {
   };
 
   const openExpand = () => {
-    const path=document.location.pathname;
-    if(props.open!==undefined){
+    const path = document.location.pathname;
+    if (props.open !== undefined) {
       props.setState({
-        expandItem: props.state
+        expandItem: props.items,
       });
       props.open();
     }
-  }
+  };
 
   return (
     <div className="list" onClick={openExpand}>
