@@ -18,8 +18,8 @@ function Main(props) {
   return (
     <div className="main" onLoad={handleEvent}>
       <header>
-        <Link to="/login">시작하기</Link>
-        <Link to="/join">함께하기</Link>
+        <Link to="/login" title="로그인">시작하기</Link>
+        <Link to="/join" title="회원가입">함께하기</Link>
       </header>
       <article>
         <Switch>

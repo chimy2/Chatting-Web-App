@@ -18,27 +18,27 @@ function Navigation() {
     <>
       <nav className="nav">
         <div>
-          <Link to="/">
+          <Link to="/" title="친구">
             <img src={profile} alt="profile" />
           </Link>
-          <Link to="/talk">
+          <Link to="/talk" title="대화">
             <img src={talk} alt="talk" />
           </Link>
-          <Link to="/calendar">
+          <Link to="/calendar" title="달력">
             <img src={calendar} alt="calendar" />
           </Link>
-          <Link to="/note">
+          <Link to="/note" title="노트">
             <img src={note} alt="note" />
           </Link>
-          <Link to="/dot">
+          <Link to="/dot" title="기타">
             <img src={dot} alt="dot" />
           </Link>
         </div>
         <div>
-          <button>
+          <button title="알림">
             <img src={bell} alt="bell" />
           </button>
-          <button onClick={popupOpen}>
+          <button onClick={popupOpen} title="설정">
             <img src={setting} alt="setting" />
           </button>
         </div>

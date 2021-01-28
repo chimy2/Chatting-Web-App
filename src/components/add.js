@@ -7,6 +7,8 @@ import add from "../image/add.png";
 function Add(props) {
   const [overlay, setOverlay] = useState("overlay-close");
   const [friendSearch, setFriendSearch] = useState();
+  const [talkSearch, setTalkSearch] = useState();
+
   const addClose = () => {
     const path = document.location.pathname;
     if (path === "/") {
@@ -68,6 +70,8 @@ function Add(props) {
             }
           });
       }
+    } else if(path === "/talk"){
+      alert("talk");
     } else {
       const textarea = document.querySelector("textarea").value;
       if (value.length < 1) {
@@ -104,32 +108,33 @@ function Add(props) {
       <div className="add">
         <div className="addTitle">
           {props.title}
-          <span onClick={addClose}>
+          <button onClick={addClose} title="닫기">
             <img src={close} alt="close" />
-          </span>
+          </button>
         </div>
-        {document.location.pathname !== "/talk" ? (
-          <div className="addMainTitle">
-            <form onSubmit={handleFormSubmit}>
-              <input type="text" placeholder={props.placeholder} />
-              <button type="submit">
-                {document.location.pathname === "/note" ? (
-                  <img src={add} alt="add" />
-                ) : (
-                  <img src={search} alt="search" />
-                )}
+        <div className="addMainTitle">
+          <form onSubmit={handleFormSubmit}>
+            <input type="text" placeholder={props.placeholder} />
+            {document.location.pathname === "/note" ? (
+              <button type="submit" title="추가">
+                <img src={add} alt="add" />
               </button>
-            </form>
-          </div>
-        ) : (
-          ""
-        )}
+            ) : (
+              <button type="submit" title="검색">
+                <img src={search} alt="search" />
+              </button>
+            )}
+          </form>
+        </div>
         <div className="addMainContent">
           {friendSearch ? (
-            <List state={friendSearch} add={friendSearch.id} addClose={addClose.bind()} />
+            <List items={friendSearch} add={friendSearch.id} addClose={addClose.bind()} />
           ) : (
             ""
           )}
+          {talkSearch ? 
+            talkSearch.map(items => <List key={items.id} items={items} />) : ""
+          }
           {document.location.pathname === "/note" ? (
             <textarea placeholder="노트 내용" maxLength="20000" />
           ) : (

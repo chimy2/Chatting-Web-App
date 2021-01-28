@@ -7,7 +7,7 @@ function Expand(props) {
   const closeExpand = () => {
     props.close();
   };
-
+  
   const Profile = () => {
     return (
       <div className="profile">
@@ -22,8 +22,18 @@ function Expand(props) {
           <div className="profileName">{props.state.nickname}</div>
           <div className="profileMSG">{props.state.message}</div>
           <div className="profileIcon">
-            <img src={chat} alt="채팅하기" />
-            <img src={block} alt="차단하기" />
+            {
+              props.state.use === "friend" ?
+              <>
+                <button title={`${props.state.nickname}님과 채팅하기`}>
+                  <img src={chat} alt="채팅하기" />
+                </button>
+                <button title={`${props.state.nickname} 차단하기`}>
+                  <img src={block} alt="차단하기" />
+                </button>
+              </>
+              : ""
+            }
           </div>
         </div>
       </div>
@@ -34,8 +44,8 @@ function Expand(props) {
     return (
       <div className="expandTitle">
         <span>
-          <button onClick={closeExpand}>
-            <img src={back} alt="뒤로가기" />
+          <button onClick={closeExpand} title="뒤로가기">
+            <img src={back} alt="뒤로가기"/>
           </button>
           {title.left}
         </span>

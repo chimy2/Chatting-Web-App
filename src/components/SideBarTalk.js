@@ -17,7 +17,7 @@ function SideBarTalk() {
       <section className="sideBar">
         <div className="sideBarTitle">
           대화창
-          <button onClick={openAdd}>
+          <button onClick={openAdd} title="대화추가">
             <img src={add} alt="add" />
           </button>
         </div>
@@ -30,7 +30,7 @@ function SideBarTalk() {
           <List items={""} />
         </div>
       </section>
-      <Add title="채팅 추가" open={addState} setAddState={setAddState} />
+      <Add title="채팅 추가" open={addState} setAddState={setAddState} placeholder="친구 이름 검색"/>
     </>
   );
 }

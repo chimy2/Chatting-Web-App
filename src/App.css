@@ -791,7 +791,6 @@ hr {
   right: 0;
   width: calc(100% - 90px);
   height: calc(100% - 60px);
-  background: rgb(200, 0, 0, 0.4);
 }
 
 .expandTitle {
@@ -801,7 +800,6 @@ hr {
   margin-top: 20px;
   padding: 0 20px;
   height: var(--height);
-  background: rgb(200, 200, 200, 0.6);
 }
 
 .expandTitle span {
@@ -820,19 +818,19 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background: rgb(200, 200, 200, 0.6);
+  background: var(--background-color2);
 }
 
 .profileIMG {
   position: relative;
-  bottom: 210px;
-  height: 0;
+  bottom: 200px;
+  height: 20px;
   z-index: 1;
 }
 
 .profileIMG img {
-  width: 250px;
-  border-radius: 100px;
+  width: 230px;
+  border-radius: 90px;
 }
 
 .profileContent {
@@ -842,15 +840,26 @@ hr {
   justify-content: space-around;
   width: 100%;
   height: 40%;
-  background: pink;
+  background: var(--background-color3);
 }
 
 .profileName {
   font-size: var(--font-size);
 }
 
+.profileMSG {
+  margin: 0 auto;
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size2);
+  white-space: nowrap;
+}
+
 .profileIcon img {
+  margin: 0 20px;
   width: 70px;
+  filter: var(--highlight-color-filter);
 }
 
 .footer {
@@ -953,6 +962,23 @@ hr {
   .expandTitle span button img {
     width: 30px;
     height: 30px;
+  }
+
+  .profileIMG {
+    position: relative;
+    bottom: 120px;
+    height: 20px;
+    z-index: 1;
+  }
+
+  .profileIMG img {
+    width: 150px;
+    border-radius: 60px;
+  }
+
+  .profileIcon img {
+    margin: 0 10px;
+    width: 50px;
   }
 }
 

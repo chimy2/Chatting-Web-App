@@ -70,7 +70,7 @@ class SideBarNote extends React.Component {
         <section className="sideBar">
           <div className="sideBarTitle">
             노트
-            <button onClick={this.openAdd}>
+            <button onClick={this.openAdd} title="노트추가">
               <img src={add} alt="add" />
             </button>
           </div>

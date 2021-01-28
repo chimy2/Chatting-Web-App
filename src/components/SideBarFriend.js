@@ -148,6 +148,7 @@ class SideBarFriend extends React.Component {
               open={this.openExpand}
               setState={(e) => this.setState(e)}
               state={this.state}
+              use="friend"
             />,
           );
         }
@@ -159,7 +160,7 @@ class SideBarFriend extends React.Component {
         <section className="sideBar">
           <div className="sideBarTitle">
             친구창
-            <button onClick={this.openAdd}>
+            <button onClick={this.openAdd} title="친구추가">
               <img src={add} alt="add" />
             </button>
           </div>

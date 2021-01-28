@@ -43,9 +43,14 @@ function List(props) {
 
   const openExpand = () => {
     const path = document.location.pathname;
+    const items = props.items
     if (props.open !== undefined) {
+      if(props.use){
+        items.use = "friend";
+      }
+      console.log(items);
       props.setState({
-        expandItem: props.items,
+        expandItem: items,
       });
       props.open();
     }
