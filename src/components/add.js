@@ -7,10 +7,11 @@ import add from "../image/add.png";
 function Add(props) {
   const [overlay, setOverlay] = useState("overlay-close");
   const [friendSearch, setFriendSearch] = useState();
-  const [talkSearch, setTalkSearch] = useState();
+  const [talkSearchWord, setTalkSearchWord] = useState("");
+  const [talkSearchRes, setTalkSearchRes] = useState();
+  const path = document.location.pathname;
 
   const addClose = () => {
-    const path = document.location.pathname;
     if (path === "/") {
       props.setAddState({
         addState: false,
@@ -21,12 +22,13 @@ function Add(props) {
       props.setAddState({
         addState: false,
       });
-      if (path === "/note") {
-        document.querySelector(".addMainTitle > form > input").value = "";
-        document.querySelector(".addMainContent > textarea").value = "";
-      }
+      document.querySelector(".addMainTitle > form > input").value = "";
+      document.querySelector(".addMainContent > textarea").value = "";
     } else {
       props.setAddState(false);
+      document.querySelector(".addMainTitle > form > input").value = "";
+      setTalkSearchWord("");
+      setTalkSearchRes();
     }
     setOverlay("overlay-close");
   };
@@ -37,8 +39,23 @@ function Add(props) {
     }
   }, [props.open]);
 
+  useEffect(() => {
+    if(path !== "/talk") return;
+    callApi("/friend/friend")
+      .then(res=>res.json())
+      .then(res=>{
+        const arr=[];
+        res.forEach(item => {
+          if(item.nickname.match(`.*${talkSearchWord}.*`) !== null) {
+            arr.push(item);
+          }
+        })
+        return arr;
+      })
+      .then(setTalkSearchRes);
+  }, [talkSearchWord])
+
   const handleFormSubmit = (e) => {
-    const path = document.location.pathname;
     const value = e.target[0].value;
 
     e.preventDefault();
@@ -71,7 +88,7 @@ function Add(props) {
           });
       }
     } else if(path === "/talk"){
-      alert("talk");
+      setTalkSearchWord(value);
     } else {
       const textarea = document.querySelector("textarea").value;
       if (value.length < 1) {
@@ -128,12 +145,12 @@ function Add(props) {
         </div>
         <div className="addMainContent">
           {friendSearch ? (
-            <List items={friendSearch} add={friendSearch.id} addClose={addClose.bind()} />
+            <List items={friendSearch} friend={friendSearch.id} addClose={addClose.bind()} />
           ) : (
             ""
           )}
-          {talkSearch ? 
-            talkSearch.map(items => <List key={items.id} items={items} />) : ""
+          {talkSearchRes ? 
+            talkSearchRes.map(items => <List key={items.id} items={items} />) : ""
           }
           {document.location.pathname === "/note" ? (
             <textarea placeholder="노트 내용" maxLength="20000" />

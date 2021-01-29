@@ -450,6 +450,7 @@ hr {
   background-color: var(--background-color3);
   opacity: 1;
   cursor: default;
+  z-index: 2;
 }
 
 .addTitle {
@@ -621,6 +622,17 @@ hr {
   padding: 5px;
   border: 5px double var(--highlight-color);
   width: calc(25% - 30px);
+  background: var(--background-color3);
+}
+
+.calendar:hover {
+  border: 5px double var(--alert-color2);
+  background: var(--background-color);
+}
+
+.calendar:hover .calendarTitle {
+  border: 5px double var(--alert-color2);
+  color: var(--font-color);
   background: var(--background-color3);
 }
 
@@ -818,14 +830,14 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background: var(--background-color2);
+  overscroll-behavior: contain;
+  background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
 }
 
 .profileIMG {
   position: relative;
   bottom: 200px;
   height: 20px;
-  z-index: 1;
 }
 
 .profileIMG img {
@@ -838,9 +850,10 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border-top: 5px double var(--gray-color2);
   width: 100%;
   height: 40%;
-  background: var(--background-color3);
+  background: var(--gray-color);
 }
 
 .profileName {
@@ -860,6 +873,19 @@ hr {
   margin: 0 20px;
   width: 70px;
   filter: var(--highlight-color-filter);
+}
+
+.schedule {
+  /* height: 100%;
+  background: red; */
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  overscroll-behavior: contain;
+  background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
+  background: red;
 }
 
 .footer {
@@ -968,7 +994,6 @@ hr {
     position: relative;
     bottom: 120px;
     height: 20px;
-    z-index: 1;
   }
 
   .profileIMG img {

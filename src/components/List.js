@@ -48,7 +48,6 @@ function List(props) {
       if(props.use){
         items.use = "friend";
       }
-      console.log(items);
       props.setState({
         expandItem: items,
       });
@@ -68,7 +67,7 @@ function List(props) {
         </div>
         <div className="listState">{props.items.message}</div>
       </div>
-      {props.add ? (
+      {props.friend ? (
         <button className="listButton" value={props.items.id} onClick={addFriend}>
           요청
         </button>

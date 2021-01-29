@@ -39,6 +39,22 @@ function Expand(props) {
       </div>
     );
   };
+  
+  const Schedule = () => {
+    
+    return(
+      <div className="schedule">
+        <ExpandTitle />
+        <div className="scheduleTitle">
+          {props.month}월
+        </div>
+        <div className="scheduleContent">
+          {props.day}
+          {props.length}
+        </div>
+      </div>
+    );
+  }
 
   const ExpandTitle = (title) => {
     return (
@@ -54,8 +70,24 @@ function Expand(props) {
     );
   };
 
+  const ExpandContent = () => {
+    const path=document.location.pathname;
+    let component;
+    switch(path) {
+      case "/" :
+        component = <Profile />;
+        break;
+      case "/calendar" : 
+        component = <Schedule />;
+        break;
+    }
+    return component;
+  }
+
   return (
-    <div className="expand">{document.location.pathname === "/" ? <Profile /> : ""}</div>
+    <div className="expand">
+      <ExpandContent />
+    </div>
   );
 }
 

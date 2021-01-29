@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
+import Expand from './Expand';
 
-function Calendar() {
+function Calendar(props) {
   const [holiday, setHoliday] = useState();
   const [content, setContent] = useState();
-  const [expand, setExpand] = useState();
+
   useEffect(() => {
     callApi("/calendar").then(makeHoliday).then(setHoliday);
-
     setContent(makeContent);
-  }, [expand]);
+  }, []);
+
+  const openExpand = (month, day, length) => {
+    props.setExpand([month, day, length]);
+  }
 
   const makeContent = () => {
     const now = new Date();
@@ -16,7 +20,9 @@ function Calendar() {
     let calendar = [];
     let days = [];
     const day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    for (let i = 0; i < day.length; i++) {
+
+    // 일자 배열 만들기
+    for (let i = 0;i < day.length; i++) {
       days.push([]);
       if (week !== 0) {
         for (let j = 0; j < week; j++) {
@@ -33,9 +39,10 @@ function Calendar() {
       week = (week + day[i]) % 7;
     }
 
+    // 전체 달력 만들기
     for (let i = 1; i <= day.length; i++) {
       calendar.push(
-        <div className="calendar" key={i}>
+        <div className="calendar" key={i} onClick={() => openExpand(i, days[i - 1][days[i-1].length-1], days[i-1].length)}>
           <div className="calendarTitle">{i}월</div>
           <div className="calendarContent">{days[i - 1]}</div>
         </div>,
@@ -47,8 +54,8 @@ function Calendar() {
   const makeHoliday = (arr) => {
     const solar = new Date("2021-1-1");
     const lunar = new Date("2020-11-18");
-    console.log(solar, lunar);
-    console.log(arr);
+    // console.log(solar, lunar);
+    // console.log(arr);
     // * 양력 / 음력 변환하기 전 준비 사항
     // 1) 음력 월별 대소월 구분 - 한국천문연구원(http://www.kasi.re.kr) 참고
     // 2) 윤달 정보와 윤달의 대소월 구분  - 한국천문연구원(http://www.kasi.re.kr) 참고
@@ -72,7 +79,11 @@ function Calendar() {
     return body;
   };
 
-  return <>{content ? content : ""}</>;
+  return (
+    <>
+      {content ? content : ""}
+    </>
+    );
 }
 
 export default Calendar;
