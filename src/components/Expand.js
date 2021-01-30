@@ -4,7 +4,10 @@ import chat from "../image/profile_chat.png";
 import block from "../image/profile_block.png";
 
 function Expand(props) {
-  const closeExpand = () => {
+  console.log(document.querySelector('.expand'));
+  const closeExpand = (e) => {
+    console.log(e);
+    console.log("`````````", e.keyCode);
     props.close();
   };
   
@@ -41,19 +44,32 @@ function Expand(props) {
   };
   
   const Schedule = () => {
+    const scheduleDays = [<ol></ol>];
+    // for(let i = props.length-props.day;i<)
+    console.log(scheduleDays[0]);
     
     return(
       <div className="schedule">
         <ExpandTitle />
-        <div className="scheduleTitle">
-          {props.month}월
-        </div>
         <div className="scheduleContent">
-          {props.day}
-          {props.length}
+          <div className="scheduleMonth">
+            {props.month}월
+          </div>
+          <div className="scheduleDay">
+            {/* {props.day}
+            {props.length} */}
+          </div>
         </div>
       </div>
     );
+  }
+
+  const Memo = () => {
+    return(
+      <div className="memo">
+        메모입니다
+      </div>
+    )
   }
 
   const ExpandTitle = (title) => {
@@ -80,12 +96,14 @@ function Expand(props) {
       case "/calendar" : 
         component = <Schedule />;
         break;
+      case "/note" : 
+        component = <Memo />;
     }
     return component;
   }
 
   return (
-    <div className="expand">
+    <div className="expand" onKeyDown={closeExpand} tabIndex="0">
       <ExpandContent />
     </div>
   );

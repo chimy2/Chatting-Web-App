@@ -830,7 +830,6 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  overscroll-behavior: contain;
   background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
 }
 
@@ -876,16 +875,20 @@ hr {
 }
 
 .schedule {
-  /* height: 100%;
-  background: red; */
-  
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  overscroll-behavior: contain;
   background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
-  background: red;
+}
+
+.scheduleContent {
+  height: 100%;
+  background: orange;
+}
+
+.scheduleMonth{
+  font-size: var(--font-size);
 }
 
 .footer {
