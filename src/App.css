@@ -814,15 +814,25 @@ hr {
   height: var(--height);
 }
 
-.expandTitle span {
+.expandTitle div {
   display: flex;
   align-items: center;
   height: 40px;
+  width: 100%;
 }
 
-.expandTitle span button img {
+.expandTitle div button img {
   width: 40px;
   height: 40px;
+}
+
+.expandTitleC {
+  justify-content: center;
+  font-size: var(--font-size);
+}
+
+.expandTitleR {
+  justify-content: flex-end;
 }
 
 .profile {
@@ -869,7 +879,7 @@ hr {
 }
 
 .profileIcon img {
-  margin: 0 20px;
+  margin: 0 10px;
   width: 70px;
   filter: var(--highlight-color-filter);
 }
@@ -883,12 +893,29 @@ hr {
 }
 
 .scheduleContent {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 10px;
   height: 100%;
-  background: orange;
 }
 
-.scheduleMonth{
-  font-size: var(--font-size);
+.scheduleDays {
+  border-radius: 10px;
+  background: var(--white-color);
+}
+
+.scheduleDays:nth-of-type(2n) {
+  background: var(--white-color2);
+}
+
+.scheduleDay {
+  padding: 5px;
+  font-size: var(--font-size2);
+}
+
+.scheduleDays:nth-of-type(7n) .scheduleDay,
+.scheduleDays:nth-of-type(7n + 1) .scheduleDay {
+  color: var(--highlight-color);
 }
 
 .footer {
@@ -984,11 +1011,11 @@ hr {
     margin-top: 10px;
   }
 
-  .expandTitle span {
+  .expandTitle div {
     height: 30px;
   }
 
-  .expandTitle span button img {
+  .expandTitle div button img {
     width: 30px;
     height: 30px;
   }
@@ -1005,7 +1032,7 @@ hr {
   }
 
   .profileIcon img {
-    margin: 0 10px;
+    margin: 0 5px;
     width: 50px;
   }
 }

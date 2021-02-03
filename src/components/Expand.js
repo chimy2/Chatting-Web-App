@@ -44,21 +44,35 @@ function Expand(props) {
   };
   
   const Schedule = () => {
-    const scheduleDays = [<ol></ol>];
-    // for(let i = props.length-props.day;i<)
-    console.log(scheduleDays[0]);
-    
+    const scheduleDays = [];
+    const length=props.length;
+    const day=props.day;
+    for(let i = 1;i<=Math.floor(length/7+1)*7;i++){
+      if(i>length-day && i<=length){
+        scheduleDays.push(
+          <div className="scheduleDays" key={i}>
+            <div className="scheduleDay">{i-(length-day)}</div>
+            <div className="scheduleDayComment"></div>
+          </div>
+        );
+      }else{
+        scheduleDays.push(
+          <div className="scheduleDays" key={i}>
+            <div className="scheduleDay"></div>
+            <div className="scheduleDayComment"></div>
+          </div>
+        );
+      }
+    }
+    console.log(props);
+    console.log('여기용',scheduleDays);
+    console.log('여기용',scheduleDays[0]);
+        
     return(
       <div className="schedule">
-        <ExpandTitle />
+        <ExpandTitle center={`${props.month}월`}/>
         <div className="scheduleContent">
-          <div className="scheduleMonth">
-            {props.month}월
-          </div>
-          <div className="scheduleDay">
-            {/* {props.day}
-            {props.length} */}
-          </div>
+          {scheduleDays}
         </div>
       </div>
     );
@@ -75,13 +89,14 @@ function Expand(props) {
   const ExpandTitle = (title) => {
     return (
       <div className="expandTitle">
-        <span>
+        <div className="expandTitleL">
           <button onClick={closeExpand} title="뒤로가기">
             <img src={back} alt="뒤로가기"/>
           </button>
-          {title.left}
-        </span>
-        <span>{title.right}</span>
+          <div>{title.left}</div>
+        </div>
+        <div className="expandTitleC">{title.center}</div>
+        <div className="expandTitleR">{title.right}</div>
       </div>
     );
   };

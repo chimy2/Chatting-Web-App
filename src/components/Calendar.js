@@ -42,7 +42,7 @@ function Calendar(props) {
     // 전체 달력 만들기
     for (let i = 1; i <= day.length; i++) {
       calendar.push(
-        <div className="calendar" key={i} onClick={() => openExpand(i, days[i - 1][days[i-1].length-1], days[i-1].length)} title={`${i}월`}>
+        <div className="calendar" key={i} onClick={() => openExpand(i, days[i - 1][days[i-1].length-1].props.children, days[i-1].length)} title={`${i}월`}>
           <div className="calendarTitle">{i}월</div>
           <div className="calendarContent">{days[i - 1]}</div>
         </div>,
