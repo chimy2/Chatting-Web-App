@@ -1,6 +1,7 @@
 import React from "react";
 import Note from "./Note";
 import Add from "./Add";
+import Expand from "./Expand";
 import add from "../image/add.png";
 import search from "../image/note_search.png";
 import close from "../image/sidebar_close.png";
@@ -12,6 +13,8 @@ class SideBarNote extends React.Component {
       search: "",
       noteList: [],
       addState: false,
+      expandState: false,
+      expandItem: []
     };
   }
 
@@ -38,6 +41,18 @@ class SideBarNote extends React.Component {
     const body = await response.json();
     return body;
   };
+  
+  openExpand = (items) => {
+    this.setState({
+      expandState: true,
+    });
+  };
+
+  closeExpand = () => {
+    this.setState({
+      expandState: false,
+    });
+  };
 
   changeSearch = (e) => {
     this.setState({
@@ -60,7 +75,7 @@ class SideBarNote extends React.Component {
       const reg = new RegExp(`.*${this.state.search}.*`);
       noteList.forEach((items, index) => {
         if (items.title.match(reg) || items.content.match(reg)) {
-          notes.push(<Note key={index} state={items} callNote={() => this.callNote()} />);
+          notes.push(<Note key={index} state={items} callNote={() => this.callNote()} open={this.openExpand} setState={(e) => this.setState(e)}/>);
         }
       });
     }
@@ -94,6 +109,10 @@ class SideBarNote extends React.Component {
           setAddState={(e) => this.setState(e)}
           callNote={() => this.callNote()}
         />
+        {
+          this.state.expandState ? 
+          <Expand close={this.closeExpand} state={this.state.expandItem} /> : ""
+        }
       </>
     );
   }

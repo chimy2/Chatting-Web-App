@@ -130,6 +130,12 @@ img {
 
 input {
   outline: none;
+  font-family: "Jal_Onuel";
+}
+
+textarea {
+  outline: none;
+  font-family: "Jal_Onuel";
 }
 
 hr {
@@ -221,9 +227,6 @@ hr {
   font-size: var(--font-size4);
   border-radius: 5px;
   text-indent: 7px;
-  font-family: "Jal_Onuel";
-  /* Chrome */
-  outline: none;
 }
 
 .join input::placeholder {
@@ -298,8 +301,6 @@ hr {
   border-radius: 5px;
   text-indent: 7px;
   font-family: "Jal_Onuel";
-  /* Chrome */
-  outline: none;
 }
 
 .login button {
@@ -480,7 +481,6 @@ hr {
   width: 100%;
   background: inherit;
   font-size: var(--font-size3);
-  font-family: "Jal_Onuel";
 }
 
 .addMainTitle form > button {
@@ -572,8 +572,6 @@ hr {
   min-width: 200px;
   font-size: var(--font-size2);
   background: none;
-  outline: none;
-  font-family: "Jal_Onuel";
 }
 
 .listSearch button {
@@ -599,19 +597,11 @@ hr {
 .noteList {
   display: flex;
   flex-wrap: wrap;
-  /* flex: 1 1; */
   padding: 10px;
   height: calc(100% - 176px);
   align-content: flex-start;
   overflow: auto;
-  /* background: red; */
 }
-
-/* .noteList::after {
-  content: "";
-  display: table;
-  clear: both;
-} */
 
 .calendar {
   display: flex;
@@ -841,6 +831,7 @@ hr {
   justify-content: space-between;
   height: 100%;
   background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
+  outline: none;
 }
 
 .profileIMG {
@@ -916,6 +907,58 @@ hr {
 .scheduleDays:nth-of-type(7n) .scheduleDay,
 .scheduleDays:nth-of-type(7n + 1) .scheduleDay {
   color: var(--highlight-color);
+}
+
+.memo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
+}
+
+.memoContents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 100%;
+  /* background: red; */
+}
+
+/* .memoTitle {
+  background: green;
+} */
+
+.memoTitle input {
+  padding:10px;
+  border:0;
+  border-radius: 10px;
+  width: calc(100% - 20px);
+  background: rgba(var(--background-color-rgb), 0.3);
+  font-size: var(--font-size);
+}
+
+.memoContent {
+  /* background: green; */
+  height: 80%;
+}
+
+.memoContent textarea {
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  border-radius: 10px;
+  background: rgba(var(--background-color-rgb), 0.3);
+  font-size: var(--font-size2);
+  resize: none;
+}
+
+.memoDate {
+  align-self: flex-end;
+  color: var(--font-color2);
 }
 
 .footer {

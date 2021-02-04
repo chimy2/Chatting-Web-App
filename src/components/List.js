@@ -1,4 +1,3 @@
-// import Expand from './Expand';
 import basicProfile from "../image/basic_profile.png";
 
 function List(props) {

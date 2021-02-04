@@ -31,8 +31,24 @@ function Note(props) {
     return fullDate;
   };
 
+  const eventClick = (e) => {
+    if(e.detail === 1){
+      const node=e.currentTarget.childNodes;
+      props.setState({
+        expandItem: [
+          node[0].textContent,
+          node[1].textContent,
+          node[2].textContent
+        ]
+      });
+      props.open();
+    }else {
+      deleteNote();
+    }
+  }
+
   return (
-    <div className="note" onDoubleClick={deleteNote}>
+    <div className="note" onClick={eventClick}>
       <div className="noteTitle">{props.state.title}</div>
       <div className="noteContent">{props.state.content}</div>
       <div className="noteDate">{date()}</div>

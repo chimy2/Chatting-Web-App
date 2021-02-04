@@ -1,14 +1,19 @@
+import { useEffect } from 'react';
 import back from "../image/back.png";
 import basicProfile from "../image/basic_profile.png";
 import chat from "../image/profile_chat.png";
 import block from "../image/profile_block.png";
 
 function Expand(props) {
-  console.log(document.querySelector('.expand'));
+  useEffect(() => {
+    document.querySelector('.expand').focus();
+  }, []);
+
   const closeExpand = (e) => {
-    console.log(e);
-    console.log("`````````", e.keyCode);
-    props.close();
+    if(e._reactName === "onClick" || 
+      (e._reactName === "onKeyDown" && e.keyCode === 27)) {
+        props.close();
+    }
   };
   
   const Profile = () => {
@@ -47,6 +52,7 @@ function Expand(props) {
     const scheduleDays = [];
     const length=props.length;
     const day=props.day;
+
     for(let i = 1;i<=Math.floor(length/7+1)*7;i++){
       if(i>length-day && i<=length){
         scheduleDays.push(
@@ -64,9 +70,6 @@ function Expand(props) {
         );
       }
     }
-    console.log(props);
-    console.log('여기용',scheduleDays);
-    console.log('여기용',scheduleDays[0]);
         
     return(
       <div className="schedule">
@@ -81,7 +84,16 @@ function Expand(props) {
   const Memo = () => {
     return(
       <div className="memo">
-        메모입니다
+        <ExpandTitle />
+        <div className="memoContents">
+          <div className="memoTitle">
+            <input type="text" defaultValue={props.state[0]} readOnly/>
+          </div>
+          <div className="memoContent">
+            <textarea defaultValue={props.state[1]} readOnly/>
+          </div>
+          <div className="memoDate">{props.state[2]}</div>
+        </div>
       </div>
     )
   }
