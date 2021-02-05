@@ -791,6 +791,7 @@ hr {
 .expand {
   position: absolute;
   right: 0;
+  outline: none;
   width: calc(100% - 90px);
   height: calc(100% - 60px);
 }

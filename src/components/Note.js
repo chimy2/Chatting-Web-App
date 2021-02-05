@@ -1,21 +1,7 @@
+import { useState, useEffect } from 'react';
+
 function Note(props) {
-  const deleteNote = (e) => {
-    e.preventDefault();
-    if (window.confirm("해당 노트를 삭제하시겠습니까?")) {
-      fetch("/api/note", {
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          noteId: props.state.noteId,
-        }),
-      }).then((res) => {
-        console.log(res);
-        props.callNote();
-      });
-    }
-  };
+  const [click, setClick] = useState(0);
 
   const date = () => {
     const originalDate = new Date(props.state.date);
@@ -31,20 +17,42 @@ function Note(props) {
     return fullDate;
   };
 
+  useEffect(() => {
+    if(click===0) return;
+    const timer = setTimeout(() => {
+      if(click === 1) {
+        props.open();
+      } else {
+        if (window.confirm("해당 노트를 삭제하시겠습니까?")) {
+          fetch("/api/note", {
+            method: "delete",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              noteId: props.state.noteId,
+            }),
+          }).then((res) => {
+            props.callNote();
+          });
+        }
+      }
+      setClick(0);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [click, props])
+
   const eventClick = (e) => {
-    if(e.detail === 1){
-      const node=e.currentTarget.childNodes;
-      props.setState({
-        expandItem: [
-          node[0].textContent,
-          node[1].textContent,
-          node[2].textContent
-        ]
-      });
-      props.open();
-    }else {
-      deleteNote();
-    }
+    const node=e.currentTarget.childNodes;
+    props.setState({
+      expandItem: [
+        node[0].textContent,
+        node[1].textContent,
+        node[2].textContent
+      ]
+    });
+    setClick(click+1);
   }
 
   return (
