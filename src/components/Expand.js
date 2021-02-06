@@ -1,25 +1,45 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import back from "../image/back.png";
 import basicProfile from "../image/basic_profile.png";
 import chat from "../image/profile_chat.png";
 import block from "../image/profile_block.png";
+import edit from "../image/edit.png";
+import editProfile from "../image/profile_edit.png";
+import editNote from "../image/note_edit.png";
 
 function Expand(props) {
+  const [editState, setEditState] = useState(false);
+
   useEffect(() => {
     document.querySelector('.expand').focus();
-  }, []);
+    setEditState(false);
+  }, [props]);
 
   const closeExpand = (e) => {
     if(e._reactName === "onClick" || 
       (e._reactName === "onKeyDown" && e.keyCode === 27)) {
+        if(editState){
+          if(!window.confirm("창을 닫겠습니까?")) return;
+        }
         props.close();
     }
   };
+
+  const toggleEdit = () => {
+    editState ? setEditState(false) : setEditState(true);
+  }
   
   const Profile = () => {
+    const editSrc = editState ? editProfile : edit;
+    const editBtn = <button title="프로필수정" onClick={toggleEdit}><img src={editSrc} alt="수정"/></button>;
+
     return (
       <div className="profile">
-        <ExpandTitle />
+        {
+          props.state.use === "profile" ?
+          <ExpandTitle right={editBtn} />
+          : <ExpandTitle />
+        }
         <div className="profileContent">
           <div className="profileIMG">
             <img
@@ -82,9 +102,12 @@ function Expand(props) {
   }
 
   const Memo = () => {
+    const editSrc = editState ? editNote : edit;
+    const editBtn = <button title="노트수정" onClick={toggleEdit}><img src={editSrc} alt="수정" /></button>;
+
     return(
       <div className="memo">
-        <ExpandTitle />
+        <ExpandTitle right={editBtn}/>
         <div className="memoContents">
           <div className="memoTitle">
             <input type="text" defaultValue={props.state[0]} readOnly/>
@@ -97,6 +120,8 @@ function Expand(props) {
       </div>
     )
   }
+
+  
 
   const ExpandTitle = (title) => {
     return (

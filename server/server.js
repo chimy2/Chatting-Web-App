@@ -4,6 +4,14 @@ const api = require('./routes/index');
 const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 
+// socket.io
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', (socket) => {
+  console.log('io 연결', socket);
+});
+
 // bodyParser
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));

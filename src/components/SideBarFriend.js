@@ -177,6 +177,7 @@ class SideBarFriend extends React.Component {
               open={this.openExpand}
               setState={(e) => this.setState(e)}
               state={this.state}
+              use="profile"
             />
             {requests}
             {friends}

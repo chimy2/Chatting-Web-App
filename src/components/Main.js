@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { useEffect } from 'react';
+import { Route, Link, Switch } from "react-router-dom";
 import cookie from "cookie";
 
 import Effect from "./Effect";
@@ -7,6 +8,10 @@ import Join from "./Join";
 
 function Main(props) {
   const { setLogin } = props;
+
+  useEffect(() => {
+    console.log("main", props);
+  }, []);
 
   const handleEvent = () => {
     let cookies = cookie.parse(document.cookie);

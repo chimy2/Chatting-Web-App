@@ -44,8 +44,10 @@ function List(props) {
     const path = document.location.pathname;
     const items = props.items
     if (props.open !== undefined) {
-      if(props.use){
+      if(props.use === "friend"){
         items.use = "friend";
+      }else if(props.use === "profile"){
+        items.use = "profile";
       }
       props.setState({
         expandItem: items,
