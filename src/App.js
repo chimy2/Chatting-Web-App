@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 import { Cookies, useCookies }  from 'react-cookie';
+import { io } from 'socket.io-client';
 
 import Main from "./components/Main";
 import Navigation from './components/Navigation';
@@ -14,6 +15,7 @@ import Footer from './components/Footer';
 
 function App(props) {
   let history = useHistory();
+  const socket = io('http://localhost:5000/');
   const [login, setLogin] = useState(false);
   const { cookies, setCookie } = useCookies('id');
   
@@ -30,6 +32,11 @@ function App(props) {
 
   useEffect(() => {
     history.push('./');
+    if(login){
+      io.on("connection", (socket) => {
+        console.log("-------옵니까 소켓소켓");
+      })
+    }
   }, [login]);
 
   return (
