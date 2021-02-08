@@ -15,7 +15,12 @@ import Footer from './components/Footer';
 
 function App(props) {
   let history = useHistory();
-  const socket = io('http://localhost:5000/');
+  const socket = io("http://localhost:5000", {
+  withCredentials: true,
+  extraHeaders: {
+    "my-custom-header": "abcd"
+  }
+});
   const [login, setLogin] = useState(false);
   const { cookies, setCookie } = useCookies('id');
   
@@ -33,7 +38,7 @@ function App(props) {
   useEffect(() => {
     history.push('./');
     if(login){
-      io.on("connection", (socket) => {
+      socket.on("connection", (socket) => {
         console.log("-------옵니까 소켓소켓");
       })
     }

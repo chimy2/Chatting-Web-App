@@ -11,6 +11,7 @@ data.sql
 
 # testing
 /coverage
+/server/chat/*
 
 # production
 /build
