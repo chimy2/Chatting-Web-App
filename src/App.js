@@ -15,12 +15,6 @@ import Footer from './components/Footer';
 
 function App(props) {
   let history = useHistory();
-  const socket = io("http://localhost:5000", {
-  withCredentials: true,
-  extraHeaders: {
-    "my-custom-header": "abcd"
-  }
-});
   const [login, setLogin] = useState(false);
   const { cookies, setCookie } = useCookies('id');
   
@@ -38,8 +32,18 @@ function App(props) {
   useEffect(() => {
     history.push('./');
     if(login){
-      socket.on("connection", (socket) => {
+      const socket = io("api/", {
+        withCredentials: true,
+        extraHeaders: {
+          "my-custom-header": "abcd"
+        }
+      });
+        console.log("로그인 완료");
+        socket.on("connection", (socket) => {
         console.log("-------옵니까 소켓소켓");
+        console.log(socket);
+        console.log(socket.connected);
+        console.log("로그인 완료 확인 -------", socket, socket.connected);
       })
     }
   }, [login]);
