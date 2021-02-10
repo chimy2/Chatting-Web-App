@@ -6,14 +6,7 @@ const bodyParser = require('body-parser');
 
 // socket.io
 const http = require('http').Server(app);
-const io = require('socket.io')(http, {
-  cors: {
-    origin: "http://localhost:5000",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true
-  }
-});
+const io = require('socket.io')(http);
 
 io.on('connection', (socket) => {
   console.log('io 연결', socket);
