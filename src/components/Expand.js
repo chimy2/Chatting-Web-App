@@ -9,6 +9,7 @@ import editNote from "../image/note_edit.png";
 
 function Expand(props) {
   const [editState, setEditState] = useState(false);
+  // const [readOnly, setReadOnly] = useState(true);
 
   useEffect(() => {
     document.querySelector('.expand').focus();
@@ -19,13 +20,35 @@ function Expand(props) {
     if(e._reactName === "onClick" || 
       (e._reactName === "onKeyDown" && e.keyCode === 27)) {
         if(editState){
-          if(!window.confirm("창을 닫겠습니까?")) return;
+          if(!window.confirm("저장하지 않고 창을 닫겠습니까?")) return;
         }
         props.close();
     }
   };
 
   const toggleEdit = () => {
+    const path = document.location.pathname;
+    switch(path){
+      case "/":
+        break;
+      case "/note": 
+        let title=document.querySelector('.memoTitle input');
+        let content=document.querySelector('.memoContent textarea');
+        if(editState && (props.state[0] !== title.innertext || props.state[1] !== content.innertext)) {
+          if(window.confirm("수정된 내용을 저장하시겠습니까")){
+            console.log("저장됨");
+          }
+          content.readOnly=true;
+        } else if(!editState) {
+          console.log(title);
+          console.log(content);
+          title.removeAttribute("readOnly");
+          content.removeAttribute("readOnly");
+          console.log(title);
+          console.log(content);
+        }
+        break;
+    }
     editState ? setEditState(false) : setEditState(true);
   }
   

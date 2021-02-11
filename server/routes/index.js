@@ -8,6 +8,21 @@ const friend = require("./friend");
 router.use("/member", member);
 router.use("/friend", friend);
 
+
+// // socket.io
+// const http = require('http').createServer(router);
+// const io = require('socket.io')(http);
+
+// // app.get("/socket.io", (req, res) => {
+//   // console.log("오는데요?");
+//   io.on('connection', (socket) => {
+//     console.log('io 연결', socket);
+//     socket.on('login', (data) => {
+//       console.log("소켓", data);
+//     })
+//   });
+// // })
+
 router.get("/calendar", (req, res) => {
   const sql = `select * from calendar`;
   mysql.query(sql, (err, rows, field) => {
@@ -69,14 +84,5 @@ router.delete("/note", (req, res) => {
     }
   });
 });
-
-// router.get('/', (req, res) => {
-//   mysql.query(
-//     "select * from user",
-//     (err, rows, fields) => {
-//       res.send(rows);
-//     }
-//   );
-// });
 
 module.exports = router;

@@ -5,12 +5,18 @@ const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 
 // socket.io
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+// const http = require('http').Server(app);
+// const io = require('socket.io')(http);
 
-io.on('connection', (socket) => {
-  console.log('io 연결', socket);
-});
+// // app.get("/socket.io", (req, res) => {
+//   // console.log("오는데요?");
+//   io.on('connection', (socket) => {
+//     console.log('io 연결', socket);
+//     socket.on('login', (data) => {
+//       console.log("소켓", data);
+//     })
+//   });
+// })
 
 // bodyParser
 app.use(bodyParser.json());

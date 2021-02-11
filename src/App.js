@@ -31,20 +31,23 @@ function App(props) {
 
   useEffect(() => {
     history.push('./');
-    if(login){
-      const socket = io();
-      console.log("로그인 완료");
-      socket.on('connect', () => {
-        console.log(socket.connected); // true
-      });
-      console.log("로그인 완료 확인", socket, socket.connected);
+    // if(login){
+      // const socket = io();
+      // const socket = io("/socket.io");
+      // const socket = io("/", {path: "sosososo"});
+      // console.log("로그인 완료", socket.io.uri);
+      // socket.emit('login', {
+      //   name: 1111,
+      //   id: 1111
+      // });
+      // console.log("로그인 완료 확인", socket, socket.connected);
       // socket.on("connection", (socket) => {
       // console.log("-------옵니까 소켓소켓");
       // console.log(socket);
       // console.log(socket.connected);
       // console.log("로그인 완료 확인 -------", socket, socket.connected);
       // });
-    }
+    // }
   }, [login]);
 
   return (
