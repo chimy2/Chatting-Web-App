@@ -9,7 +9,7 @@ import editNote from "../image/note_edit.png";
 
 function Expand(props) {
   const [editState, setEditState] = useState(false);
-  // const [readOnly, setReadOnly] = useState(true);
+  const [readOnly, setReadOnly] = useState(true);
 
   useEffect(() => {
     document.querySelector('.expand').focus();
@@ -34,18 +34,17 @@ function Expand(props) {
       case "/note": 
         let title=document.querySelector('.memoTitle input');
         let content=document.querySelector('.memoContent textarea');
-        if(editState && (props.state[0] !== title.innertext || props.state[1] !== content.innertext)) {
-          if(window.confirm("수정된 내용을 저장하시겠습니까")){
-            console.log("저장됨");
+        if(editState) {
+          if(props.state[0] !== title.value || props.state[1] !== content.value) {
+            if(window.confirm("수정된 내용을 저장하시겠습니까")){
+              console.log("저장됨");
+              setReadOnly(true);
+            }
+          }else {
+            setReadOnly(true);
           }
-          content.readOnly=true;
         } else if(!editState) {
-          console.log(title);
-          console.log(content);
-          title.removeAttribute("readOnly");
-          content.removeAttribute("readOnly");
-          console.log(title);
-          console.log(content);
+          setReadOnly(false);
         }
         break;
     }
@@ -133,10 +132,10 @@ function Expand(props) {
         <ExpandTitle right={editBtn}/>
         <div className="memoContents">
           <div className="memoTitle">
-            <input type="text" defaultValue={props.state[0]} readOnly/>
+            <input type="text" defaultValue={props.state[0]} readOnly={readOnly}/>
           </div>
           <div className="memoContent">
-            <textarea defaultValue={props.state[1]} readOnly/>
+            <textarea defaultValue={props.state[1]} readOnly={readOnly}/>
           </div>
           <div className="memoDate">{props.state[2]}</div>
         </div>
