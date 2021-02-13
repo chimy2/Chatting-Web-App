@@ -831,19 +831,14 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--white-color) 0,
+    var(--white-color) 80px,
+    var(--gray-color) 0,
+    var(--gray-color) 160px
+  );
   outline: none;
-}
-
-.profileIMG {
-  position: relative;
-  bottom: 200px;
-  height: 20px;
-}
-
-.profileIMG img {
-  width: 230px;
-  border-radius: 90px;
 }
 
 .profileContent {
@@ -857,17 +852,61 @@ hr {
   background: var(--gray-color);
 }
 
-.profileName {
+.profilePhoto {
+  position: relative;
+  bottom: 200px;
+  height: 20px;
+}
+
+.profilePhotoIMG > img {
+  width: 230px;
+  border-radius: 90px;
+}
+
+.profilePhotoBtn button {
+  position: absolute;
+  top: 190px;
+  left: calc(50% + 70px);
+  padding: 0;
+  border: 0;
+}
+
+.profilePhoto button img {
+  width: 40px;
+}
+
+.profileNameInput {
   font-size: var(--font-size);
 }
 
-.profileMSG {
+.profileNameBtn button {
+  position: absolute;
+  padding: 0;
+  border: 0;
+}
+
+.profileNameBtn button img {
+  width: 25px;
+}
+
+.profileMSGInput {
   margin: 0 auto;
   width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: var(--font-size2);
   white-space: nowrap;
+}
+
+.profileMSGBtn button {
+  position: relative;
+
+  padding: 0;
+  border: 0;
+}
+
+.profileMSGBtn button img {
+  width: 25px;
 }
 
 .profileIcon img {
@@ -881,7 +920,13 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--white-color) 0,
+    var(--white-color) 80px,
+    var(--gray-color) 0,
+    var(--gray-color) 160px
+  );
 }
 
 .scheduleContent {
@@ -915,7 +960,13 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background: repeating-linear-gradient(-45deg, var(--white-color) 0, var(--white-color) 80px, var(--gray-color) 0, var(--gray-color) 160px);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--white-color) 0,
+    var(--white-color) 80px,
+    var(--gray-color) 0,
+    var(--gray-color) 160px
+  );
 }
 
 .memoContents {
@@ -924,16 +975,11 @@ hr {
   justify-content: space-between;
   padding: 0 20px;
   height: 100%;
-  /* background: red; */
 }
 
-/* .memoTitle {
-  background: green;
-} */
-
 .memoTitle input {
-  padding:10px;
-  border:0;
+  padding: 10px;
+  border: 0;
   border-radius: 10px;
   width: calc(100% - 20px);
   background: rgba(var(--background-color-rgb), 0.3);
@@ -941,7 +987,6 @@ hr {
 }
 
 .memoContent {
-  /* background: green; */
   height: 80%;
 }
 
@@ -1064,15 +1109,28 @@ hr {
     height: 30px;
   }
 
-  .profileIMG {
+  .profilePhoto {
     position: relative;
     bottom: 120px;
     height: 20px;
   }
 
-  .profileIMG img {
+  .profilePhotoIMG > img {
     width: 150px;
     border-radius: 60px;
+  }
+
+  .profilePhotoBtn button {
+    position: absolute;
+    top: 115px;
+    left: calc(50% + 45px);
+    padding: 0;
+    border: 0;
+    width: 30px;
+  }
+
+  .profilePhotoBtn button img {
+    width: 30px;
   }
 
   .profileIcon img {
