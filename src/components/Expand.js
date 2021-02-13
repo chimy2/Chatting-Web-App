@@ -24,7 +24,12 @@ function Expand(props) {
       (e._reactName === "onKeyDown" && e.keyCode === 27)
     ) {
       if (editState) {
-        if (!window.confirm("저장하지 않고 창을 닫겠습니까?")) return;
+        if (
+          !window.confirm(
+            "우측 상단의 저장버튼을 눌러야 정상적으로 반영됩니다.\n저장하지 않고 창을 닫겠습니까?",
+          )
+        )
+          return;
       }
       props.close();
     }
@@ -55,13 +60,33 @@ function Expand(props) {
   };
 
   const editProfileBtn = (e) => {
-    alert(e);
+    const name = e.target.name;
+    e.target.classList.toggle("check");
+    if (name === "photo") {
+    } else if (name === "name") {
+      const nickname = document.querySelector(".profileNameText");
+      if (nickname.getAttribute("contentEditable")) {
+        nickname.removeAttribute("contentEditable");
+      } else {
+        nickname.setAttribute("contentEditable", true);
+        nickname.focus();
+      }
+    } else if (name === "message") {
+      const message = document.querySelector(".profileMSGText");
+      if (message.getAttribute("contentEditable")) {
+        message.removeAttribute("contentEditable");
+      } else {
+        message.setAttribute("contentEditable", true);
+        message.focus();
+      }
+    }
   };
 
   const Profile = () => {
     const editSrc = editState ? editProfile : edit;
+    const editTitle = editState ? "프로필수정 저장" : "프로필수정";
     const editBtn = (
-      <button title="프로필수정" onClick={toggleEdit}>
+      <button title={editTitle} onClick={toggleEdit}>
         <img src={editSrc} alt="수정" />
       </button>
     );
@@ -83,7 +108,7 @@ function Expand(props) {
             </div>
             {editState ? (
               <div className="profilePhotoBtn">
-                <button onClick={editProfileBtn} title="프로필사진 수정">
+                <button name="photo" onClick={editProfileBtn} title="프로필사진 수정">
                   <img src={editProfile2} alt="프로필사진 수정" />
                 </button>
               </div>
@@ -92,10 +117,13 @@ function Expand(props) {
             )}
           </div>
           <div className="profileName">
-            <div className="profileNameInput">{props.state.nickname}</div>
+            {editState ? <div className="profileNameBtn" /> : ""}
+            <div className="profileNameText" title={props.state.nickname}>
+              {props.state.nickname}
+            </div>
             {editState ? (
               <div className="profileNameBtn">
-                <button onClick={editProfileBtn}>
+                <button name="name" onClick={editProfileBtn} title="프로필닉네임 수정">
                   <img src={editProfile2} alt="프로필닉네임 수정" />
                 </button>
               </div>
@@ -104,10 +132,13 @@ function Expand(props) {
             )}
           </div>
           <div className="profileMSG">
-            <div className="profileMSGInput">{props.state.message}</div>
+            {editState ? <div className="profileMSGBtn" /> : ""}
+            <div className="profileMSGText" title={props.state.message}>
+              {props.state.message}
+            </div>
             {editState ? (
               <div className="profileMSGBtn">
-                <button>
+                <button name="message" onClick={editProfileBtn}>
                   <img src={editProfile2} alt="프로필메세지 수정" />
                 </button>
               </div>
@@ -167,8 +198,9 @@ function Expand(props) {
 
   const Memo = () => {
     const editSrc = editState ? editNote : edit;
+    const editTitle = editState ? "노트수정 저장" : "노트수정";
     const editBtn = (
-      <button title="노트수정" onClick={toggleEdit}>
+      <button title={editTitle} onClick={toggleEdit}>
         <img src={editSrc} alt="수정" />
       </button>
     );
