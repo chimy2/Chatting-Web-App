@@ -11,12 +11,13 @@ import editNote from "../image/note_edit.png";
 function Expand(props) {
   const [editState, setEditState] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
-  const [state, setState] = useState(props);
+  const [state, setState] = useState(props.state);
 
   useEffect(() => {
+    setState(props.state);
     document.querySelector(".expand").focus();
     setEditState(false);
-  }, [props]);
+  }, [props.state.noteId]);
 
   const closeExpand = (e) => {
     if (
@@ -37,29 +38,33 @@ function Expand(props) {
 
   const toggleEdit = () => {
     const path = document.location.pathname;
-    switch (path) {
-      case "/":
-        break;
-      case "/note":
-        let title = document.querySelector(".memoTitle input");
-        let content = document.querySelector(".memoContent textarea");
-        if (editState) {
-          if (props.state[0] !== title.value || props.state[1] !== content.value) {
-            if (window.confirm("수정된 내용을 저장하시겠습니까")) {
-              setReadOnly(true);
-            }
-          } else {
-            setReadOnly(true);
+    if (path === "/") {
+    } else if (path === "/note") {
+      const { noteId, title, content } = state;
+      const memoTitle = document.querySelector(".memoTitle input");
+      const memoContent = document.querySelector(".memoContent textarea");
+      if (editState) {
+        if (title !== memoTitle.value || content !== memoContent.value) {
+          if (window.confirm("수정된 내용을 저장하시겠습니까")) {
+            callApi("/note", {
+              noteId,
+              title: memoTitle.value,
+              content: memoContent.value,
+            }).then(() => {
+              setState({ ...state, title: memoTitle.value, content: memoContent.value });
+              props.callNote();
+            });
           }
-        } else if (!editState) {
-          setReadOnly(false);
         }
-        break;
+        setReadOnly(true);
+      } else if (!editState) {
+        setReadOnly(false);
+      }
     }
     editState ? setEditState(false) : setEditState(true);
   };
 
-  const editProfileBtn = (e) => {
+  const handleProfileEditBtn = (e) => {
     const name = e.target.name;
     e.target.classList.toggle("check");
     if (name === "photo") {
@@ -70,6 +75,7 @@ function Expand(props) {
       } else {
         nickname.setAttribute("contentEditable", true);
         nickname.focus();
+        document.getSelection().collapse(nickname, 1);
       }
     } else if (name === "message") {
       const message = document.querySelector(".profileMSGText");
@@ -78,6 +84,7 @@ function Expand(props) {
       } else {
         message.setAttribute("contentEditable", true);
         message.focus();
+        document.getSelection().collapse(message, 1);
       }
     }
   };
@@ -93,22 +100,22 @@ function Expand(props) {
 
     return (
       <div className="profile">
-        {props.state.use === "profile" ? (
-          <ExpandTitle right={editBtn} />
-        ) : (
-          <ExpandTitle />
-        )}
+        {state.use === "profile" ? <ExpandTitle right={editBtn} /> : <ExpandTitle />}
         <div className="profileContent">
           <div className="profilePhoto">
             <div className="profilePhotoIMG">
               <img
-                src={props.state.image !== null ? props.state.image : basicProfile}
+                src={state.image !== null ? state.image : basicProfile}
                 alt="프로필 사진"
               />
             </div>
             {editState ? (
               <div className="profilePhotoBtn">
-                <button name="photo" onClick={editProfileBtn} title="프로필사진 수정">
+                <button
+                  name="photo"
+                  onClick={handleProfileEditBtn}
+                  title="프로필사진 수정"
+                >
                   <img src={editProfile2} alt="프로필사진 수정" />
                 </button>
               </div>
@@ -118,12 +125,16 @@ function Expand(props) {
           </div>
           <div className="profileName">
             {editState ? <div className="profileNameBtn" /> : ""}
-            <div className="profileNameText" title={props.state.nickname}>
-              {props.state.nickname}
+            <div className="profileNameText" title={state.nickname}>
+              {state.nickname}
             </div>
             {editState ? (
               <div className="profileNameBtn">
-                <button name="name" onClick={editProfileBtn} title="프로필닉네임 수정">
+                <button
+                  name="name"
+                  onClick={handleProfileEditBtn}
+                  title="프로필닉네임 수정"
+                >
                   <img src={editProfile2} alt="프로필닉네임 수정" />
                 </button>
               </div>
@@ -133,12 +144,12 @@ function Expand(props) {
           </div>
           <div className="profileMSG">
             {editState ? <div className="profileMSGBtn" /> : ""}
-            <div className="profileMSGText" title={props.state.message}>
-              {props.state.message}
+            <div className="profileMSGText" title={state.message}>
+              {state.message}
             </div>
             {editState ? (
               <div className="profileMSGBtn">
-                <button name="message" onClick={editProfileBtn}>
+                <button name="message" onClick={handleProfileEditBtn}>
                   <img src={editProfile2} alt="프로필메세지 수정" />
                 </button>
               </div>
@@ -147,12 +158,12 @@ function Expand(props) {
             )}
           </div>
           <div className="profileIcon">
-            {props.state.use === "friend" ? (
+            {state.use === "friend" ? (
               <>
-                <button title={`${props.state.nickname}님과 채팅하기`}>
+                <button title={`${state.nickname}님과 채팅하기`}>
                   <img src={chat} alt="채팅하기" />
                 </button>
-                <button title={`${props.state.nickname} 차단하기`}>
+                <button title={`${state.nickname} 차단하기`}>
                   <img src={block} alt="차단하기" />
                 </button>
               </>
@@ -170,7 +181,7 @@ function Expand(props) {
     const length = props.length;
     const day = props.day;
 
-    for (let i = 1; i <= Math.floor(length / 7 + 1) * 7; i++) {
+    for (let i = 1; i <= Math.ceil(length / 7) * 7; i++) {
       if (i > length - day && i <= length) {
         scheduleDays.push(
           <div className="scheduleDays" key={i}>
@@ -197,6 +208,7 @@ function Expand(props) {
   };
 
   const Memo = () => {
+    const { noteId, title, content, date } = state;
     const editSrc = editState ? editNote : edit;
     const editTitle = editState ? "노트수정 저장" : "노트수정";
     const editBtn = (
@@ -210,12 +222,12 @@ function Expand(props) {
         <ExpandTitle right={editBtn} />
         <div className="memoContents">
           <div className="memoTitle">
-            <input type="text" defaultValue={props.state[0]} readOnly={readOnly} />
+            <input type="text" defaultValue={title} readOnly={readOnly} />
           </div>
           <div className="memoContent">
-            <textarea defaultValue={props.state[1]} readOnly={readOnly} />
+            <textarea defaultValue={content} readOnly={readOnly} />
           </div>
-          <div className="memoDate">{props.state[2]}</div>
+          <div className="memoDate">{date}</div>
         </div>
       </div>
     );
@@ -250,6 +262,17 @@ function Expand(props) {
         component = <Memo />;
     }
     return component;
+  };
+
+  const callApi = async (address, data) => {
+    const response = await fetch(`/api${address}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response;
   };
 
   return (

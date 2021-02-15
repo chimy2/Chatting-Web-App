@@ -8,7 +8,6 @@ const friend = require("./friend");
 router.use("/member", member);
 router.use("/friend", friend);
 
-
 // // socket.io
 // const http = require('http').createServer(router);
 // const io = require('socket.io')(http);
@@ -66,7 +65,19 @@ router.post("/note", (req, res) => {
 });
 
 router.put("/note", (req, res) => {
-  console.log("put");
+  const { headers } = req;
+  const id = cookie.parse(headers.cookie).id;
+  const { noteId, title, content } = req.body;
+  const sql = `update note set title='${title}', content='${content}' where id='${id}' and noteId=${noteId}`;
+  mysql.query(sql, (err, rows, field) => {
+    if (err) {
+      console.log(err);
+      throw error;
+    }
+    if (rows.affectedRows > 0) {
+      res.status(200).end();
+    }
+  });
 });
 
 router.delete("/note", (req, res) => {

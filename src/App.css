@@ -839,7 +839,6 @@ hr {
     var(--gray-color) 0,
     var(--gray-color) 160px
   );
-  outline: none;
 }
 
 .profileContent {
@@ -1094,6 +1093,7 @@ hr {
 
   .friendProfile {
     height: calc(100% - 110px);
+    background: var(--white-color);
   }
 
   .noteList {

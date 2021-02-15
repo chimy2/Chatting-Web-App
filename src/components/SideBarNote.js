@@ -14,7 +14,7 @@ class SideBarNote extends React.Component {
       noteList: [],
       addState: false,
       expandState: false,
-      expandItem: []
+      expandItem: [],
     };
   }
 
@@ -41,7 +41,7 @@ class SideBarNote extends React.Component {
     const body = await response.json();
     return body;
   };
-  
+
   openExpand = (items) => {
     this.setState({
       expandState: true,
@@ -75,7 +75,15 @@ class SideBarNote extends React.Component {
       const reg = new RegExp(`.*${this.state.search}.*`);
       noteList.forEach((items, index) => {
         if (items.title.match(reg) || items.content.match(reg)) {
-          notes.push(<Note key={index} state={items} callNote={() => this.callNote()} open={this.openExpand} setState={(e) => this.setState(e)}/>);
+          notes.push(
+            <Note
+              key={index}
+              state={items}
+              callNote={() => this.callNote()}
+              open={this.openExpand}
+              setState={(e) => this.setState(e)}
+            />,
+          );
         }
       });
     }
@@ -109,10 +117,16 @@ class SideBarNote extends React.Component {
           setAddState={(e) => this.setState(e)}
           callNote={() => this.callNote()}
         />
-        {
-          this.state.expandState ? 
-          <Expand close={this.closeExpand} state={this.state.expandItem} /> : ""
-        }
+        {this.state.expandState ? (
+          <Expand
+            close={this.closeExpand}
+            state={this.state.expandItem}
+            setExpandState={(e) => this.setState(e)}
+            callNote={() => this.callNote()}
+          />
+        ) : (
+          ""
+        )}
       </>
     );
   }

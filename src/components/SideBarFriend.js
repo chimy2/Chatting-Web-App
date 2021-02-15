@@ -21,7 +21,7 @@ class SideBarFriend extends React.Component {
   }
 
   componentDidMount() {
-    this.callApi("profile")
+    this.callApi("/profile")
       .then((res) => res[0])
       .then((res) => {
         this.setState({
@@ -51,12 +51,12 @@ class SideBarFriend extends React.Component {
   }
 
   callFriend = () => {
-    this.callApi("request").then((res) => {
+    this.callApi("/request").then((res) => {
       this.setState({
         requestList: res,
       });
     });
-    this.callApi("friend").then((res) => {
+    this.callApi("/friend").then((res) => {
       this.setState({
         friendList: res,
       });
@@ -64,7 +64,7 @@ class SideBarFriend extends React.Component {
   };
 
   callApi = async (address) => {
-    const response = await fetch(`/api/friend/${address}`);
+    const response = await fetch(`/api/friend${address}`);
     const body = await response.json();
     return body;
   };

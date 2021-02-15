@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function Note(props) {
+  let { noteId, title, content, date } = props.state;
   const [click, setClick] = useState(0);
 
-  const date = () => {
+  const setDate = () => {
     const originalDate = new Date(props.state.date);
     let fullDate = `${originalDate.getFullYear().toString().slice(2, 4)}. `;
     fullDate += `${originalDate.getMonth() + 1}. `;
@@ -14,13 +15,14 @@ function Note(props) {
         ? originalDate.getMinutes()
         : "0" + originalDate.getMinutes()
     }`;
-    return fullDate;
+    date = fullDate;
   };
+  setDate();
 
   useEffect(() => {
-    if(click===0) return;
+    if (click === 0) return;
     const timer = setTimeout(() => {
-      if(click === 1) {
+      if (click === 1) {
         props.open();
       } else {
         if (window.confirm("해당 노트를 삭제하시겠습니까?")) {
@@ -41,25 +43,22 @@ function Note(props) {
     }, 200);
 
     return () => clearTimeout(timer);
-  }, [click, props])
+  }, [click, props]);
 
   const eventClick = (e) => {
-    const node=e.currentTarget.childNodes;
+    // e.preventDefault();
+    const node = e.currentTarget.childNodes;
     props.setState({
-      expandItem: [
-        node[0].textContent,
-        node[1].textContent,
-        node[2].textContent
-      ]
+      expandItem: { noteId, title, content, date },
     });
-    setClick(click+1);
-  }
+    setClick(click + 1);
+  };
 
   return (
     <div className="note" onClick={eventClick}>
-      <div className="noteTitle">{props.state.title}</div>
-      <div className="noteContent">{props.state.content}</div>
-      <div className="noteDate">{date()}</div>
+      <div className="noteTitle">{title}</div>
+      <div className="noteContent">{content}</div>
+      <div className="noteDate">{date}</div>
     </div>
   );
 }
