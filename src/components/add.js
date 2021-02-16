@@ -12,7 +12,9 @@ function Add(props) {
   const path = document.location.pathname;
 
   const addClose = () => {
-    if (path === "/") {
+    if (props.use === "loadFile") {
+      props.setAddState(false);
+    } else if (path === "/") {
       props.setAddState({
         addState: false,
       });
@@ -40,20 +42,20 @@ function Add(props) {
   }, [props.open]);
 
   useEffect(() => {
-    if(path !== "/talk") return;
+    if (path !== "/talk") return;
     callApi("/friend/friend")
-      .then(res=>res.json())
-      .then(res=>{
-        const arr=[];
-        res.forEach(item => {
-          if(item.nickname.match(`.*${talkSearchWord}.*`) !== null) {
+      .then((res) => res.json())
+      .then((res) => {
+        const arr = [];
+        res.forEach((item) => {
+          if (item.nickname.match(`.*${talkSearchWord}.*`) !== null) {
             arr.push(item);
           }
-        })
+        });
         return arr;
       })
       .then(setTalkSearchRes);
-  }, [talkSearchWord])
+  }, [props.open, talkSearchWord]);
 
   const handleFormSubmit = (e) => {
     const value = e.target[0].value;
@@ -87,7 +89,7 @@ function Add(props) {
             }
           });
       }
-    } else if(path === "/talk"){
+    } else if (path === "/talk") {
       setTalkSearchWord(value);
     } else {
       const textarea = document.querySelector("textarea").value;
@@ -145,13 +147,17 @@ function Add(props) {
         </div>
         <div className="addMainContent">
           {friendSearch ? (
-            <List items={friendSearch} friend={friendSearch.id} addClose={addClose.bind()} />
+            <List
+              items={friendSearch}
+              friend={friendSearch.id}
+              addClose={addClose.bind()}
+            />
           ) : (
             ""
           )}
-          {talkSearchRes ? 
-            talkSearchRes.map(items => <List key={items.id} items={items} />) : ""
-          }
+          {talkSearchRes
+            ? talkSearchRes.map((items) => <List key={items.id} items={items} />)
+            : ""}
           {document.location.pathname === "/note" ? (
             <textarea placeholder="노트 내용" maxLength="20000" />
           ) : (

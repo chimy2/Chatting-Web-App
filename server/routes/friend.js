@@ -16,6 +16,15 @@ router.get("/profile", (req, res) => {
   });
 });
 
+router.put("/profile", (req, res) => {
+  const { headers } = req;
+  const id = cookie.parse(headers.cookie).id;
+  console.log(req.body);
+  const { image, nickname, message } = req.body;
+  const sql = `update profile set image='${image}', nickname='${nickname}', message='${message}' where id=${id}`;
+  console.log(sql);
+});
+
 router.get("/friend", (req, res) => {
   const { headers } = req;
   const id = cookie.parse(headers.cookie).id;

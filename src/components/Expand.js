@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Add from "./Add";
 import back from "../image/back.png";
 import basicProfile from "../image/basic_profile.png";
 import chat from "../image/profile_chat.png";
@@ -9,6 +10,7 @@ import editProfile2 from "../image/profile_edit2.png";
 import editNote from "../image/note_edit.png";
 
 function Expand(props) {
+  const [addState, setAddState] = useState(false);
   const [editState, setEditState] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
   const [state, setState] = useState(props.state);
@@ -17,7 +19,7 @@ function Expand(props) {
     setState(props.state);
     document.querySelector(".expand").focus();
     setEditState(false);
-  }, [props.state.noteId]);
+  }, [props.state]);
 
   const closeExpand = (e) => {
     if (
@@ -39,6 +41,20 @@ function Expand(props) {
   const toggleEdit = () => {
     const path = document.location.pathname;
     if (path === "/") {
+      const { nickname, image, message } = state;
+      const profilePhoto = document.querySelector(".profilePhotoIMG");
+      const profileName = document.querySelector(".profileNameText");
+      const profileMSG = document.querySelector(".profileMSGText");
+      if (editState) {
+        if (nickname !== profileName.textContent || message !== profileMSG.textContent) {
+          if (window.confirm("수정된 내용을 저장하시겠습니까?")) {
+            callApi("/friend/profile", {
+              nickname: profileName.textContent,
+              message: profileMSG.textContent,
+            });
+          }
+        }
+      }
     } else if (path === "/note") {
       const { noteId, title, content } = state;
       const memoTitle = document.querySelector(".memoTitle input");
@@ -68,14 +84,25 @@ function Expand(props) {
     const name = e.target.name;
     e.target.classList.toggle("check");
     if (name === "photo") {
+      const photo = document.querySelector(".profilePhotoIMG");
+      photo.addEventListener("click", () => {
+        setAddState(true);
+      });
     } else if (name === "name") {
       const nickname = document.querySelector(".profileNameText");
       if (nickname.getAttribute("contentEditable")) {
+        if (nickname.textContent === "") {
+          alert("닉네임은 비어있을 수 없습니다");
+          nickname.textContent = state.nickname;
+        }
         nickname.removeAttribute("contentEditable");
       } else {
         nickname.setAttribute("contentEditable", true);
+        // nickname.setAttribute("data-placeholder", state.name);
         nickname.focus();
-        document.getSelection().collapse(nickname, 1);
+        if (nickname.textContent !== "") {
+          document.getSelection().collapse(nickname, 1);
+        }
       }
     } else if (name === "message") {
       const message = document.querySelector(".profileMSGText");
@@ -84,7 +111,9 @@ function Expand(props) {
       } else {
         message.setAttribute("contentEditable", true);
         message.focus();
-        document.getSelection().collapse(message, 1);
+        if (message.textContent !== "") {
+          document.getSelection().collapse(message, 1);
+        }
       }
     }
   };
@@ -149,8 +178,12 @@ function Expand(props) {
             </div>
             {editState ? (
               <div className="profileMSGBtn">
-                <button name="message" onClick={handleProfileEditBtn}>
-                  <img src={editProfile2} alt="프로필메세지 수정" />
+                <button
+                  name="message"
+                  onClick={handleProfileEditBtn}
+                  title="프로필메시지 수정"
+                >
+                  <img src={editProfile2} alt="프로필메시지 수정" />
                 </button>
               </div>
             ) : (
@@ -276,9 +309,18 @@ function Expand(props) {
   };
 
   return (
-    <div className="expand" onKeyDown={closeExpand} tabIndex="0">
-      <ExpandContent />
-    </div>
+    <>
+      <div className="expand" onKeyDown={closeExpand} tabIndex="0">
+        <ExpandContent />
+      </div>
+      <Add
+        title="프로필사진 불러오기"
+        placeholder="사진 불러오기"
+        use="loadFile"
+        open={addState}
+        setAddState={setAddState}
+      />
+    </>
   );
 }
 
