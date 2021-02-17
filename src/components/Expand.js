@@ -10,6 +10,7 @@ import editProfile2 from "../image/profile_edit2.png";
 import editNote from "../image/note_edit.png";
 
 function Expand(props) {
+  const path = document.location.pathname;
   const [addState, setAddState] = useState(false);
   const [editState, setEditState] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
@@ -27,19 +28,21 @@ function Expand(props) {
       (e._reactName === "onKeyDown" && e.keyCode === 27)
     ) {
       if (editState) {
-        if (
-          !window.confirm(
-            "우측 상단의 저장버튼을 눌러야 정상적으로 반영됩니다.\n저장하지 않고 창을 닫겠습니까?",
+        if (path === "/" || path === "/note") {
+          // 변경사항이 있으면 실행
+          if (
+            !window.confirm(
+              "우측 상단의 저장버튼을 눌러야 정상적으로 반영됩니다.\n저장하지 않고 창을 닫겠습니까?",
+            )
           )
-        )
-          return;
+            return;
+        }
       }
       props.close();
     }
   };
 
   const toggleEdit = () => {
-    const path = document.location.pathname;
     if (path === "/") {
       const { nickname, image, message } = state;
       const profilePhoto = document.querySelector(".profilePhotoIMG");
@@ -81,13 +84,29 @@ function Expand(props) {
   };
 
   const handleProfileEditBtn = (e) => {
+    // 이벤트 전파 해결
     const name = e.target.name;
+    e.preventDefault();
+    e.stopPropagation();
     e.target.classList.toggle("check");
+    console.log(props.state);
+
+    e.nativeEvent.stopImmediatePropagation();
     if (name === "photo") {
-      const photo = document.querySelector(".profilePhotoIMG");
-      photo.addEventListener("click", () => {
-        setAddState(true);
-      });
+      // const photo = document.querySelector(".profilePhotoIMG");
+      setAddState(true);
+      // if (photo.onclick) {
+      //   photo.removeEventListener("click");
+      //   alert("여기");
+      // } else {
+      //   alert("여기2");
+      //   photo.addEventListener("click", (e) => {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     e.stopImmediatePropagation();
+      //     setAddState(true);
+      //   });
+      // }
     } else if (name === "name") {
       const nickname = document.querySelector(".profileNameText");
       if (nickname.getAttribute("contentEditable")) {
@@ -117,7 +136,7 @@ function Expand(props) {
       }
     }
   };
-
+  // width 침범 해결
   const Profile = () => {
     const editSrc = editState ? editProfile : edit;
     const editTitle = editState ? "프로필수정 저장" : "프로필수정";
@@ -282,7 +301,6 @@ function Expand(props) {
   };
 
   const ExpandContent = () => {
-    const path = document.location.pathname;
     let component;
     switch (path) {
       case "/":

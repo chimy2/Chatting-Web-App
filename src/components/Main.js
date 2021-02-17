@@ -9,9 +9,8 @@ import Join from "./Join";
 function Main(props) {
   const { setLogin } = props;
 
-  useEffect(() => {
-    console.log("main", props);
-  }, []);
+  // useEffect(() => {
+  // }, []);
 
   const handleEvent = () => {
     let cookies = cookie.parse(document.cookie);

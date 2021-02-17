@@ -846,6 +846,7 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   border-top: 5px double var(--gray-color2);
   width: 100%;
   height: 40%;
@@ -856,15 +857,21 @@ hr {
   filter: var(--highlight-color-filter);
 }
 
+/* .profileContent > div > span :not(div .check) {
+  background: green;
+} */
+
 .profilePhoto {
   position: relative;
   bottom: 200px;
   height: 20px;
 }
 
-.profilePhotoIMG > img {
+.profilePhotoIMG, .profilePhotoIMG > img {
   width: 230px;
   border-radius: 90px;
+  /* 여백없애기
+  background: red; */
 }
 
 .profilePhotoBtn button {
@@ -1143,7 +1150,7 @@ hr {
     height: 20px;
   }
 
-  .profilePhotoIMG > img {
+  .profilePhotoIMG, .profilePhotoIMG > img {
     width: 150px;
     border-radius: 60px;
   }

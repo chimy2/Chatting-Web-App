@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import List from "./List";
 import close from "../image/close.png";
 import search from "../image/search.png";
+import folder from "../image/folder.png";
 import add from "../image/add.png";
 
 function Add(props) {
@@ -11,7 +12,7 @@ function Add(props) {
   const [talkSearchRes, setTalkSearchRes] = useState();
   const path = document.location.pathname;
 
-  const addClose = () => {
+  const addClose = (e) => {
     if (props.use === "loadFile") {
       props.setAddState(false);
     } else if (path === "/") {
@@ -122,27 +123,16 @@ function Add(props) {
     return response;
   };
 
-  return (
-    <div className={overlay}>
-      <div className="add">
-        <div className="addTitle">
-          {props.title}
-          <button onClick={addClose} title="닫기">
-            <img src={close} alt="close" />
-          </button>
-        </div>
+  const LoadFile = () => {
+    return (
+      <>
         <div className="addMainTitle">
           <form onSubmit={handleFormSubmit}>
-            <input type="text" placeholder={props.placeholder} />
-            {document.location.pathname === "/note" ? (
-              <button type="submit" title="추가">
-                <img src={add} alt="add" />
-              </button>
-            ) : (
-              <button type="submit" title="검색">
-                <img src={search} alt="search" />
-              </button>
-            )}
+            {/* input file 재배치 */}
+            <input type="file" placeholder={props.placeholder} />
+            <button type="submit" title="파일 불러오기">
+              <img src={folder} alt="파일 불러오기" />
+            </button>
           </form>
         </div>
         <div className="addMainContent">
@@ -158,12 +148,101 @@ function Add(props) {
           {talkSearchRes
             ? talkSearchRes.map((items) => <List key={items.id} items={items} />)
             : ""}
-          {document.location.pathname === "/note" ? (
-            <textarea placeholder="노트 내용" maxLength="20000" />
+        </div>
+      </>
+    );
+  };
+
+  const AddFriend = () => {
+    return (
+      <>
+        <div className="addMainTitle">
+          <form onSubmit={handleFormSubmit}>
+            <input type="text" placeholder={props.placeholder} />
+            <button type="submit" title="검색">
+              <img src={search} alt="search" />
+            </button>
+          </form>
+        </div>
+        <div className="addMainContent">
+          {friendSearch ? (
+            <List
+              items={friendSearch}
+              friend={friendSearch.id}
+              addClose={addClose.bind()}
+            />
           ) : (
             ""
           )}
         </div>
+      </>
+    );
+  };
+
+  const AddTalk = () => {
+    return (
+      <>
+        <div className="addMainTitle">
+          <form onSubmit={handleFormSubmit}>
+            <input type="text" placeholder={props.placeholder} />
+            <button type="submit" title="검색">
+              <img src={search} alt="search" />
+            </button>
+          </form>
+        </div>
+        <div className="addMainContent">
+          {talkSearchRes
+            ? talkSearchRes.map((items) => <List key={items.id} items={items} />)
+            : ""}
+        </div>
+      </>
+    );
+  };
+
+  const AddNote = () => {
+    return (
+      <>
+        <div className="addMainTitle">
+          <form onSubmit={handleFormSubmit}>
+            <input type="text" placeholder={props.placeholder} />
+            <button type="submit" title="추가">
+              <img src={add} alt="add" />
+            </button>
+          </form>
+        </div>
+        <div className="addMainContent">
+          <textarea placeholder="노트 내용" maxLength="20000" />
+        </div>
+      </>
+    );
+  };
+
+  const AddContent = () => {
+    let component;
+    if (props.use === "loadFile") {
+      component = <LoadFile />;
+    } else if (path === "/") {
+      component = <AddFriend />;
+    } else if (path === "/talk") {
+      component = <AddTalk />;
+    } else if (path === "/note") {
+      component = <AddNote />;
+    }
+    return component;
+  };
+
+  return (
+    <div className={overlay}>
+      <div className="add">
+        <div className="addTitle">
+          <div className="addTitleText">{props.title}</div>
+          <div className="addTitleBtn">
+            <button onClick={addClose} title="닫기">
+              <img src={close} alt="close" />
+            </button>
+          </div>
+        </div>
+        <AddContent />
       </div>
     </div>
   );
