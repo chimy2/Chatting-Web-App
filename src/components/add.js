@@ -123,32 +123,36 @@ function Add(props) {
     return response;
   };
 
+  const handleImageFile = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    const image = document.createElement("img");
+    image.src = URL.createObjectURL(file);
+    document.querySelectorAll(".addMainContent")[1].appendChild(image);
+  };
+
   const LoadFile = () => {
     return (
       <>
         <div className="addMainTitle">
           <form onSubmit={handleFormSubmit}>
             {/* input file 재배치 */}
-            <input type="file" placeholder={props.placeholder} />
-            <button type="submit" title="파일 불러오기">
-              <img src={folder} alt="파일 불러오기" />
+            {/* <label>여기</label> */}
+            <input
+              type="file"
+              id="input-file"
+              accept=".png,.jpg,.jpeg,.jpe,.gif"
+              // 모든 이미지 파일 불러오기
+              // accept="image/*"
+              capture
+              onChange={handleImageFile}
+            />
+            <button title="파일 불러오기">
+              <img src={folder} alt="파일 불러오기" htmlFor="input-file" />
             </button>
           </form>
         </div>
-        <div className="addMainContent">
-          {friendSearch ? (
-            <List
-              items={friendSearch}
-              friend={friendSearch.id}
-              addClose={addClose.bind()}
-            />
-          ) : (
-            ""
-          )}
-          {talkSearchRes
-            ? talkSearchRes.map((items) => <List key={items.id} items={items} />)
-            : ""}
-        </div>
+        <div className="addMainContent"></div>
       </>
     );
   };
