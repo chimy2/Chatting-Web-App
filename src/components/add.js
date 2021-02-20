@@ -124,11 +124,21 @@ function Add(props) {
   };
 
   const handleImageFile = (e) => {
+    // const content = document.querySelectorAll(".addMainContent")[1];
+    const canvas = document.querySelector(".addMainContent canvas");
+    const ctx = canvas.getContext('2d');
     const file = e.target.files[0];
-    console.log(file);
-    const image = document.createElement("img");
+    // console.log(file);
+    const image = new Image();
     image.src = URL.createObjectURL(file);
-    document.querySelectorAll(".addMainContent")[1].appendChild(image);
+    // ctx.fillStyle = 'green';
+    // ctx.fillRect(0,0);
+    // content.appendChild(image);
+    // const canvas = document.createElement("canvas").getContext('2d');
+    image.onload=()=> {
+      ctx.drawImage(image, 0,0);
+    };
+    // content.appendChild(image);
   };
 
   const LoadFile = () => {
@@ -152,7 +162,9 @@ function Add(props) {
             </button>
           </form>
         </div>
-        <div className="addMainContent"></div>
+        <div className="addMainContent">
+          <canvas></canvas>
+        </div>
       </>
     );
   };
