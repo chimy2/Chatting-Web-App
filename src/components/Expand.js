@@ -89,7 +89,7 @@ function Expand(props) {
     e.preventDefault();
     e.stopPropagation();
     e.target.classList.toggle("check");
-    console.log(props.state);
+    // console.log(props.state);
 
     e.nativeEvent.stopImmediatePropagation();
     if (name === "photo") {

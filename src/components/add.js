@@ -6,39 +6,54 @@ import folder from "../image/folder.png";
 import add from "../image/add.png";
 
 function Add(props) {
+  const path = document.location.pathname;
   const [overlay, setOverlay] = useState("overlay-close");
   const [friendSearch, setFriendSearch] = useState();
   const [talkSearchWord, setTalkSearchWord] = useState("");
   const [talkSearchRes, setTalkSearchRes] = useState();
-  const path = document.location.pathname;
 
-  const addClose = (e) => {
-    if (props.use === "loadFile") {
-      props.setAddState(false);
-    } else if (path === "/") {
-      props.setAddState({
-        addState: false,
-      });
-      document.querySelector(".addMainTitle > form > input").value = "";
-      setFriendSearch();
-    } else if (path === "/note") {
-      props.setAddState({
-        addState: false,
-      });
-      document.querySelector(".addMainTitle > form > input").value = "";
-      document.querySelector(".addMainContent > textarea").value = "";
-    } else {
-      props.setAddState(false);
-      document.querySelector(".addMainTitle > form > input").value = "";
-      setTalkSearchWord("");
-      setTalkSearchRes();
-    }
-    setOverlay("overlay-close");
+  const closeAdd = (e) => {
+    // console.log(e);
+    // if (
+    //   e._reactName === "onClick" ||
+    //   (e._reactName === "onKeyDown" && e.keyCode === 27)
+    // ) {
+      if (props.use === "loadFile") {
+        props.setAddState(false);
+      } else if (path === "/") {
+        props.setAddState({
+          addState: false,
+        });
+        document.querySelector(".addMainTitle > form > input").value = "";
+        setFriendSearch();
+      } else if (path === "/note") {
+        props.setAddState({
+          addState: false,
+        });
+        document.querySelector(".addMainTitle > form > input").value = "";
+        document.querySelector(".addMainContent > textarea").value = "";
+      } else {
+        props.setAddState(false);
+        document.querySelector(".addMainTitle > form > input").value = "";
+        setTalkSearchWord("");
+        setTalkSearchRes();
+      }
+      setOverlay("overlay-close");
+    // }
   };
+
+  // useEffect(() => {
+  // }, [window.innerWidth, window.innerHeight]);
 
   useEffect(() => {
     if (props.open) {
       setOverlay("overlay-open");
+      if(props.use ==="loadFile"){
+        // resize 시 canvas size 조정
+        window.addEventListener("resize", (e) => {
+          
+        })
+      }
     }
   }, [props.open]);
 
@@ -110,7 +125,7 @@ function Add(props) {
               content: textarea,
             }),
           }).then(() => {
-            addClose();
+            closeAdd();
             props.callNote();
           });
         }
@@ -124,18 +139,13 @@ function Add(props) {
   };
 
   const handleImageFile = (e) => {
-    // const content = document.querySelectorAll(".addMainContent")[1];
     const canvas = document.querySelector(".addMainContent canvas");
     const ctx = canvas.getContext('2d');
-    const file = e.target.files[0];
-    // console.log(file);
     const image = new Image();
-    image.src = URL.createObjectURL(file);
-    // ctx.fillStyle = 'green';
-    // ctx.fillRect(0,0);
-    // content.appendChild(image);
-    // const canvas = document.createElement("canvas").getContext('2d');
+    image.src = URL.createObjectURL(e.target.files[0]);
+    ctx.clearRect(0, 0, 300, 200);
     image.onload=()=> {
+      // 이미지가 로드된 후 canvas에 붙여넣기
       ctx.drawImage(image, 0,0);
     };
     // content.appendChild(image);
@@ -185,7 +195,7 @@ function Add(props) {
             <List
               items={friendSearch}
               friend={friendSearch.id}
-              addClose={addClose.bind()}
+              closeAdd={closeAdd.bind()}
             />
           ) : (
             ""
@@ -253,7 +263,7 @@ function Add(props) {
         <div className="addTitle">
           <div className="addTitleText">{props.title}</div>
           <div className="addTitleBtn">
-            <button onClick={addClose} title="닫기">
+            <button onClick={closeAdd} title="닫기">
               <img src={close} alt="close" />
             </button>
           </div>

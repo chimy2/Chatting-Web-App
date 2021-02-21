@@ -18,7 +18,7 @@ function List(props) {
       } else {
         alert("친구 요청에 실패했습니다");
       }
-      props.addClose();
+      props.closeAdd();
     });
   };
 
