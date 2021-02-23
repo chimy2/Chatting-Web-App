@@ -45,10 +45,15 @@ function Add(props) {
 
   useEffect(() => {
     if(!props.open || props.use === null || profileImage === undefined) return;
-    console.log("옵니다");
     const canvas = document.querySelector(".addMainContent canvas");
     console.log("profileImage",profileImage);
-    canvas.getContext("2d").drawImage(profileImage, 0, 0);
+    profileImage.onload = () => {
+      const clientWidth=canvas.parentElement.clientWidth;
+      const clientHeight=canvas.parentElement.clientHeight;
+      canvas.width=clientWidth;
+      canvas.height=clientHeight;
+      canvas.getContext("2d").drawImage(profileImage, 0, 0);
+    };
   }, [profileImage]);
 
   useEffect(() => {
@@ -56,15 +61,15 @@ function Add(props) {
       setOverlay("overlay-open");
       if(props.use ==="loadFile"){
         // resize 시 canvas size 조정
-        window.addEventListener("resize", (e) => {
+        document.querySelector(".addMainContent").addEventListener("resize", () => {
           const canvas = document.querySelector(".addMainContent canvas");
-          const beforeCanvas = document.createElement("canvas");
-          beforeCanvas.width=canvas.width;
-          beforeCanvas.height=canvas.height;
-          beforeCanvas.getContext("2d").drawImage(canvas, 0, 0);
-          canvas.width=canvas.parentElement.clientWidth;
-          canvas.height=canvas.parentElement.clientHeight;
-          canvas.getContext('2d').drawImage(beforeCanvas, 0, 0);
+          profileImage.onload = () => {
+            const clientWidth=canvas.parentElement.clientWidth;
+            const clientHeight=canvas.parentElement.clientHeight;
+            canvas.width=clientWidth;
+            canvas.height=clientHeight;
+            canvas.getContext('2d').drawImage(profileImage, 0, 0);
+          }
         })
       }
     }
@@ -151,18 +156,22 @@ function Add(props) {
     return response;
   };
 
-  // const handleImageFile = (e) => {
+  const handleImageFile = (e) => {
+    const image = new Image();
+    image.src = URL.createObjectURL(e.target.files[0]);
+    setProfileImage(image);
+    // image.onload= () => {
+    //   console.log(image.width, image.height);
+    // }
     // const canvas = document.querySelector(".addMainContent canvas");
     // const ctx = canvas.getContext('2d');
-    // const image = new Image();
-    // image.src = URL.createObjectURL(e.target.files[0]);
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
     // image.onload=()=> {
       // 이미지가 로드된 후 canvas에 붙여넣기
     //   ctx.drawImage(image, 0,0);
     // };
     // content.appendChild(image);
-  // };
+  };
 
   const LoadFile = () => {
     return (
@@ -170,15 +179,13 @@ function Add(props) {
         <div className="addMainTitle">
           <form>
             {/* input file 재배치 */}
-            {/* <label>여기</label> */}
             <input
               type="file"
               id="input-file"
               accept=".png,.jpg,.jpeg,.jpe,.gif"
               // 모든 이미지 파일 불러오기
               // accept="image/*"
-              capture
-              onChange={(e)=>setProfileImage(e.target.files[0])}
+              onChange={handleImageFile}
             />
             <button title="파일 불러오기">
               <img src={folder} alt="파일 불러오기" htmlFor="input-file" />
