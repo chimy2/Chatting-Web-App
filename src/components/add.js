@@ -95,7 +95,9 @@ function Add(props) {
     const value = e.target[0].value;
 
     e.preventDefault();
-    if (path === "/") {
+    if(props.use === "loadFile") {
+      document.querySelector('.addMainTitle > form > input').click();
+    }else if (path === "/") {
       setFriendSearch();
       if (value.length < 4) {
         alert("4글자 이상 입력해주세요");
@@ -159,7 +161,7 @@ function Add(props) {
   const handleImageFile = (e) => {
     const image = new Image();
     image.src = URL.createObjectURL(e.target.files[0]);
-    setProfileImage(image);
+    setProfileImage(image);console.log(e.target);
     // image.onload= () => {
     //   console.log(image.width, image.height);
     // }
@@ -177,7 +179,7 @@ function Add(props) {
     return (
       <>
         <div className="addMainTitle">
-          <form>
+          <form onSubmit={handleFormSubmit}>
             {/* input file 재배치 */}
             <input
               type="file"
@@ -187,9 +189,11 @@ function Add(props) {
               // accept="image/*"
               onChange={handleImageFile}
             />
-            <button title="파일 불러오기">
-              <img src={folder} alt="파일 불러오기" htmlFor="input-file" />
-            </button>
+            <label htmlFor="input-file">
+              <button title="파일 불러오기">
+                <img src={folder} alt="파일 불러오기" htmlFor="input-file" />
+              </button>
+            </label>
           </form>
         </div>
         <div className="addMainContent">
