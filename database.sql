@@ -64,8 +64,29 @@ create table friend(
 );
 
 -- create talk table
--- create table talk(
--- );
+create table talk(
+  roomId varchar(15) not null,
+  userId varchar(15) not null,
+  content text not null,
+  talkTime timestamp not null,
+  primary key (roomId, userId)
+);
+
+-- create room table
+create table room(
+  roomId varchar(15) not null,
+  roomPassword varchar(20),
+)
+
+-- create checkTalkTime table
+create table checkTalkTime(
+  roomId varchar(15) not null,
+  roomName varchar(20),
+  userId varchar(15) not null,
+  inTime timestamp not null,
+  checkTime timestamp not null,
+  primary key (roomId, userId)
+)
 
 -- create note table
 create table note(

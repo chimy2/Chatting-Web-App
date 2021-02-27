@@ -4,10 +4,14 @@ import icon from "../image/icon.png";
 
 function Popup(props) {
   const [state, setState] = useState("overlay-close");
-  const popupClose = () => {
+  const closePopup = () => {
     props.setPopupState(false);
     setState("overlay-close");
   };
+
+  const logout = () => {
+    console.log(1);
+  }
 
   useEffect(() => {
     if (props.open) {
@@ -20,7 +24,7 @@ function Popup(props) {
       <div className="popup">
         <div className="popupTitle">
           설정창
-          <span onClick={popupClose}>
+          <span onClick={closePopup}>
             <img src={close} alt="close" />
           </span>
         </div>
@@ -68,6 +72,11 @@ function Popup(props) {
                 <td className="popupContentName">검색 허용</td>
                 <td className="popupContentValue">
                   <input type="checkbox" value="soundAlert" defaultChecked="true" />
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <button onClick={logout}>로그아웃</button>
                 </td>
               </tr>
             </tbody>

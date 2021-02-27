@@ -5,7 +5,8 @@ module.exports = function(app) {
     '/api',
     createProxyMiddleware({
       target: 'http://localhost:5000/',
-      changeOrigin: ture
+      changeOrigin: true,
+      ws: true
     })
   );
 };
