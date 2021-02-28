@@ -1,6 +1,7 @@
 import { useState } from "react";
 import List from "./List";
 import Add from "./Add";
+import Expand from './Expand';
 import add from "../image/add.png";
 import search from "../image/sidebar_search.png";
 import close from "../image/sidebar_close.png";
@@ -8,6 +9,7 @@ import basicProfile from "../image/basic_profile.png";
 
 function SideBarTalk() {
   const [addState, setAddState] = useState(false);
+  const [expand, setExpand] = useState();
   const openAdd = () => {
     setAddState(true);
   };
@@ -31,6 +33,9 @@ function SideBarTalk() {
         </div>
       </section>
       <Add title="채팅 추가" open={addState} setAddState={setAddState} placeholder="친구 이름 검색"/>
+      {
+        expand ? <Expand /> : ""
+      }
     </>
   );
 }

@@ -10,6 +10,9 @@ drop trigger insert_profile;
 drop table profile;
 drop table friend;
 drop table user;
+drop table room;
+drop table talk;
+drop table checkTalkTime;
 
 -- create user table
 -- user_no int unsigned primary key auto_increment,
@@ -63,20 +66,25 @@ create table friend(
     on update cascade on delete cascade
 );
 
+-- create room table
+create table room(
+  id varchar(15) not null,
+  password varchar(20),
+  primary key (id)
+);
+
 -- create talk table
 create table talk(
   roomId varchar(15) not null,
   userId varchar(15) not null,
   content text not null,
   talkTime timestamp not null,
-  primary key (roomId, userId)
+  primary key (roomId, userId),
+  constraint talk_roomId_pk foreign key (roomId) references room(id)
+    on update cascade on delete cascade,
+  constraint talk_userId_pk foreign key (userId) references user(id)
+    on delete cascade
 );
-
--- create room table
-create table room(
-  roomId varchar(15) not null,
-  roomPassword varchar(20),
-)
 
 -- create checkTalkTime table
 create table checkTalkTime(
@@ -85,8 +93,12 @@ create table checkTalkTime(
   userId varchar(15) not null,
   inTime timestamp not null,
   checkTime timestamp not null,
-  primary key (roomId, userId)
-)
+  primary key (roomId, userId),
+  constraint checkTalkTime_roomId_pk foreign key (roomId) references room(id)
+    on update cascade on delete cascade,
+  constraint checkTalkTime_userId_pk foreign key (userId) references user(id)
+    on delete cascade
+);
 
 -- create note table
 create table note(

@@ -9,7 +9,7 @@ import dot from "../image/menu_dot.png";
 import bell from "../image/menu_bell.png";
 import setting from "../image/menu_setting.png";
 
-function Navigation() {
+function Navigation(props) {
   const [popupState, setPopupState] = useState(false);
   const popupOpen = () => {
     setPopupState(true);
@@ -43,7 +43,7 @@ function Navigation() {
           </button>
         </div>
       </nav>
-      <Popup open={popupState} setPopupState={setPopupState} />
+      <Popup open={popupState} setPopupState={setPopupState} setLogin={props.setLogin} socket={props.socket}/>
     </>
   );
 }

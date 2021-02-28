@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
-import { Cookies, useCookies }  from 'react-cookie';
+import { useCookies }  from 'react-cookie';
 import { io } from 'socket.io-client';
 
 import Main from "./components/Main";
@@ -17,17 +17,17 @@ function App(props) {
   let history = useHistory();
   const [login, setLogin] = useState(false);
   const [socket, setSocket] = useState();
-  const { cookies, setCookie } = useCookies('id');
+  const [cookies, setCookie, removeCookie] = useCookies(['id']);
   
   // useEffect(() => {
-  //   console.log(cookies);
-  //   if(cookies !== undefined && cookies !== null){
-  //     setLogin(true);
-  //     console.log('true');
-  //   }else {
-  //     setLogin(false);
-  //     console.log('false');
-  //   }
+  //   console.log('쿠키 확인',cookies);
+    // if(cookies !== undefined && cookies !== null){
+    //   setLogin(true);
+    //   console.log('true');
+    // }else {
+    //   setLogin(false);
+    //   console.log('false');
+    // }
   // }, [cookies]);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function App(props) {
       {
         login ?
           <main>
-            <Navigation/>
+            <Navigation setLogin={setLogin} socket={socket}/>
             <Switch>
               <Route exact path="/" component={SideBarFriend}/>
               <Route path="/talk" component={SideBarTalk}/>

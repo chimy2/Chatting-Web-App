@@ -1,16 +1,25 @@
 import { useState, useEffect } from "react";
+import { useCookies }  from 'react-cookie';
 import close from "../image/close.png";
 import icon from "../image/icon.png";
 
 function Popup(props) {
   const [state, setState] = useState("overlay-close");
+  const { setLogin, socket } = props;
+  const [cookies, setCookie, removeCookie] = useCookies();
+
   const closePopup = () => {
     props.setPopupState(false);
     setState("overlay-close");
   };
 
   const logout = () => {
-    console.log(1);
+    // socket.close(); or
+    socket.disconnect();
+    setLogin(false);
+    for(const [key] of Object.entries(cookies)){
+      removeCookie(key);
+    }
   }
 
   useEffect(() => {

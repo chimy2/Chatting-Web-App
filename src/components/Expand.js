@@ -228,6 +228,21 @@ function Expand(props) {
     );
   };
 
+  const Talk = () => {
+    return(
+      <div className="talk">
+        <ExpandTitle />
+        <div className="talkConversation"></div>
+        <div className="talkContent">
+          <form >
+            <input type="text" />
+            <button type="submit">전송</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   const Schedule = () => {
     const scheduleDays = [];
     const length = props.length;
@@ -305,6 +320,9 @@ function Expand(props) {
     switch (path) {
       case "/":
         component = <Profile />;
+        break;
+      case "/talk":
+        component = <Talk />;
         break;
       case "/calendar":
         component = <Schedule />;

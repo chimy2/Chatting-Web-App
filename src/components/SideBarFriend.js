@@ -132,6 +132,7 @@ class SideBarFriend extends React.Component {
     if (friList) {
       friends.push(
         <div className="friendSubTitle" key="length">
+          {/* chrome 에서 0으로 보이는 문제 */}
           친구목록({friList.length})
         </div>,
       );
