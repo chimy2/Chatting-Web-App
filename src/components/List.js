@@ -49,9 +49,11 @@ function List(props) {
       } else if (props.use === "profile") {
         items.use = "profile";
       }
-      props.setState({
-        expandItem: items,
-      });
+      if(path !== "/talk"){
+        props.setState({
+          expandItem: items,
+        });
+      }
       props.open();
     }
   };

@@ -18,8 +18,14 @@ function Expand(props) {
 
   useEffect(() => {
     setState(props.state);
-    document.querySelector(".expand").focus();
-    setEditState(false);
+    if(path==="/talk"){
+      document.querySelector('.talkMSG').focus();
+    }else {
+      document.querySelector(".expand").focus();
+    }
+    if(path==="/" || path==="/note"){
+      setEditState(false);
+    }
   }, [props.state]);
 
   const closeExpand = (e) => {
@@ -136,6 +142,25 @@ function Expand(props) {
       }
     }
   };
+
+  const handleEnter = (e) => {
+    const msg = e.target;
+    if(e.key ==='Enter' && msg.value !== "") {
+      sendMSG(e);
+    }
+  }
+
+  const sendMSG = (e) => {
+    e.preventDefault();
+    const msg = document.querySelector('.talkMSG');
+    const conversation = document.querySelector('.talkConversation');
+    const div=document.createElement('div');
+    div.className="talkConversationList"
+    div.textContent=msg.value;
+    conversation.append(div);
+    msg.value="";
+    conversation.scrollTop= conversation.scrollHeight;
+  }
   // width 침범 해결
   const Profile = () => {
     const editSrc = editState ? editProfile : edit;
@@ -234,10 +259,8 @@ function Expand(props) {
         <ExpandTitle />
         <div className="talkConversation"></div>
         <div className="talkContent">
-          <form >
-            <input type="text" />
-            <button type="submit">전송</button>
-          </form>
+          <input type="text" className="talkMSG" onKeyPress={handleEnter}/>
+          <button title="전송" onClick={sendMSG}>전송</button>
         </div>
       </div>
     );

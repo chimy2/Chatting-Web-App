@@ -14,6 +14,14 @@ function SideBarTalk() {
     setAddState(true);
   };
 
+  const openExpand = () => {
+    setExpand(true);
+  }
+
+  const closeExpand = () => {
+    setExpand();
+  }
+
   return (
     <>
       <section className="sideBar">
@@ -29,12 +37,12 @@ function SideBarTalk() {
           <img src={close} alt="close" />
         </div>
         <div className="friendProfile">
-          <List items={""} />
+          <List items={""} open={openExpand}/>
         </div>
       </section>
       <Add title="채팅 추가" open={addState} setAddState={setAddState} placeholder="친구 이름 검색"/>
       {
-        expand ? <Expand /> : ""
+        expand ? <Expand close={closeExpand} /> : ""
       }
     </>
   );

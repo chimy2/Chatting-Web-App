@@ -962,6 +962,24 @@ hr {
   filter: var(--highlight-color-filter);
 }
 
+.talk {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background: red;
+}
+
+.talkConversation {
+  height: 100%;
+  background: green;
+  
+}
+
+.talkContent {
+  background: orange;
+}
+
 .schedule {
   display: flex;
   flex-direction: column;
@@ -1002,6 +1020,7 @@ hr {
   color: var(--highlight-color);
 }
 
+/* width: 1440px */
 .memo {
   display: flex;
   flex-direction: column;
@@ -1051,6 +1070,7 @@ hr {
 
 .memoDate {
   align-self: flex-end;
+  width: 100%;
   color: var(--font-color2);
 }
 

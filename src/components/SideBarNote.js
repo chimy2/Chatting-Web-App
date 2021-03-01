@@ -18,12 +18,6 @@ class SideBarNote extends React.Component {
     };
   }
 
-  openAdd = () => {
-    this.setState({
-      addState: true,
-    });
-  };
-
   componentDidMount() {
     this.callNote();
   }
@@ -40,6 +34,12 @@ class SideBarNote extends React.Component {
     const response = await fetch(`/api${address}`);
     const body = await response.json();
     return body;
+  };
+
+  openAdd = () => {
+    this.setState({
+      addState: true,
+    });
   };
 
   openExpand = (items) => {
