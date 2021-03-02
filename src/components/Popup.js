@@ -53,11 +53,9 @@ function Popup(props) {
                 <td className="popupContentName">글씨 크기</td>
                 <td className="popupContentValue">
                   <select name="fontSize">
-                    <option value="10pt">10</option>
-                    <option value="12pt">12</option>
-                    <option value="14pt">14</option>
-                    <option value="16pt">16</option>
-                    <option value="18pt">18</option>
+                    <option value="12pt">작게</option>
+                    <option value="16pt">중간</option>
+                    <option value="20pt">크게</option>
                   </select>
                 </td>
               </tr>
@@ -70,8 +68,8 @@ function Popup(props) {
               <tr>
                 <td className="popupContentName">알림창</td>
                 <td className="popupContentValue">
-                  <select name="alertMes">
-                    <option value="nameMes">이름 & 메세지 모두</option>
+                  <select name="alertMSG">
+                    <option value="nameMSG">이름 & 메세지 모두</option>
                     <option value="name">이름만</option>
                     <option value="none">알림만</option>
                   </select>

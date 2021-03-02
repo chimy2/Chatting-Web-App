@@ -54,7 +54,7 @@ function List(props) {
           expandItem: items,
         });
       }
-      props.open();
+      props.open(items);
     }
   };
 

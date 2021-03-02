@@ -76,14 +76,19 @@ class SideBarFriend extends React.Component {
   };
 
   openExpand = (items) => {
-    this.setState({
-      expandState: true,
-    });
+    if(this.state.expandState && items === this.state.expandItem) {
+      this.closeExpand();
+    } else {
+      this.setState({
+        expandState: true,
+      });
+    }
   };
 
   closeExpand = () => {
     this.setState({
       expandState: false,
+      expandItem: undefined
     });
   };
 

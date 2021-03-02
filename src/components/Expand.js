@@ -18,12 +18,12 @@ function Expand(props) {
 
   useEffect(() => {
     setState(props.state);
-    if(path==="/talk"){
-      document.querySelector('.talkMSG').focus();
-    }else {
+    if (path === "/talk") {
+      document.querySelector(".talkMSG").focus();
+    } else {
       document.querySelector(".expand").focus();
     }
-    if(path==="/" || path==="/note"){
+    if (path === "/" || path === "/note") {
       setEditState(false);
     }
   }, [props.state]);
@@ -145,22 +145,22 @@ function Expand(props) {
 
   const handleEnter = (e) => {
     const msg = e.target;
-    if(e.key ==='Enter' && msg.value !== "") {
+    if (e.key === "Enter" && msg.value !== "") {
       sendMSG(e);
     }
-  }
+  };
 
   const sendMSG = (e) => {
     e.preventDefault();
-    const msg = document.querySelector('.talkMSG');
-    const conversation = document.querySelector('.talkConversation');
-    const div=document.createElement('div');
-    div.className="talkConversationList"
-    div.textContent=msg.value;
-    conversation.append(div);
-    msg.value="";
-    conversation.scrollTop= conversation.scrollHeight;
-  }
+    const msg = document.querySelector(".talkMSG");
+    const conversation = document.querySelector(".talkWindow");
+    const article = document.createElement("article");
+    article.className = "talkI";
+    article.textContent = msg.value;
+    conversation.append(article);
+    msg.value = "";
+    conversation.scrollTop = conversation.scrollHeight;
+  };
   // width 침범 해결
   const Profile = () => {
     const editSrc = editState ? editProfile : edit;
@@ -254,17 +254,58 @@ function Expand(props) {
   };
 
   const Talk = () => {
-    return(
+    return (
       <div className="talk">
         <ExpandTitle />
-        <div className="talkConversation"></div>
+        <div className="talkWindow">
+          <article className="talkOthers">
+            <img src={basicProfile} />
+            <section className="talkOthersContent">
+              <div className="talkOthersName">닉네임입니다</div>
+              <div className="talkOthersMSG">대화내용입니다1</div>
+            </section>
+            <section className="talkOthersTime">오후 10:30</section>
+          </article>
+          <article className="talkOthers">
+            <img src={basicProfile} />
+            <section className="talkOthersContent">
+              <div className="talkOthersName">닉네임입니다</div>
+              <div className="talkOthersMSG">대화내용입니다2</div>
+            </section>
+            <section className="talkOthersTime">오후 10:30</section>
+          </article>
+          <article className="talkOthers">
+            <img src={basicProfile} />
+            <section className="talkOthersContent">
+              <div className="talkOthersName">닉네임입니다</div>
+              <div className="talkOthersMSG">
+                대화내용입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+            </section>
+            <section className="talkOthersTime">오후 10:30</section>
+          </article>
+          <article className="talkOthers">
+            <img src={basicProfile} />
+            <section className="talkOthersContent">
+              <div className="talkOthersName">닉네임입니다</div>
+              <div className="talkOthersMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+            </section>
+            <section className="talkOthersTime">오후 10:30</section>
+          </article>
+        </div>
         <div className="talkContent">
-          <input type="text" className="talkMSG" onKeyPress={handleEnter}/>
-          <button title="전송" onClick={sendMSG}>전송</button>
+          <input type="text" className="talkMSG" onKeyPress={handleEnter} />
+          <button title="전송" onClick={sendMSG}>
+            전송
+          </button>
         </div>
       </div>
     );
-  }
+  };
 
   const Schedule = () => {
     const scheduleDays = [];

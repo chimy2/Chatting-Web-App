@@ -31,6 +31,9 @@
   --font-size3: 18px;
   --font-size4: 16px;
   --font-size5: 14px;
+  --talk-font-size-small: 12px;
+  --talk-font-size-medium: 16px;
+  --talk-font-size-large: 20px;
   --height: 60px;
 }
 
@@ -64,34 +67,34 @@ nav {
   background-color: var(--background-color);
 }
 
-nav div {
+nav section {
   display: flex;
   flex-direction: column;
   padding: 5px 0;
 }
 
-nav div button {
+nav section button {
   margin: 0 10px;
   padding: 10px;
   cursor: pointer;
 }
 
-nav div img {
+nav section img {
   display: block;
   width: 50px;
   filter: var(--highlight-color-filter);
 }
 
-nav div a:hover,
-nav div button:hover {
+nav section a:hover,
+nav section button:hover {
   filter: var(--alert-color-filter2);
 }
 
-nav div a {
+nav section a {
   margin: 0 10px;
 }
 
-nav div a img {
+nav section a img {
   margin: 10px;
   width: 50px;
 }
@@ -101,12 +104,6 @@ main {
   flex-direction: row;
   align-items: stretch;
   height: calc(100% - var(--height));
-}
-
-article {
-  display: flex;
-  height: calc(100% - 80px);
-  overflow: hidden;
 }
 
 footer {
@@ -176,6 +173,12 @@ hr {
     url("./image/background.jpg");
   background-size: cover;
   background-position: center;
+}
+
+.main main {
+  display: flex;
+  height: calc(100% - var(--height) - 40px);
+  overflow-x: hidden;
 }
 
 .mainLogo {
@@ -879,7 +882,8 @@ hr {
   height: 20px;
 }
 
-.profilePhotoIMG, .profilePhotoIMG > img {
+.profilePhotoIMG,
+.profilePhotoIMG > img {
   width: 230px;
   border-radius: 90px;
   /* 여백없애기
@@ -970,13 +974,49 @@ hr {
   background: red;
 }
 
-.talkConversation {
+.talkWindow {
   height: 100%;
+  overflow-y: scroll;
   background: green;
-  
+}
+
+.talkOthers {
+  display: flex;
+  justify-content: row;
+  padding: 5px 10px;
+  background: steelblue;
+}
+
+.talkOthers img {
+  width: 70px;
+  height: 70px;
+  border-radius: 1.5rem;
+}
+
+.talkOthersContent {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  background: yellow;
+}
+
+.talkOthersName {
+  align-self: flex-start;
+  padding: 3px;
+  font-size: 20px;
+}
+
+.talkOthersMSG {
+  padding: 3px;
+}
+
+.talkOthersTime {
+  align-self: flex-end;
+  min-width: 100px;
 }
 
 .talkContent {
+  height: 3rem;
   background: orange;
 }
 
@@ -1020,7 +1060,6 @@ hr {
   color: var(--highlight-color);
 }
 
-/* width: 1440px */
 .memo {
   display: flex;
   flex-direction: column;
@@ -1101,11 +1140,11 @@ hr {
     left: calc(50% - 40vw);
   }
 
-  nav div a img {
+  nav section a img {
     width: 35px;
   }
 
-  nav div button img {
+  nav section button img {
     width: 35px;
   }
 
@@ -1137,7 +1176,6 @@ hr {
   }
 
   .noteList {
-    width: calc(100vw - 95px);
     height: calc(100% - 131px);
   }
 
@@ -1183,7 +1221,8 @@ hr {
     height: 20px;
   }
 
-  .profilePhotoIMG, .profilePhotoIMG > img {
+  .profilePhotoIMG,
+  .profilePhotoIMG > img {
     width: 150px;
     border-radius: 60px;
   }

@@ -17,7 +17,7 @@ function Navigation(props) {
   return (
     <>
       <nav className="nav">
-        <div>
+        <section>
           <Link to="/" title="친구">
             <img src={profile} alt="profile" />
           </Link>
@@ -33,15 +33,15 @@ function Navigation(props) {
           <Link to="/dot" title="기타">
             <img src={dot} alt="dot" />
           </Link>
-        </div>
-        <div>
+        </section>
+        <section>
           <button title="알림">
             <img src={bell} alt="bell" />
           </button>
           <button onClick={popupOpen} title="설정">
             <img src={setting} alt="setting" />
           </button>
-        </div>
+        </section>
       </nav>
       <Popup open={popupState} setPopupState={setPopupState} setLogin={props.setLogin} socket={props.socket}/>
     </>

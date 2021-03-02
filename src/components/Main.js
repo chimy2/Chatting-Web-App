@@ -25,13 +25,13 @@ function Main(props) {
         <Link to="/login" title="로그인">시작하기</Link>
         <Link to="/join" title="회원가입">함께하기</Link>
       </header>
-      <article>
+      <main>
         <Switch>
           <Route exact path="/" component={Effect} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/join" component={Join} />
         </Switch>
-      </article>
+      </main>
     </div>
   );
 }
