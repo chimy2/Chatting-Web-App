@@ -152,14 +152,50 @@ function Expand(props) {
 
   const sendMSG = (e) => {
     e.preventDefault();
+    const date = new Date();
+    const messages = document.querySelectorAll('.talkI');
+    const lastTime = messages[messages.length-1];
+    
+    if(lastTime){
+      console.log(lastTime.value);
+    }
+    // 날짜포함
+    // if(lastTime && date.getHours=== && date.getMinutes===){
+
+    // }
     const msg = document.querySelector(".talkMSG");
-    const conversation = document.querySelector(".talkWindow");
-    const article = document.createElement("article");
-    article.className = "talkI";
-    article.textContent = msg.value;
-    conversation.append(article);
+    const window = document.querySelector(".talkWindow");
+    const article =
+      <article className="talkI">
+        <section className="talkITime">
+          <p>{`${date.getHours()}:${date.getMinutes()}`}</p>
+          <input type="hidden" value={date}/>
+        </section>
+        <section className="talkIContent">
+          <div className="talkIMSG">{msg.value}</div>
+        </section>
+      </article>
+    ;
+    // const msg = document.querySelector(".talkMSG");
+    // const window = document.querySelector(".talkWindow");
+    // const article = document.createElement("article");
+    // const sectionTime = document.createElement("section");
+    // const inputHiddenTime = document.createElement("input");
+    // const sectionContent = document.createElement("section");
+    // const div = document.createElement("div");
+    // sectionTime.className="talkITime";
+    // sectionTime.value=date;
+    // sectionTime.textContent=`${date.getHours()}:${date.getMinutes()}`;
+    // sectionContent.className="talkIContent";
+    // div.className="talkIMSG";
+    // div.textContent=msg.value;
+    // sectionContent.append(div);
+    // article.className = "talkI";
+    // article.append(sectionTime);
+    // article.append(sectionContent);
+    window.append(article);
     msg.value = "";
-    conversation.scrollTop = conversation.scrollHeight;
+    window.scrollTop = window.scrollHeight;
   };
   // width 침범 해결
   const Profile = () => {
@@ -256,31 +292,14 @@ function Expand(props) {
   const Talk = () => {
     return (
       <div className="talk">
-        <ExpandTitle />
+        <ExpandTitle center="닉네임입니다"/>
         <div className="talkWindow">
           <article className="talkOthers">
             <img src={basicProfile} />
             <section className="talkOthersContent">
               <div className="talkOthersName">닉네임입니다</div>
-              <div className="talkOthersMSG">대화내용입니다1</div>
-            </section>
-            <section className="talkOthersTime">오후 10:30</section>
-          </article>
-          <article className="talkOthers">
-            <img src={basicProfile} />
-            <section className="talkOthersContent">
-              <div className="talkOthersName">닉네임입니다</div>
-              <div className="talkOthersMSG">대화내용입니다2</div>
-            </section>
-            <section className="talkOthersTime">오후 10:30</section>
-          </article>
-          <article className="talkOthers">
-            <img src={basicProfile} />
-            <section className="talkOthersContent">
-              <div className="talkOthersName">닉네임입니다</div>
-              <div className="talkOthersMSG">
-                대화내용입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              </div>
+              <div className="talkOthersMSG">대화내용</div>
+              <div className="talkOthersMSG">대화내용</div>
             </section>
             <section className="talkOthersTime">오후 10:30</section>
           </article>
@@ -292,6 +311,13 @@ function Expand(props) {
                 대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
                 ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
                 ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+              <div className="talkOthersMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+              <div className="talkOthersMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
               </div>
             </section>
             <section className="talkOthersTime">오후 10:30</section>

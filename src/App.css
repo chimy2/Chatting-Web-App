@@ -980,6 +980,25 @@ hr {
   background: green;
 }
 
+.talkI {
+  display: flex;
+  justify-content: end;
+  background:red;
+}
+
+.talkITime {
+  min-width: 100px;
+  background:aqua;
+}
+
+.talkIContent {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 5px 0 5px;
+  padding: 0 5px;
+  background:pink;
+}
+
 .talkOthers {
   display: flex;
   justify-content: row;
@@ -996,23 +1015,44 @@ hr {
 .talkOthersContent {
   display: flex;
   flex-direction: column;
-  margin: 5px;
+  margin: 5px 5px 0 5px;
+  padding: 0 5px;
   background: yellow;
 }
 
 .talkOthersName {
   align-self: flex-start;
+  margin-bottom: 3px;
   padding: 3px;
   font-size: 20px;
+  background: thistle;
 }
 
 .talkOthersMSG {
-  padding: 3px;
+  position:relative;
+  align-self: flex-start;
+  margin: 3px 0 0 8px;
+  padding: 7px;
+  border-radius: 0.5rem;
+  text-align: start;
+  background: tomato;
+}
+
+.talkOthersMSG:nth-child(2)::after {
+  position:absolute;
+  border-top:15px solid tomato;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  content:"";
+  width:0;
+  top:0px;
+  left: -10px;
 }
 
 .talkOthersTime {
   align-self: flex-end;
   min-width: 100px;
+  background: slateblue;
 }
 
 .talkContent {
