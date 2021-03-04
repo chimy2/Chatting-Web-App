@@ -13,20 +13,122 @@ function Expand(props) {
   const path = document.location.pathname;
   const [addState, setAddState] = useState(false);
   const [editState, setEditState] = useState(false);
+  const [conversation, setConversation] = useState([]);
   const [readOnly, setReadOnly] = useState(true);
   const [state, setState] = useState(props.state);
 
   useEffect(() => {
     setState(props.state);
-    if (path === "/talk") {
-      document.querySelector(".talkMSG").focus();
-    } else {
+    // if (path === "/talk") {
+      // setConversation([
+      //   <article className="talkOthers">
+      //     <img src={basicProfile} />
+      //     <section className="talkOthersContent">
+      //       <div className="talkOthersName">닉네임입니다</div>
+      //       <div className="talkOthersMSG">대화내용</div>
+      //       <div className="talkOthersMSG">대화내용</div>
+      //     </section>
+      //     <section className="talkOthersTime">오후 10:30</section>
+      //   </article>,
+      //   <article className="talkOthers">
+      //     <img src={basicProfile} />
+      //     <section className="talkOthersContent">
+      //       <div className="talkOthersName">닉네임입니다</div>
+      //       <div className="talkOthersMSG">
+      //         대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+      //         ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+      //         ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+      //       </div>
+      //       <div className="talkOthersMSG">
+      //         대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+      //         ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+      //       </div>
+      //       <div className="talkOthersMSG">
+      //         대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+      //       </div>
+      //     </section>
+      //     <section className="talkOthersTime">오후 10:30</section>
+      //   </article>,
+      //   <article className="talkI">
+      //     <section className="talkITime">
+      //       <p>{`${22}:${22}`}</p>
+      //       <input type="hidden"/>
+      //     </section>
+      //     <section className="talkIContent">
+      //       <div className="talkIMSG">{"메세지"}</div>
+      //     </section>
+      //   </article>
+      // ]);
+      // document.querySelector(".talkMSG").focus();
+    // } else {
+    if(path !== "/talk") {
       document.querySelector(".expand").focus();
     }
     if (path === "/" || path === "/note") {
       setEditState(false);
     }
   }, [props.state]);
+
+  useEffect(() => {
+    if(path === "/talk"){
+      setConversation([
+        <article className="talkOthers">
+          <img src={basicProfile} />
+          <section className="talkOthersContent">
+            <div className="talkOthersName">닉네임입니다</div>
+            <div className="talkOthersMSG">대화내용</div>
+            <div className="talkOthersMSG">대화내용</div>
+            <div className="talkOthersTime">오후 10:30</div>
+          </section>
+        </article>,
+        <article className="talkOthers">
+          <img src={basicProfile} />
+          <section className="talkOthersContent">
+            <div className="talkOthersName">닉네임입니다</div>
+            <div className="talkOthersMSG">
+              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+              ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+            </div>
+            <div className="talkOthersTime">오후 10:30</div>
+            <div className="talkOthersMSG">
+              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+            </div>
+            <div className="talkOthersTime">오후 10:30</div>
+            <div className="talkOthersMSG">
+              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+            </div>
+            <div className="talkOthersTime">오후 10:30</div>
+          </section>
+        </article>,
+        <article className="talkI">
+          <section className="talkIContent">
+            <div className="talkIMSG">
+              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+              ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+            </div>
+            <div className="talkIMSG">
+              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+            </div>
+            <div className="talkITime">
+              {`${22}:${22}`}
+              <input type="hidden"/>
+            </div>
+          </section>
+        </article>
+      ]);
+      document.querySelector(".talkMSG").focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    
+    document.querySelector(".talkMSG").focus();
+    window.scrollTop = window.scrollHeight;
+  }, [conversation]);
 
   const closeExpand = (e) => {
     if (
@@ -153,11 +255,14 @@ function Expand(props) {
   const sendMSG = (e) => {
     e.preventDefault();
     const date = new Date();
-    const messages = document.querySelectorAll('.talkI');
-    const lastTime = messages[messages.length-1];
-    
-    if(lastTime){
-      console.log(lastTime.value);
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const times = document.querySelectorAll('.talkI input[type=hidden]');
+    // const lastTime = messages[messages.length-1];
+    // console.log(times[times.length-1]);
+    if(times !==undefined){
+      console.log(times[times.length-1]);
+      // console.log(times[times.length-1].attributes('value').nodeValue);
     }
     // 날짜포함
     // if(lastTime && date.getHours=== && date.getMinutes===){
@@ -165,17 +270,17 @@ function Expand(props) {
     // }
     const msg = document.querySelector(".talkMSG");
     const window = document.querySelector(".talkWindow");
-    const article =
+    const article = (
       <article className="talkI">
         <section className="talkITime">
-          <p>{`${date.getHours()}:${date.getMinutes()}`}</p>
+          <p>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${minutes}`}</p>
           <input type="hidden" value={date}/>
         </section>
         <section className="talkIContent">
           <div className="talkIMSG">{msg.value}</div>
         </section>
       </article>
-    ;
+    );
     // const msg = document.querySelector(".talkMSG");
     // const window = document.querySelector(".talkWindow");
     // const article = document.createElement("article");
@@ -193,9 +298,10 @@ function Expand(props) {
     // article.className = "talkI";
     // article.append(sectionTime);
     // article.append(sectionContent);
-    window.append(article);
+    setConversation(conversation.concat(article));
     msg.value = "";
     window.scrollTop = window.scrollHeight;
+    document.querySelector(".talkMSG").focus();
   };
   // width 침범 해결
   const Profile = () => {
@@ -293,38 +399,9 @@ function Expand(props) {
     return (
       <div className="talk">
         <ExpandTitle center="닉네임입니다"/>
-        <div className="talkWindow">
-          <article className="talkOthers">
-            <img src={basicProfile} />
-            <section className="talkOthersContent">
-              <div className="talkOthersName">닉네임입니다</div>
-              <div className="talkOthersMSG">대화내용</div>
-              <div className="talkOthersMSG">대화내용</div>
-            </section>
-            <section className="talkOthersTime">오후 10:30</section>
-          </article>
-          <article className="talkOthers">
-            <img src={basicProfile} />
-            <section className="talkOthersContent">
-              <div className="talkOthersName">닉네임입니다</div>
-              <div className="talkOthersMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              </div>
-              <div className="talkOthersMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              </div>
-              <div className="talkOthersMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-              </div>
-            </section>
-            <section className="talkOthersTime">오후 10:30</section>
-          </article>
-        </div>
+        <div className="talkWindow">{conversation}</div>
         <div className="talkContent">
-          <input type="text" className="talkMSG" onKeyPress={handleEnter} />
+          <textarea type="text" className="talkMSG" onKeyPress={handleEnter} />
           <button title="전송" onClick={sendMSG}>
             전송
           </button>

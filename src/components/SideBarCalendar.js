@@ -4,9 +4,9 @@ import Expand from './Expand';
 
 function SideBarCalendar() {
   const [expand, setExpand] = useState();
-  const openExpand = (month, day, length) => {
-    setExpand([month, day, length]);
-  }
+  // const openExpand = (month, day, length) => {
+  //   setExpand([month, day, length]);
+  // }
   const closeExpand = () => {
     setExpand();
   }

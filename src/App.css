@@ -971,22 +971,27 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background: red;
+  background: var(--white-color2);
+}
+
+.talk .expandTitle{
+  background: var(--background-color2);
 }
 
 .talkWindow {
   height: 100%;
   overflow-y: scroll;
-  background: green;
 }
 
 .talkI {
   display: flex;
-  justify-content: end;
-  background:red;
+  justify-content: flex-end;
+  padding: 5px 10px;
+  background: blue;
 }
 
 .talkITime {
+  align-self: flex-end;
   min-width: 100px;
   background:aqua;
 }
@@ -999,11 +1004,32 @@ hr {
   background:pink;
 }
 
+.talkIMSG {
+  position:relative;
+  align-self: flex-start;
+  margin: 3px 0 0 8px;
+  padding: 7px;
+  border-radius: 0.5rem;
+  text-align: start;
+  background: tomato;
+}
+
+.talkIMSG:nth-child(1)::after {
+  position:absolute;
+  border-top:15px solid tomato;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  content:"";
+  width:0;
+  top:0px;
+  right: -10px;
+}
+
 .talkOthers {
   display: flex;
-  justify-content: row;
+  justify-content: flex-start;
   padding: 5px 10px;
-  background: steelblue;
+  background: teal;
 }
 
 .talkOthers img {
@@ -1017,7 +1043,8 @@ hr {
   flex-direction: column;
   margin: 5px 5px 0 5px;
   padding: 0 5px;
-  background: yellow;
+  width: 100%;
+  background: thistle;
 }
 
 .talkOthersName {
@@ -1025,7 +1052,7 @@ hr {
   margin-bottom: 3px;
   padding: 3px;
   font-size: 20px;
-  background: thistle;
+  background: blue;
 }
 
 .talkOthersMSG {
@@ -1035,12 +1062,12 @@ hr {
   padding: 7px;
   border-radius: 0.5rem;
   text-align: start;
-  background: tomato;
+  background: var(--background-color);
 }
 
 .talkOthersMSG:nth-child(2)::after {
   position:absolute;
-  border-top:15px solid tomato;
+  border-top:15px solid var(--background-color);
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   content:"";
@@ -1050,14 +1077,36 @@ hr {
 }
 
 .talkOthersTime {
-  align-self: flex-end;
   min-width: 100px;
   background: slateblue;
 }
 
 .talkContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   height: 3rem;
   background: orange;
+}
+
+.talkContent textarea {
+  align-self: center;
+  margin: 0 10px;
+  padding: 5px;
+  border: none;
+  width: calc(100% - 120px);
+  height: calc(100% - 10px);
+  font-size: var(--font-size3);
+  text-indent: 5px;
+  resize: none;
+  background: red;
+}
+
+.talkContent button {
+  align-self: center;
+  border-radius: 0.7rem;
+  height: 2rem;
+  background: white;
 }
 
 .schedule {
