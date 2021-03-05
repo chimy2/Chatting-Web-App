@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import Add from "./Add";
 import back from "../image/back.png";
 import basicProfile from "../image/basic_profile.png";
@@ -76,59 +76,80 @@ function Expand(props) {
           <img src={basicProfile} />
           <section className="talkOthersContent">
             <div className="talkOthersName">닉네임입니다</div>
-            <div className="talkOthersMSG">대화내용</div>
-            <div className="talkOthersMSG">대화내용</div>
-            <div className="talkOthersTime">오후 10:30</div>
+            <article>
+              <div className="talkOthersMSG">대화내용</div>
+              <div className="talkOthersTime">오후 10:30</div>
+            </article>
+            <article>
+              <div className="talkOthersMSG">대화내용</div>
+              <div className="talkOthersTime">오후 10:30</div>
+            </article>
           </section>
         </article>,
         <article className="talkOthers">
           <img src={basicProfile} />
           <section className="talkOthersContent">
             <div className="talkOthersName">닉네임입니다</div>
-            <div className="talkOthersMSG">
-              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-              ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-            </div>
-            <div className="talkOthersTime">오후 10:30</div>
-            <div className="talkOthersMSG">
-              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-            </div>
-            <div className="talkOthersTime">오후 10:30</div>
-            <div className="talkOthersMSG">
-              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-            </div>
-            <div className="talkOthersTime">오후 10:30</div>
+            <article>
+              <div className="talkOthersMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+              <div className="talkOthersTime">오후 10:30</div>
+            </article>
+            <article>
+              <div className="talkOthersMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+              <div className="talkOthersTime">오후 10:30</div>
+            </article>
+            <article>
+              <div className="talkOthersMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+              </div>
+              <div className="talkOthersTime">오후 10:30</div>
+            </article>
           </section>
         </article>,
         <article className="talkI">
           <section className="talkIContent">
-            <div className="talkIMSG">
-              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-              ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-            </div>
-            <div className="talkIMSG">
-              대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-              ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-            </div>
-            <div className="talkITime">
-              {`${22}:${22}`}
-              <input type="hidden"/>
-            </div>
+            <article>
+              <div className="talkIMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+              <div className="talkITime">
+                {`오후 ${11}:${22}`}
+                <input type="hidden" value={new Date()}/>
+              </div>
+            </article>
+            <article>
+              <div className="talkIMSG">
+                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
+              </div>
+              <div className="talkITime">
+                {`오후 ${11}:${22}`}
+                <input type="hidden" value={new Date()}/>
+              </div>
+            </article>
           </section>
         </article>
       ]);
-      document.querySelector(".talkMSG").focus();
     }
   }, []);
 
   useEffect(() => {
-    
-    document.querySelector(".talkMSG").focus();
-    window.scrollTop = window.scrollHeight;
+    if(path === "/talk"){
+      const window = document.querySelector(".talkWindow");
+      document.querySelector(".talkMSG").focus();
+      window.scrollTop = window.scrollHeight;
+    }
   }, [conversation]);
+
 
   const closeExpand = (e) => {
     if (
@@ -247,7 +268,8 @@ function Expand(props) {
 
   const handleEnter = (e) => {
     const msg = e.target;
-    if (e.key === "Enter" && msg.value !== "") {
+    if (e.key === "Enter" && msg.value.trim() !== "") {
+      console.log(msg.value);
       sendMSG(e);
     }
   };
@@ -258,11 +280,11 @@ function Expand(props) {
     const hour = date.getHours();
     const minutes = date.getMinutes();
     const times = document.querySelectorAll('.talkI input[type=hidden]');
-    // const lastTime = messages[messages.length-1];
-    // console.log(times[times.length-1]);
-    if(times !==undefined){
-      console.log(times[times.length-1]);
-      // console.log(times[times.length-1].attributes('value').nodeValue);
+    if(times.length > 0){
+      const pastTime = new Date(times[times.length-1].value);
+      if(pastTime.getHours() === date.getHours() && pastTime.getMinutes() === date.getMinutes()){
+        console.log("same");
+      }
     }
     // 날짜포함
     // if(lastTime && date.getHours=== && date.getMinutes===){
@@ -271,13 +293,15 @@ function Expand(props) {
     const msg = document.querySelector(".talkMSG");
     const window = document.querySelector(".talkWindow");
     const article = (
-      <article className="talkI">
-        <section className="talkITime">
-          <p>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${minutes}`}</p>
-          <input type="hidden" value={date}/>
-        </section>
+      <article className="talkI" key={new Date()}>
         <section className="talkIContent">
-          <div className="talkIMSG">{msg.value}</div>
+          <article>
+            <div className="talkIMSG"><pre>{msg.value}</pre></div>
+            <div className="talkITime">
+              <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+              <input type="hidden" value={date}/>
+            </div>
+          </article>
         </section>
       </article>
     );

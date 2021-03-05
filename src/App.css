@@ -990,12 +990,6 @@ hr {
   background: blue;
 }
 
-.talkITime {
-  align-self: flex-end;
-  min-width: 100px;
-  background:aqua;
-}
-
 .talkIContent {
   display: flex;
   flex-direction: column;
@@ -1004,17 +998,12 @@ hr {
   background:pink;
 }
 
-.talkIMSG {
-  position:relative;
-  align-self: flex-start;
-  margin: 3px 0 0 8px;
-  padding: 7px;
-  border-radius: 0.5rem;
-  text-align: start;
-  background: tomato;
+.talkIContent article {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-.talkIMSG:nth-child(1)::after {
+.talkIContent article:nth-child(1) .talkIMSG::after {
   position:absolute;
   border-top:15px solid tomato;
   border-left: 10px solid transparent;
@@ -1023,6 +1012,28 @@ hr {
   width:0;
   top:0px;
   right: -10px;
+}
+
+.talkIContent article:not(:last-child) .talkITime {
+  display: none;
+}
+
+.talkIMSG {
+  position:relative;
+  align-self: flex-start;
+  margin: 3px 8px 0 0;
+  padding: 7px;
+  border-radius: 0.5rem;
+  text-align: start;
+  background: tomato;
+}
+
+.talkITime {
+  align-self: flex-end;
+  margin-bottom: 5px;
+  min-width: 90px;
+  font-size: var(--font-size4);
+  background:aqua;
 }
 
 .talkOthers {
@@ -1047,6 +1058,25 @@ hr {
   background: thistle;
 }
 
+.talkOthersContent article {
+  display: flex;
+}
+
+.talkOthersContent > article:nth-child(2) > .talkOthersMSG::after {
+  position:absolute;
+  border-top:15px solid var(--background-color);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  content:"";
+  width:0;
+  top:0px;
+  left: -10px;
+}
+
+.talkOthersContent article:not(:last-child) .talkOthersTime {
+  display: none;
+}
+
 .talkOthersName {
   align-self: flex-start;
   margin-bottom: 3px;
@@ -1065,19 +1095,11 @@ hr {
   background: var(--background-color);
 }
 
-.talkOthersMSG:nth-child(2)::after {
-  position:absolute;
-  border-top:15px solid var(--background-color);
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  content:"";
-  width:0;
-  top:0px;
-  left: -10px;
-}
-
 .talkOthersTime {
-  min-width: 100px;
+  align-self: flex-end;
+  margin-bottom: 5px;
+  min-width: 90px;
+  font-size: var(--font-size4);
   background: slateblue;
 }
 
