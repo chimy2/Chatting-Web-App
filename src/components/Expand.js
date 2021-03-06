@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Add from "./Add";
 import back from "../image/back.png";
 import basicProfile from "../image/basic_profile.png";
@@ -71,21 +71,8 @@ function Expand(props) {
 
   useEffect(() => {
     if(path === "/talk"){
-      setConversation([
-        <article className="talkOthers">
-          <img src={basicProfile} />
-          <section className="talkOthersContent">
-            <div className="talkOthersName">닉네임입니다</div>
-            <article>
-              <div className="talkOthersMSG">대화내용</div>
-              <div className="talkOthersTime">오후 10:30</div>
-            </article>
-            <article>
-              <div className="talkOthersMSG">대화내용</div>
-              <div className="talkOthersTime">오후 10:30</div>
-            </article>
-          </section>
-        </article>,
+      setConversation(
+        <>
         <article className="talkOthers">
           <img src={basicProfile} />
           <section className="talkOthersContent">
@@ -112,7 +99,7 @@ function Expand(props) {
               <div className="talkOthersTime">오후 10:30</div>
             </article>
           </section>
-        </article>,
+        </article>
         <article className="talkI">
           <section className="talkIContent">
             <article>
@@ -138,7 +125,8 @@ function Expand(props) {
             </article>
           </section>
         </article>
-      ]);
+        </>
+      );
     }
   }, []);
 
@@ -269,7 +257,6 @@ function Expand(props) {
   const handleEnter = (e) => {
     const msg = e.target;
     if (e.key === "Enter" && msg.value.trim() !== "") {
-      console.log(msg.value);
       sendMSG(e);
     }
   };
@@ -280,53 +267,72 @@ function Expand(props) {
     const hour = date.getHours();
     const minutes = date.getMinutes();
     const times = document.querySelectorAll('.talkI input[type=hidden]');
-    if(times.length > 0){
-      const pastTime = new Date(times[times.length-1].value);
-      if(pastTime.getHours() === date.getHours() && pastTime.getMinutes() === date.getMinutes()){
+    const talkWindowLastChild = document.querySelector('.talkWindow').lastChild;
+    // if(talkWindowLastChild.className === "talkI"){
+    //   const pastTime = new Date(times[times.length-1].value);
+    //   if(pastTime.getHours() === date.getHours() && pastTime.getMinutes() === date.getMinutes()){
         console.log("same");
-      }
-    }
+        console.log(conversation);
+        // setConversation(
+        //   conversation.forEach((item, index) => {
+        //     if(index === conversation.length-1){
+        //       console.log(item);
+        //       return item;
+        //     }else{
+        //       return item;
+        //     }
+        //   })
+        // );
+    //   }
+    // }
     // 날짜포함
     // if(lastTime && date.getHours=== && date.getMinutes===){
 
     // }
     const msg = document.querySelector(".talkMSG");
     const window = document.querySelector(".talkWindow");
-    const article = (
-      <article className="talkI" key={new Date()}>
+    // const article = (
+    //   <article className="talkI" key={new Date()}>
+    //     <section className="talkIContent">
+    //       <article>
+    //         {/* <div className="talkIMSG"><pre>{msg.value}</pre></div> */}
+    //         <div className="talkIMSG">{msg.value}</div>
+    //         <div className="talkITime">
+    //           <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+    //           <input type="hidden" value={date}/>
+    //         </div>
+    //       </article>
+    //     </section>
+    //   </article>
+    // );
+    // setConversation(conversation.concat(article));
+    // window.appendChild(<TalkI/>);
+    setConversation(
+      React.cloneElement(conversation, null, <TalkI data="33"/>)
+    );
+    msg.value = "";
+    // window.scrollTop = window.scrollHeight;
+    // document.querySelector(".talkMSG").focus();
+  };
+
+  const TalkI = (props) => {
+    // const hour = date.getHours();
+    // const minutes = date.getMinutes();
+    return(
+      <article className="talkI">
         <section className="talkIContent">
           <article>
-            <div className="talkIMSG"><pre>{msg.value}</pre></div>
-            <div className="talkITime">
-              <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-              <input type="hidden" value={date}/>
+            {/* <div className="talkIMSG"><pre>{msg.value}</pre></div> */}
+            {/* <div className="talkIMSG">{msg.value}</div> */}
+            <div className="talkITime">{props.data}
+              {/* <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span> */}
+              {/* <input type="hidden" value={date}/> */}
             </div>
           </article>
         </section>
       </article>
     );
-    // const msg = document.querySelector(".talkMSG");
-    // const window = document.querySelector(".talkWindow");
-    // const article = document.createElement("article");
-    // const sectionTime = document.createElement("section");
-    // const inputHiddenTime = document.createElement("input");
-    // const sectionContent = document.createElement("section");
-    // const div = document.createElement("div");
-    // sectionTime.className="talkITime";
-    // sectionTime.value=date;
-    // sectionTime.textContent=`${date.getHours()}:${date.getMinutes()}`;
-    // sectionContent.className="talkIContent";
-    // div.className="talkIMSG";
-    // div.textContent=msg.value;
-    // sectionContent.append(div);
-    // article.className = "talkI";
-    // article.append(sectionTime);
-    // article.append(sectionContent);
-    setConversation(conversation.concat(article));
-    msg.value = "";
-    window.scrollTop = window.scrollHeight;
-    document.querySelector(".talkMSG").focus();
-  };
+  }
   // width 침범 해결
   const Profile = () => {
     const editSrc = editState ? editProfile : edit;
