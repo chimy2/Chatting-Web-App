@@ -308,7 +308,7 @@ function Expand(props) {
     // setConversation(conversation.concat(article));
     // window.appendChild(<TalkI/>);
     setConversation(
-      React.cloneElement(conversation, null, <TalkI data="33"/>)
+      React.cloneElement(conversation, null, ...<TalkI data="33"/>)
     );
     msg.value = "";
     // window.scrollTop = window.scrollHeight;
