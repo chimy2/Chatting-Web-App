@@ -73,8 +73,8 @@ function Expand(props) {
     if(path === "/talk"){
       setConversation(
         <>
-        <article className="talkOthers">
-          <img src={basicProfile} />
+        {/* <article className="talkOthers">
+          <img src={basicProfile} alt="profile"/>
           <section className="talkOthersContent">
             <div className="talkOthersName">닉네임입니다</div>
             <article>
@@ -124,7 +124,7 @@ function Expand(props) {
               </div>
             </article>
           </section>
-        </article>
+        </article> */}
         </>
       );
     }
@@ -266,67 +266,84 @@ function Expand(props) {
     const date = new Date();
     const hour = date.getHours();
     const minutes = date.getMinutes();
-    const times = document.querySelectorAll('.talkI input[type=hidden]');
-    const talkWindowLastChild = document.querySelector('.talkWindow').lastChild;
-    // if(talkWindowLastChild.className === "talkI"){
-    //   const pastTime = new Date(times[times.length-1].value);
-    //   if(pastTime.getHours() === date.getHours() && pastTime.getMinutes() === date.getMinutes()){
-        console.log("same");
-        console.log(conversation);
-        // setConversation(
-        //   conversation.forEach((item, index) => {
-        //     if(index === conversation.length-1){
-        //       console.log(item);
-        //       return item;
-        //     }else{
-        //       return item;
-        //     }
-        //   })
-        // );
-    //   }
-    // }
-    // 날짜포함
-    // if(lastTime && date.getHours=== && date.getMinutes===){
-
-    // }
     const msg = document.querySelector(".talkMSG");
     const window = document.querySelector(".talkWindow");
-    // const article = (
-    //   <article className="talkI" key={new Date()}>
-    //     <section className="talkIContent">
-    //       <article>
-    //         {/* <div className="talkIMSG"><pre>{msg.value}</pre></div> */}
-    //         <div className="talkIMSG">{msg.value}</div>
-    //         <div className="talkITime">
-    //           <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-    //           <input type="hidden" value={date}/>
-    //         </div>
-    //       </article>
-    //     </section>
-    //   </article>
-    // );
-    // setConversation(conversation.concat(article));
-    // window.appendChild(<TalkI/>);
-    setConversation(
-      React.cloneElement(conversation, null, ...<TalkI data="33"/>)
-    );
+    
+    const times = document.querySelectorAll('.talkI input[type=hidden]');
+    if(times.length > 0){
+      const pastTime = new Date(times[times.length-1].value);
+      if(pastTime.getHours() === date.getHours() && pastTime.getMinutes() === date.getMinutes()){
+        const talkWindowLastChild = document.querySelector('.talkWindow').lastChild;
+        if(talkWindowLastChild.className === "talkI"){
+          console.log("same");
+          console.log('conversation', conversation);
+          // console.log('conversation.props', conversation.props);
+          const lastConversationBox = conversation.props.children;
+          setConversation(
+            React.cloneElement(conversation, {
+              children: [lastConversationBox.map((item, index) => {
+                if(index === lastConversationBox.length-1){
+                  console.log(item.r);
+                  const lastConversation = item.props.children;
+                  return React.cloneElement(item, {
+                    children: [React.cloneElement(lastConversation, {
+                      children: [
+                        lastConversation.props.children,
+                        <article>
+                          <div className="talkIMSG">{msg.value}</div>
+                          <div className="talkITime">
+                            <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+                            <input type="hidden" value={date}/>
+                          </div>
+                        </article>
+                      ]
+                    })]
+                    // children: [lastConversation.map((item2, index2) => {
+                    //   if(index2 === lastConversation.length-1){
+                    //     console.log(item2);
+                    //     return item2;
+                    //   }else{
+                    //     return item2;
+                    //   }
+                    // })]
+                  })
+                }else{
+                  return item;
+                }
+              })]
+            })
+          );
+        }
+      } else {
+        setConversation(
+          React.cloneElement(conversation, {
+            children: [conversation.props.children, <TalkI date={date} msg={msg.value}/>]
+          })
+        );
+      }
+    } else {
+      setConversation(
+        React.cloneElement(conversation, {
+          children: [conversation.props.children, <TalkI date={date} msg={msg.value}/>]
+        })
+      );
+    }
     msg.value = "";
-    // window.scrollTop = window.scrollHeight;
-    // document.querySelector(".talkMSG").focus();
   };
 
   const TalkI = (props) => {
-    // const hour = date.getHours();
-    // const minutes = date.getMinutes();
+    const { date, msg } = props
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
     return(
       <article className="talkI">
         <section className="talkIContent">
           <article>
             {/* <div className="talkIMSG"><pre>{msg.value}</pre></div> */}
-            {/* <div className="talkIMSG">{msg.value}</div> */}
-            <div className="talkITime">{props.data}
-              {/* <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span> */}
-              {/* <input type="hidden" value={date}/> */}
+            <div className="talkIMSG">{msg}</div>
+            <div className="talkITime">
+              <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+              <input type="hidden" value={date}/>
             </div>
           </article>
         </section>
