@@ -9,6 +9,8 @@ import close from "../image/sidebar_close.png";
 function SideBarTalk() {
   const [addState, setAddState] = useState(false);
   const [expand, setExpand] = useState();
+  const [expandItem, setExpandItem] = useState();
+
   const openAdd = () => {
     setAddState(true);
   };
@@ -36,12 +38,13 @@ function SideBarTalk() {
           <img src={close} alt="close" />
         </div>
         <div className="friendProfile">
-          <List items={""} open={openExpand}/>
+          <List items={""} open={openExpand} items={1} setState={setExpandItem}/>
+          <List items={""} open={openExpand} items={2} setState={setExpandItem}/>
         </div>
       </section>
       <Add title="채팅 추가" open={addState} setAddState={setAddState} placeholder="친구 이름 검색"/>
       {
-        expand ? <Expand close={closeExpand} /> : ""
+        expand ? <Expand close={closeExpand} state={expandItem}/> : ""
       }
     </>
   );

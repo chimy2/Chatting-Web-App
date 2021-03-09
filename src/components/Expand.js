@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Add from "./Add";
 import back from "../image/back.png";
 import basicProfile from "../image/basic_profile.png";
@@ -19,125 +19,66 @@ function Expand(props) {
 
   useEffect(() => {
     setState(props.state);
-    // if (path === "/talk") {
-      // setConversation([
-      //   <article className="talkOthers">
-      //     <img src={basicProfile} />
-      //     <section className="talkOthersContent">
-      //       <div className="talkOthersName">닉네임입니다</div>
-      //       <div className="talkOthersMSG">대화내용</div>
-      //       <div className="talkOthersMSG">대화내용</div>
-      //     </section>
-      //     <section className="talkOthersTime">오후 10:30</section>
-      //   </article>,
-      //   <article className="talkOthers">
-      //     <img src={basicProfile} />
-      //     <section className="talkOthersContent">
-      //       <div className="talkOthersName">닉네임입니다</div>
-      //       <div className="talkOthersMSG">
-      //         대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-      //         ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-      //         ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-      //       </div>
-      //       <div className="talkOthersMSG">
-      //         대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-      //         ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-      //       </div>
-      //       <div className="talkOthersMSG">
-      //         대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-      //       </div>
-      //     </section>
-      //     <section className="talkOthersTime">오후 10:30</section>
-      //   </article>,
-      //   <article className="talkI">
-      //     <section className="talkITime">
-      //       <p>{`${22}:${22}`}</p>
-      //       <input type="hidden"/>
-      //     </section>
-      //     <section className="talkIContent">
-      //       <div className="talkIMSG">{"메세지"}</div>
-      //     </section>
-      //   </article>
-      // ]);
-      // document.querySelector(".talkMSG").focus();
-    // } else {
     if(path !== "/talk") {
       document.querySelector(".expand").focus();
+    } else {
+      const preDate=new Date();
+      const date=new Date(`${preDate.getFullYear()}-${preDate.getMonth()+1}-${preDate.getDate()} ${preDate.getMinutes() < 2 ? preDate.getHours()-1:preDate.getHours()}:${preDate.getMinutes() < 2 ? 59-preDate.getMinutes():preDate.getMinutes()-2}:${preDate.getSeconds()}`);
+      setConversation(
+          [<article className="talkOthers" key={`nickname-${date}`}>
+            <img src={basicProfile} alt="profile"/>
+            <section className="talkOthersContent">
+              <div className="talkOthersName">닉네임입니다</div>
+              <article key={`nickname-${date}-0`}>
+                <div className="talkOthersMSG">
+                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                </div>
+                <div className="talkOthersTime">오후 10:30</div>
+              </article>
+              <article key={`nickname-${date}-1`}>
+                <div className="talkOthersMSG">
+                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                </div>
+                <div className="talkOthersTime">오후 10:30</div>
+              </article>
+            </section>
+          </article>,
+          <article className="talkI" key={`nickname2-${date}`}>
+            <section className="talkIContent">
+              <article key={`nickname2-${date}-0`}>
+                <div className="talkIMSG">
+                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                </div>
+                <div className="talkITime">
+                  {`${date.getHours>=12?"오후":"오전"} ${date.getHours()}:${date.getMinutes()}`}
+                  <input type="hidden" value={date}/>
+                </div>
+              </article>
+              <article key={`nickname2-${date}-1`}>
+                <div className="talkIMSG">
+                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
+                </div>
+                <div className="talkITime">
+                  {`${date.getHours>=12?"오후":"오전"} ${date.getHours()}:${date.getMinutes()}`}
+                  <input type="hidden" value={date}/>
+                </div>
+              </article>
+            </section>
+          </article>]
+      );
     }
     if (path === "/" || path === "/note") {
       setEditState(false);
     }
-  }, [props.state]);
-
-  useEffect(() => {
-    if(path === "/talk"){
-      setConversation(
-        <>
-        {/* <article className="talkOthers">
-          <img src={basicProfile} alt="profile"/>
-          <section className="talkOthersContent">
-            <div className="talkOthersName">닉네임입니다</div>
-            <article>
-              <div className="talkOthersMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              </div>
-              <div className="talkOthersTime">오후 10:30</div>
-            </article>
-            <article>
-              <div className="talkOthersMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              </div>
-              <div className="talkOthersTime">오후 10:30</div>
-            </article>
-            <article>
-              <div className="talkOthersMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-              </div>
-              <div className="talkOthersTime">오후 10:30</div>
-            </article>
-          </section>
-        </article>
-        <article className="talkI">
-          <section className="talkIContent">
-            <article>
-              <div className="talkIMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              </div>
-              <div className="talkITime">
-                {`오후 ${11}:${22}`}
-                <input type="hidden" value={new Date()}/>
-              </div>
-            </article>
-            <article>
-              <div className="talkIMSG">
-                대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-              </div>
-              <div className="talkITime">
-                {`오후 ${11}:${22}`}
-                <input type="hidden" value={new Date()}/>
-              </div>
-            </article>
-          </section>
-        </article> */}
-        </>
-      );
-    }
-  }, []);
+  }, [path, props.state]);
 
   useEffect(() => {
     if(path === "/talk"){
       const window = document.querySelector(".talkWindow");
-      document.querySelector(".talkMSG").focus();
       window.scrollTop = window.scrollHeight;
+      document.querySelector(".talkMSG").focus();
     }
-  }, [conversation]);
-
+  }, [path, conversation]);
 
   const closeExpand = (e) => {
     if (
@@ -161,8 +102,9 @@ function Expand(props) {
 
   const toggleEdit = () => {
     if (path === "/") {
-      const { nickname, image, message } = state;
-      const profilePhoto = document.querySelector(".profilePhotoIMG");
+      // const { nickname, image, message } = state;
+      const { nickname, message } = state;
+      // const profilePhoto = document.querySelector(".profilePhotoIMG");
       const profileName = document.querySelector(".profileNameText");
       const profileMSG = document.querySelector(".profileMSGText");
       if (editState) {
@@ -268,88 +210,147 @@ function Expand(props) {
     const minutes = date.getMinutes();
     const msg = document.querySelector(".talkMSG");
     const window = document.querySelector(".talkWindow");
-    
     const times = document.querySelectorAll('.talkI input[type=hidden]');
     if(times.length > 0){
       const pastTime = new Date(times[times.length-1].value);
       if(pastTime.getHours() === date.getHours() && pastTime.getMinutes() === date.getMinutes()){
         const talkWindowLastChild = document.querySelector('.talkWindow').lastChild;
         if(talkWindowLastChild.className === "talkI"){
-          console.log("same");
-          console.log('conversation', conversation);
-          // console.log('conversation.props', conversation.props);
-          const lastConversationBox = conversation.props.children;
-          setConversation(
-            React.cloneElement(conversation, {
-              children: [lastConversationBox.map((item, index) => {
-                if(index === lastConversationBox.length-1){
-                  console.log(item.r);
-                  const lastConversation = item.props.children;
-                  return React.cloneElement(item, {
-                    children: [React.cloneElement(lastConversation, {
-                      children: [
-                        lastConversation.props.children,
-                        <article>
-                          <div className="talkIMSG">{msg.value}</div>
-                          <div className="talkITime">
-                            <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-                            <input type="hidden" value={date}/>
-                          </div>
-                        </article>
-                      ]
-                    })]
-                    // children: [lastConversation.map((item2, index2) => {
-                    //   if(index2 === lastConversation.length-1){
-                    //     console.log(item2);
-                    //     return item2;
-                    //   }else{
-                    //     return item2;
-                    //   }
-                    // })]
-                  })
-                }else{
-                  return item;
-                }
-              })]
-            })
-          );
+          const article = document.createElement('article');
+          
+          const talkIMSG = document.createElement('div');
+          talkIMSG.className = "talkIMSG";
+          talkIMSG.textContent = msg.value;
+          article.appendChild(talkIMSG);
+
+          const talkITime = document.createElement('div');
+          talkITime.className = "talkITime";
+
+          const span = document.createElement('span');
+          span.textContent = `${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`;
+          talkITime.appendChild(span);
+
+          const input = document.createElement('input');
+          input.type = "hidden";
+          input.value = date;
+          talkITime.appendChild(input);
+
+          article.appendChild(talkITime);
+          talkWindowLastChild.lastChild.appendChild(article);
+          // setConversation(
+          //   conversation.map((item, index) => {
+          //     if(index !== conversation.length-1){
+          //       return item;
+          //     }else {
+          //       const itemChildren = item.props.children;
+          //       return React.cloneElement(item, {
+          //         children: React.cloneElement(itemChildren, {
+          //           children: [
+          //             itemChildren.props.children,
+          //             <article key={`nickname2-${date}-${itemChildren.length}`}>
+          //               <div className="talkIMSG">{msg.value}</div>
+          //               <div className="talkITime">
+          //                 <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+          //                 <input type="hidden" value={date}/>
+          //               </div>
+          //             </article>
+          //           ]
+          //         })
+          //       });
+          //     }
+          //   })
+          // );
         }
       } else {
-        setConversation(
-          React.cloneElement(conversation, {
-            children: [conversation.props.children, <TalkI date={date} msg={msg.value}/>]
-          })
-        );
+        appendTalkI(date, msg.value);
+        // setConversation(
+        //   conversation.concat(
+        //     <article className="talkI" key={`nickname-${date}`}>
+        //       <section className="talkIContent">
+        //         <article key={`nickname-${date}-0`}>
+        //           <div className="talkIMSG">{msg.value}</div>
+        //           <div className="talkITime">
+        //             <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+        //             <input type="hidden" value={date}/>
+        //           </div>
+        //         </article>
+        //       </section>
+        //     </article>
+        //   )
+        // );
       }
     } else {
       setConversation(
-        React.cloneElement(conversation, {
-          children: [conversation.props.children, <TalkI date={date} msg={msg.value}/>]
-        })
+        conversation.concat(
+          <article className="talkI" key={`nickname-${date}`}>
+            <section className="talkIContent">
+              <article key={`nickname-${date}-0`}>
+                <div className="talkIMSG">{msg}</div>
+                <div className="talkITime">
+                  <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+                  <input type="hidden" value={date}/>
+                </div>
+              </article>
+            </section>
+          </article>
+        )
       );
     }
     msg.value = "";
+    msg.focus();
+    window.scrollTop = window.scrollHeight;
   };
 
-  const TalkI = (props) => {
-    const { date, msg } = props
+  const appendTalkI = (date, msg) => {
+    // const { date, msg } = props
     const hour = date.getHours();
     const minutes = date.getMinutes();
-    return(
-      <article className="talkI">
-        <section className="talkIContent">
-          <article>
-            {/* <div className="talkIMSG"><pre>{msg.value}</pre></div> */}
-            <div className="talkIMSG">{msg}</div>
-            <div className="talkITime">
-              <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-              <input type="hidden" value={date}/>
-            </div>
-          </article>
-        </section>
-      </article>
-    );
+    const window = document.querySelector('.talkWindow');
+
+    const talkI = document.createElement('article');
+    talkI.className = "talkI";
+
+    const talkIContent = document.createElement('section');
+    talkIContent.className = "talkIContent";
+
+    const article = document.createElement('article');
+    
+    const talkIMSG = document.createElement('div');
+    talkIMSG.className = "talkIMSG";
+    talkIMSG.textContent = msg;
+    article.appendChild(talkIMSG);
+
+    const talkITime = document.createElement('div');
+    talkITime.className = "talkITime";
+
+    const span = document.createElement('span');
+    span.textContent = `${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`;
+    talkITime.appendChild(span);
+
+    const input = document.createElement('input');
+    input.type = "hidden";
+    input.value = date;
+    talkITime.appendChild(input);
+
+    article.appendChild(talkITime);
+    talkIContent.appendChild(article);
+    talkI.appendChild(talkIContent);
+    window.appendChild(talkI);
+  //   return(
+  //     <article className="talkI" key={`nickname-${date}`}>
+  //       <section className="talkIContent">
+  //         <article key={`nickname-${date}-0`}>
+  //           <div className="talkIMSG">{msg}</div>
+  //           <div className="talkITime">
+  //             <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
+  //             <input type="hidden" value={date}/>
+  //           </div>
+  //         </article>
+  //       </section>
+  //     </article>
+  //   );
   }
+
   // width 침범 해결
   const Profile = () => {
     const editSrc = editState ? editProfile : edit;
@@ -489,7 +490,8 @@ function Expand(props) {
   };
 
   const Memo = () => {
-    const { noteId, title, content, date } = state;
+    // const { noteId, title, content, date } = state;
+    const { title, content, date } = state;
     const editSrc = editState ? editNote : edit;
     const editTitle = editState ? "노트수정 저장" : "노트수정";
     const editBtn = (
@@ -531,18 +533,14 @@ function Expand(props) {
 
   const ExpandContent = () => {
     let component;
-    switch (path) {
-      case "/":
-        component = <Profile />;
-        break;
-      case "/talk":
-        component = <Talk />;
-        break;
-      case "/calendar":
-        component = <Schedule />;
-        break;
-      case "/note":
-        component = <Memo />;
+    if(path === "/") {
+      component = <Profile />;
+    } else if(path === "/talk") {
+      component = <Talk />;
+    } else if(path === "/calendar") {
+      component = <Schedule />;
+    } else if(path === "/note") {
+      component = <Memo />;
     }
     return component;
   };

@@ -53,6 +53,8 @@ function List(props) {
         props.setState({
           expandItem: items,
         });
+      }else {
+        props.setState(items);
       }
       props.open(items);
     }
