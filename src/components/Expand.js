@@ -8,11 +8,15 @@ import edit from "../image/edit.png";
 import editProfile from "../image/profile_edit.png";
 import editProfile2 from "../image/profile_edit2.png";
 import editNote from "../image/note_edit.png";
+import talkMenu from "../image/talk_menu.png";
 
 function Expand(props) {
+  // width 침범 해결
+  // expand title height 맞춤
   const path = document.location.pathname;
   const [addState, setAddState] = useState(false);
   const [editState, setEditState] = useState(false);
+  const [menuState, setMenuState] = useState(false);
   const [conversation, setConversation] = useState([]);
   const [readOnly, setReadOnly] = useState(true);
   const [state, setState] = useState(props.state);
@@ -140,6 +144,10 @@ function Expand(props) {
       }
     }
     editState ? setEditState(false) : setEditState(true);
+  };
+
+  const toggleMenu = () => {
+
   };
 
   const handleProfileEditBtn = (e) => {
@@ -351,7 +359,6 @@ function Expand(props) {
   //   );
   }
 
-  // width 침범 해결
   const Profile = () => {
     const editSrc = editState ? editProfile : edit;
     const editTitle = editState ? "프로필수정 저장" : "프로필수정";
@@ -444,9 +451,15 @@ function Expand(props) {
   };
 
   const Talk = () => {
+    const menuTitle = menuState ? "메뉴열기" : "메뉴열기";
+    const menuBtn = (
+      <button title={menuTitle} onClick={toggleMenu}>
+        <img src={talkMenu} alt="수정" />
+      </button>
+    );
     return (
       <div className="talk">
-        <ExpandTitle center="닉네임입니다"/>
+        <ExpandTitle center="닉네임입니다" right={menuBtn}/>
         <div className="talkWindow">{conversation}</div>
         <div className="talkContent">
           <textarea type="text" className="talkMSG" onKeyPress={handleEnter} />

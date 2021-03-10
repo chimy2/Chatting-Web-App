@@ -538,8 +538,7 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  padding: 0 20px;
+  padding: 20px 20px 0;
   height: var(--height);
   font-size: var(--font-size);
 }
@@ -861,7 +860,7 @@ hr {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* border-top: 5px double var(--gray-color2); */
+  border-top: 5px double var(--gray-color2);
   width: 100%;
   height: 40%;
   background: var(--gray-color);
@@ -934,11 +933,13 @@ hr {
 }
 
 .profileMSGText {
-  overflow: hidden;
+  display: -webkit-box;
   max-width: 80%;
   text-overflow: ellipsis;
   font-size: var(--font-size2);
-  white-space: nowrap;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .profileMSGBtn {
@@ -1270,7 +1271,7 @@ hr {
   }
 
   .sideBarTitle {
-    margin-top: 10px;
+    padding-top: 10px;
   }
 
   .sideBarTitle button img {
@@ -1385,12 +1386,16 @@ hr {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (min-height: 800px) {
+  .sideBar {
+    width: 100%;
+  }
+
   .expand {
     position: static;
     width: 100%;
     height: 100%;
-    background: var(--background-color);
+    /* background: var(--background-color); */
   }
 }
 

@@ -6,10 +6,11 @@ import add from "../image/add.png";
 import search from "../image/sidebar_search.png";
 import close from "../image/sidebar_close.png";
 
-function SideBarTalk() {
+function SideBarTalk(props) {
   const [addState, setAddState] = useState(false);
   const [expand, setExpand] = useState();
   const [expandItem, setExpandItem] = useState();
+  console.log(props);
 
   const openAdd = () => {
     setAddState(true);
