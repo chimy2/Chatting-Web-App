@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import { matchPath } from "react-router";
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 import { useCookies }  from 'react-cookie';
 import { io } from 'socket.io-client';
@@ -33,7 +34,10 @@ function App(props) {
   useEffect(() => {
     history.push('./');
     if(login){
-      setSocket(io());
+      console.log("소켓 열기");
+      const socketIO = io();
+      setSocket(socketIO);
+      
     }else if(socket) {
       setSocket();
     }
@@ -45,6 +49,7 @@ function App(props) {
         login ?
           <main>
             <Navigation setLogin={setLogin} socket={socket}/>
+            {/* <Navigation setLogin={setLogin}/> */}
             <Switch>
               <Route exact path="/" component={SideBarFriend}/>
               <Route path="/talk" component={SideBarTalk}/>

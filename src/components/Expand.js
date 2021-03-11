@@ -12,8 +12,8 @@ import talkMenu from "../image/talk_menu.png";
 
 function Expand(props) {
   // width 침범 해결
-  // expand title height 맞춤
   const path = document.location.pathname;
+  const io = props.socket;
   const [addState, setAddState] = useState(false);
   const [editState, setEditState] = useState(false);
   const [menuState, setMenuState] = useState(false);
@@ -245,47 +245,9 @@ function Expand(props) {
 
           article.appendChild(talkITime);
           talkWindowLastChild.lastChild.appendChild(article);
-          // setConversation(
-          //   conversation.map((item, index) => {
-          //     if(index !== conversation.length-1){
-          //       return item;
-          //     }else {
-          //       const itemChildren = item.props.children;
-          //       return React.cloneElement(item, {
-          //         children: React.cloneElement(itemChildren, {
-          //           children: [
-          //             itemChildren.props.children,
-          //             <article key={`nickname2-${date}-${itemChildren.length}`}>
-          //               <div className="talkIMSG">{msg.value}</div>
-          //               <div className="talkITime">
-          //                 <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-          //                 <input type="hidden" value={date}/>
-          //               </div>
-          //             </article>
-          //           ]
-          //         })
-          //       });
-          //     }
-          //   })
-          // );
         }
       } else {
         appendTalkI(date, msg.value);
-        // setConversation(
-        //   conversation.concat(
-        //     <article className="talkI" key={`nickname-${date}`}>
-        //       <section className="talkIContent">
-        //         <article key={`nickname-${date}-0`}>
-        //           <div className="talkIMSG">{msg.value}</div>
-        //           <div className="talkITime">
-        //             <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-        //             <input type="hidden" value={date}/>
-        //           </div>
-        //         </article>
-        //       </section>
-        //     </article>
-        //   )
-        // );
       }
     } else {
       setConversation(
@@ -304,6 +266,7 @@ function Expand(props) {
         )
       );
     }
+    io.emit('talk', msg.value);
     msg.value = "";
     msg.focus();
     window.scrollTop = window.scrollHeight;

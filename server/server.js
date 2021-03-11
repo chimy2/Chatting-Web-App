@@ -31,7 +31,11 @@ io.on('connection', (socket) => {
   console.log(socket.id, "연결");
   socket.on('login', (data) => {
     console.log("소켓", data);
-  })
+  });
+
+  socket.on('talk', (msg) => {
+    console.log(msg);
+  });
 
   socket.on('disconnect', (reason)=>{
     console.log(socket.id, "연결 종료", reason);

@@ -814,9 +814,10 @@ hr {
 .expandTitle {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-shrink: 0;
   padding: 20px 20px 0;
   height: var(--height);
+  align-items: center;
 }
 
 .expandTitle div {
@@ -1025,6 +1026,7 @@ hr {
   padding: 7px;
   border-radius: 0.5rem;
   text-align: start;
+  white-space: pre;
   background: var(--background-color);
 }
 
@@ -1109,7 +1111,7 @@ hr {
   justify-content: center;
   border-top: 1px solid var(--gray-color2);
   height: 4rem;
-  background: var(--white-color2);
+  background: var(--white-color);
 }
 
 .talkContent textarea {
@@ -1121,18 +1123,16 @@ hr {
   font-size: var(--font-size3);
   text-indent: 5px;
   resize: none;
-  background: var(--white-color2);
-  /* background: red; */
+  background: var(--white-color);
 }
 
 .talkContent button {
   align-self: center;
-  border-radius: 0.7rem;
-  border: 2px solid var(--white-color3);
-  border-radius: 1rem;
+  border: 1.5px solid var(--white-color3);
+  border-radius: 0.5rem;
   width: 80px;
   height: 2rem;
-  background: var(--background-color3);
+  background: var(--gray-color);
   font-size: var(--font-size4);
   font-family: "Jal_Onuel";
   cursor: pointer;

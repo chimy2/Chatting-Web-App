@@ -10,7 +10,6 @@ function SideBarTalk(props) {
   const [addState, setAddState] = useState(false);
   const [expand, setExpand] = useState();
   const [expandItem, setExpandItem] = useState();
-  console.log(props);
 
   const openAdd = () => {
     setAddState(true);
@@ -45,7 +44,7 @@ function SideBarTalk(props) {
       </section>
       <Add title="채팅 추가" open={addState} setAddState={setAddState} placeholder="친구 이름 검색"/>
       {
-        expand ? <Expand close={closeExpand} state={expandItem}/> : ""
+        expand ? <Expand close={closeExpand} state={expandItem} socket={props.location.socket}/> : ""
       }
     </>
   );

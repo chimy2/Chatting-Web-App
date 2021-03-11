@@ -21,7 +21,7 @@ function Navigation(props) {
           <Link to="/" title="친구">
             <img src={profile} alt="profile" />
           </Link>
-          <Link to="/talk" title="대화">
+          <Link to={{pathname: "/talk", socket: props.socket}} title="대화">
             <img src={talk} alt="talk" />
           </Link>
           <Link to="/calendar" title="달력">
