@@ -1121,7 +1121,6 @@ hr {
   width: calc(100% - 120px);
   height: calc(100% - 10px);
   font-size: var(--font-size3);
-  text-indent: 5px;
   resize: none;
   background: var(--white-color);
 }

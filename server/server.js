@@ -28,13 +28,14 @@ const server=app.listen(port, () => {
 const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
-  console.log(socket.id, "연결");
+  console.log(`${new Date()} ${socket.id} 연결`);
+  console.log('rooms', socket.rooms);
   socket.on('login', (data) => {
     console.log("소켓", data);
   });
 
-  socket.on('talk', (msg) => {
-    console.log(msg);
+  socket.on('talk', (roomId ,nickname, msg) => {
+    console.log(roomId, nickname, msg);
   });
 
   socket.on('disconnect', (reason)=>{

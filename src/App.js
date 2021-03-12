@@ -34,7 +34,6 @@ function App(props) {
   useEffect(() => {
     history.push('./');
     if(login){
-      console.log("소켓 열기");
       const socketIO = io();
       setSocket(socketIO);
       

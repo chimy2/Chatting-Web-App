@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import Add from "./Add";
 import back from "../image/back.png";
 import basicProfile from "../image/basic_profile.png";
@@ -20,6 +21,11 @@ function Expand(props) {
   const [conversation, setConversation] = useState([]);
   const [readOnly, setReadOnly] = useState(true);
   const [state, setState] = useState(props.state);
+  const [cookies, setCookie, removeCookie] = useCookies();
+
+  io.on("receiveMSG", (data) => {
+    receiveMSG(data);
+  })
 
   useEffect(() => {
     setState(props.state);
@@ -86,8 +92,8 @@ function Expand(props) {
 
   const closeExpand = (e) => {
     if (
-      e._reactName === "onClick" ||
-      (e._reactName === "onKeyDown" && e.keyCode === 27)
+      e.type === "click" ||
+      (e.type === "keydown" && e.keyCode === 27)
     ) {
       if (editState) {
         if (path === "/" || path === "/note") {
@@ -204,10 +210,14 @@ function Expand(props) {
     }
   };
 
-  const handleEnter = (e) => {
+  const handleKeyDown = (e) => {
     const msg = e.target;
-    if (e.key === "Enter" && msg.value.trim() !== "") {
-      sendMSG(e);
+    if(e.key === "Enter") {
+      if(e.getModifierState("Control")) {
+        msg.value+="\n";
+      } else if(msg.value.trim() !== "") {
+        sendMSG(e);
+      }
     }
   };
 
@@ -266,11 +276,19 @@ function Expand(props) {
         )
       );
     }
-    io.emit('talk', msg.value);
+    window.scrollTop = window.scrollHeight;
+    io.emit('talk', {roomId: 1, id: cookies.id, msg: msg.value});
     msg.value = "";
     msg.focus();
-    window.scrollTop = window.scrollHeight;
   };
+
+  const receiveMSG = (data) => {
+    if (data.id === cookies.id){
+
+    } else {
+
+    }
+  }
 
   const appendTalkI = (date, msg) => {
     // const { date, msg } = props
@@ -307,19 +325,6 @@ function Expand(props) {
     talkIContent.appendChild(article);
     talkI.appendChild(talkIContent);
     window.appendChild(talkI);
-  //   return(
-  //     <article className="talkI" key={`nickname-${date}`}>
-  //       <section className="talkIContent">
-  //         <article key={`nickname-${date}-0`}>
-  //           <div className="talkIMSG">{msg}</div>
-  //           <div className="talkITime">
-  //             <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-  //             <input type="hidden" value={date}/>
-  //           </div>
-  //         </article>
-  //       </section>
-  //     </article>
-  //   );
   }
 
   const Profile = () => {
@@ -425,7 +430,7 @@ function Expand(props) {
         <ExpandTitle center="닉네임입니다" right={menuBtn}/>
         <div className="talkWindow">{conversation}</div>
         <div className="talkContent">
-          <textarea type="text" className="talkMSG" onKeyPress={handleEnter} />
+          <textarea type="text" className="talkMSG" onKeyDown={handleKeyDown}/>
           <button title="전송" onClick={sendMSG}>
             전송
           </button>
