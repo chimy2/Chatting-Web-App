@@ -30,12 +30,23 @@ const io = require('socket.io')(server);
 io.on('connection', (socket) => {
   console.log(`${new Date()} ${socket.id} 연결`);
   console.log('rooms', socket.rooms);
-  socket.on('login', (data) => {
-    console.log("소켓", data);
+  // socket.on('login', (data) => {
+  //   console.log("소켓", data);
+  // });
+
+  socket.on('join', (data) => {
+    const { roomId, id } = data;
+    console.log(roomId, id, "입장");
   });
 
-  socket.on('talk', (roomId ,nickname, msg) => {
-    console.log(roomId, nickname, msg);
+  socket.on('talk', (data) => {
+    const { roomId, id, msg } = data;
+    console.log(roomId, id, msg);
+  });
+
+  socket.on('leave', (data) => {
+    const { roomId, id } = data;
+    console.log(roomId, id, "퇴장");
   });
 
   socket.on('disconnect', (reason)=>{

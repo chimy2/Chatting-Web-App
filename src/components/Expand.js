@@ -14,16 +14,15 @@ import talkMenu from "../image/talk_menu.png";
 function Expand(props) {
   // width 침범 해결
   const path = document.location.pathname;
-  const io = props.socket;
+  const socket = props.socket;
   const [addState, setAddState] = useState(false);
   const [editState, setEditState] = useState(false);
   const [menuState, setMenuState] = useState(false);
-  const [conversation, setConversation] = useState([]);
   const [readOnly, setReadOnly] = useState(true);
   const [state, setState] = useState(props.state);
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  io.on("receiveMSG", (data) => {
+  socket.on("receiveMSG", (data) => {
     receiveMSG(data);
   })
 
@@ -32,63 +31,13 @@ function Expand(props) {
     if(path !== "/talk") {
       document.querySelector(".expand").focus();
     } else {
-      const preDate=new Date();
-      const date=new Date(`${preDate.getFullYear()}-${preDate.getMonth()+1}-${preDate.getDate()} ${preDate.getMinutes() < 2 ? preDate.getHours()-1:preDate.getHours()}:${preDate.getMinutes() < 2 ? 59-preDate.getMinutes():preDate.getMinutes()-2}:${preDate.getSeconds()}`);
-      setConversation(
-          [<article className="talkOthers" key={`nickname-${date}`}>
-            <img src={basicProfile} alt="profile"/>
-            <section className="talkOthersContent">
-              <div className="talkOthersName">닉네임입니다</div>
-              <article key={`nickname-${date}-0`}>
-                <div className="talkOthersMSG">
-                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                </div>
-                <div className="talkOthersTime">오후 10:30</div>
-              </article>
-              <article key={`nickname-${date}-1`}>
-                <div className="talkOthersMSG">
-                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                </div>
-                <div className="talkOthersTime">오후 10:30</div>
-              </article>
-            </section>
-          </article>,
-          <article className="talkI" key={`nickname2-${date}`}>
-            <section className="talkIContent">
-              <article key={`nickname2-${date}-0`}>
-                <div className="talkIMSG">
-                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                </div>
-                <div className="talkITime">
-                  {`${date.getHours>=12?"오후":"오전"} ${date.getHours()}:${date.getMinutes()}`}
-                  <input type="hidden" value={date}/>
-                </div>
-              </article>
-              <article key={`nickname2-${date}-1`}>
-                <div className="talkIMSG">
-                  대화내용입니다ㅏㅏㅏㅏㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ
-                </div>
-                <div className="talkITime">
-                  {`${date.getHours>=12?"오후":"오전"} ${date.getHours()}:${date.getMinutes()}`}
-                  <input type="hidden" value={date}/>
-                </div>
-              </article>
-            </section>
-          </article>]
-      );
+      socket.emit("join", {roomId: "33", id: cookies.id});
+      document.querySelector(".talkMSG").focus();
     }
     if (path === "/" || path === "/note") {
       setEditState(false);
     }
   }, [path, props.state]);
-
-  useEffect(() => {
-    if(path === "/talk"){
-      const window = document.querySelector(".talkWindow");
-      window.scrollTop = window.scrollHeight;
-      document.querySelector(".talkMSG").focus();
-    }
-  }, [path, conversation]);
 
   const closeExpand = (e) => {
     if (
@@ -105,6 +54,9 @@ function Expand(props) {
           )
             return;
         }
+      }
+      if(path === "/talk") {
+        socket.emit("leave", {roomId: "33", id: cookies.id});
       }
       props.close();
     }
@@ -260,38 +212,23 @@ function Expand(props) {
         appendTalkI(date, msg.value);
       }
     } else {
-      setConversation(
-        conversation.concat(
-          <article className="talkI" key={`nickname-${date}`}>
-            <section className="talkIContent">
-              <article key={`nickname-${date}-0`}>
-                <div className="talkIMSG">{msg}</div>
-                <div className="talkITime">
-                  <span>{`${hour>=12?"오후":"오전"} ${hour%12===0?12:hour%12}:${String(minutes).padStart(2, 0)}`}</span>
-                  <input type="hidden" value={date}/>
-                </div>
-              </article>
-            </section>
-          </article>
-        )
-      );
+      appendTalkI(date, msg.value);
     }
     window.scrollTop = window.scrollHeight;
-    io.emit('talk', {roomId: 1, id: cookies.id, msg: msg.value});
+    socket.emit('talk', {roomId: 33, id: cookies.id, msg: msg.value});
     msg.value = "";
     msg.focus();
   };
 
   const receiveMSG = (data) => {
     if (data.id === cookies.id){
-
+      console.log("본인", data);
     } else {
-
+      console.log("타인", data);
     }
   }
 
   const appendTalkI = (date, msg) => {
-    // const { date, msg } = props
     const hour = date.getHours();
     const minutes = date.getMinutes();
     const window = document.querySelector('.talkWindow');
@@ -428,7 +365,7 @@ function Expand(props) {
     return (
       <div className="talk">
         <ExpandTitle center="닉네임입니다" right={menuBtn}/>
-        <div className="talkWindow">{conversation}</div>
+        <div className="talkWindow"></div>
         <div className="talkContent">
           <textarea type="text" className="talkMSG" onKeyDown={handleKeyDown}/>
           <button title="전송" onClick={sendMSG}>
