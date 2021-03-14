@@ -22,9 +22,14 @@ function Expand(props) {
   const [state, setState] = useState(props.state);
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  socket.on("receiveMSG", (data) => {
-    receiveMSG(data);
-  })
+  socket.on("talk", (data) => {
+    console.log("client talk", data);
+    if (data.id === cookies.id){
+      console.log("본인", data);
+    } else {
+      console.log("타인", data);
+    }
+  });
 
   useEffect(() => {
     setState(props.state);
@@ -215,17 +220,12 @@ function Expand(props) {
       appendTalkI(date, msg.value);
     }
     window.scrollTop = window.scrollHeight;
-    socket.emit('talk', {roomId: 33, id: cookies.id, msg: msg.value});
+    socket.emit('talk', {roomId: "33", id: cookies.id, msg: msg.value});
     msg.value = "";
     msg.focus();
   };
 
   const receiveMSG = (data) => {
-    if (data.id === cookies.id){
-      console.log("본인", data);
-    } else {
-      console.log("타인", data);
-    }
   }
 
   const appendTalkI = (date, msg) => {
